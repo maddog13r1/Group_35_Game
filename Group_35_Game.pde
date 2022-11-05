@@ -10,7 +10,7 @@ void setup(){ //runs program once at program launch
 
 void draw(){ //runs programs at 60 fps at program launch
   noStroke(); //removes outline
-  smooth(8); //anti-aliaslising x8
+  smooth(8); //anti-aliasing x8
   startScreen(); //calls start screen function
  
 }
