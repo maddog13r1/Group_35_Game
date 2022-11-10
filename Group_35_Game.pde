@@ -4,8 +4,6 @@
  ************/
 //global variables
 
-int playButtonX = width/2;
-int playButtonY = height/2-33;
 
 
 void setup() { //runs program once at program launch
@@ -63,17 +61,20 @@ void titleBackground() { //creates background aka all non-functional UI for titl
   text("LIFE", width/2 +140, height/4);
 }
 void titleButtons() { //creates buttons for title
+  int playButtonX = width/2;
+  int playButtonY = height/2-33;
+  int playButtonColor = 0;
+  //play button functionality
+  if ( mouseX >= playButtonX-140 && mouseY >= playButtonY-52 && mouseX <= playButtonX+140 && mouseY <= playButtonY+52 ) {
+    playButtonColor = playButtonColor + 150;
+  }
   //play button
   stroke(255);
-  fill(0);
+  fill(playButtonColor);
   rect(playButtonX, playButtonY, 280, 104);
   fill(255); //white
   textSize(72); //font size
   text("PLAY", width/2, height/2);
-  //play button functionality
-  if ( mouseX =< playButtonX && mouseY =< playButtonY ) {
-    nameScreen();
-  }
 }
 //Naming Screen
 void nameScreen() { // main function calling all name screen functions
