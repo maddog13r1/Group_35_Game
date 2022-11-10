@@ -4,6 +4,10 @@
  ************/
 //global variables
 
+int playButtonX = width/2;
+int playButtonY = height/2-33;
+
+
 void setup() { //runs program once at program launch
   fullScreen(); //sets the game window size to the full screen of device
   smooth(8); //anti-aliasing x8
@@ -45,8 +49,31 @@ void titleScreen() { //main title function
   titleButtons(); //calling void titleButtons()
 }
 void titleBackground() { //creates background aka all non-functional UI for title
+  background(0);
+  //title box
+  rectMode(CENTER);
+  fill(255); //white
+  rect(width/2-4, height/4-46, 560, 208); //places a box for the text
+  //title text
+  textAlign(CENTER); //aligns text to the center
+  textSize(144); //font size
+  fill(0); //black
+  text("GRIT", width/2-140, height/4);
+  fill(245, 245, 0); //yellow
+  text("LIFE", width/2 +140, height/4);
 }
 void titleButtons() { //creates buttons for title
+  //play button
+  stroke(255);
+  fill(0);
+  rect(playButtonX, playButtonY, 280, 104);
+  fill(255); //white
+  textSize(72); //font size
+  text("PLAY", width/2, height/2);
+  //play button functionality
+  if ( mouseX =< playButtonX && mouseY =< playButtonY ) {
+    nameScreen();
+  }
 }
 //Naming Screen
 void nameScreen() { // main function calling all name screen functions
