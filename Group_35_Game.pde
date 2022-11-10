@@ -26,7 +26,6 @@ void game() {
 //screen call function
 void screens() {
   titleScreen(); //calling void titleScreen()
-  nameScreen(); //calling void nameScreen()
   mainScreen(); //calling void mainScreen()
   victoryScreen(); //calling void victoryScreen()
   lossScreen(); //calling void lossScreen()
