@@ -68,6 +68,9 @@ void titleButtons() { //creates buttons for title
   if ( mouseX >= playButtonX-140 && mouseY >= playButtonY-52 && mouseX <= playButtonX+140 && mouseY <= playButtonY+52 ) {
     playButtonColor = playButtonColor + 150;
   }
+  if (mousePressed && mouseX >= playButtonX-140 && mouseY >= playButtonY-52 && mouseX <= playButtonX+140 && mouseY <= playButtonY+52 ) {
+   nameScreen();
+  }
   //play button
   stroke(255);
   fill(playButtonColor);
@@ -83,6 +86,7 @@ void nameScreen() { // main function calling all name screen functions
   nameInput(); //calling void nameInput()
 }
 void nameBackground() {
+  background(0);
 }
 void nameButtons() {
 }
