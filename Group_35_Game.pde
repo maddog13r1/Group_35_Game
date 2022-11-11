@@ -1,6 +1,6 @@
 /************
  **  GROUP 35 GAME
- **  Mike, Jana, RJ, Josh
+ **  Mike, Jana, RJ, Josh, Stanley
  ************/
 //global variables
 
