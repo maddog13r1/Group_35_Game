@@ -5,6 +5,8 @@
 //global variables
 
 
+Boolean isTitleScreen = true;
+boolean isNameScreen;
 
 void setup() { //runs program once at program launch
   fullScreen(); //sets the game window size to the full screen of device
@@ -25,7 +27,9 @@ void game() {
 
 //screen call function
 void screens() {
+  if ( isTitleScreen == true ) {
   titleScreen(); //calling void titleScreen()
+  }
   mainScreen(); //calling void mainScreen()
   victoryScreen(); //calling void victoryScreen()
   lossScreen(); //calling void lossScreen()
@@ -45,6 +49,7 @@ void titleScreen() { //main title function
   titleBackground(); //calling void titleBackground()
   titleButtons(); //calling void titleButtons()
 }
+
 void titleBackground() { //creates background aka all non-functional UI for title
   background(0);
   //title box
@@ -68,7 +73,9 @@ void titleButtons() { //creates buttons for title
     playButtonColor = playButtonColor + 150;
   }
   if (mousePressed && mouseX >= playButtonX-140 && mouseY >= playButtonY-52 && mouseX <= playButtonX+140 && mouseY <= playButtonY+52 ) {
+   isTitleScreen = false;
    nameScreen();
+  return;
   }
   //play button
   stroke(255);
@@ -85,7 +92,11 @@ void nameScreen() { // main function calling all name screen functions
   nameInput(); //calling void nameInput()
 }
 void nameBackground() {
+  int nameButtonX = width/2;
+  int nameButtonY = height/2;
   background(0);
+  fill(255);
+  rect(nameButtonX, nameButtonY, 128,128);
 }
 void nameButtons() {
 }
