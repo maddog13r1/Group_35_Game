@@ -46,7 +46,7 @@ void minigames() {
 
 //titlescreen
 void titleScreen() { //main title function
-  //background
+  /* background */
   background(0);
   //title box
   rectMode(CENTER);
@@ -60,7 +60,7 @@ void titleScreen() { //main title function
   fill(245, 245, 0); //yellow
   text("LIFE", width/2 +140, height/4);
 
-  //buttons
+  /* buttons */
   int playButtonX = width/2;
   int playButtonY = height/2-33;
   int playButtonColor = 0;
@@ -85,7 +85,7 @@ void titleScreen() { //main title function
 
 //Naming Screen
 void nameScreen() { // main function calling all name screen functions
-  //background
+  /* background */
   int nameButtonX = width/2;
   int nameButtonY = height/2;
   background(0);
