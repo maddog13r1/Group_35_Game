@@ -28,7 +28,7 @@ void game() {
 //screen call function
 void screens() {
   if ( isTitleScreen == true ) {
-  titleScreen(); //calling void titleScreen()
+    titleScreen(); //calling void titleScreen()
   }
   mainScreen(); //calling void mainScreen()
   victoryScreen(); //calling void victoryScreen()
@@ -46,11 +46,7 @@ void minigames() {
 
 //titlescreen
 void titleScreen() { //main title function
-  titleBackground(); //calling void titleBackground()
-  titleButtons(); //calling void titleButtons()
-}
-
-void titleBackground() { //creates background aka all non-functional UI for title
+  //background
   background(0);
   //title box
   rectMode(CENTER);
@@ -63,8 +59,8 @@ void titleBackground() { //creates background aka all non-functional UI for titl
   text("GRIT", width/2-140, height/4);
   fill(245, 245, 0); //yellow
   text("LIFE", width/2 +140, height/4);
-}
-void titleButtons() { //creates buttons for title
+
+  //buttons
   int playButtonX = width/2;
   int playButtonY = height/2-33;
   int playButtonColor = 0;
@@ -73,9 +69,9 @@ void titleButtons() { //creates buttons for title
     playButtonColor = playButtonColor + 150;
   }
   if (mousePressed && mouseX >= playButtonX-140 && mouseY >= playButtonY-52 && mouseX <= playButtonX+140 && mouseY <= playButtonY+52 ) {
-   isTitleScreen = false;
-   nameScreen();
-  return;
+    isTitleScreen = false;
+    nameScreen();
+    return;
   }
   //play button
   stroke(255);
@@ -85,43 +81,29 @@ void titleButtons() { //creates buttons for title
   textSize(72); //font size
   text("PLAY", width/2, height/2);
 }
+
+
 //Naming Screen
 void nameScreen() { // main function calling all name screen functions
-  nameBackground(); //calling void nameBackground()
-  nameButtons(); //calling void nameButtons()
-  nameInput(); //calling void nameInput()
-}
-void nameBackground() {
+  //background
   int nameButtonX = width/2;
   int nameButtonY = height/2;
   background(0);
   fill(255);
-  rect(nameButtonX, nameButtonY, 128,128);
+  rect(nameButtonX, nameButtonY, 128, 128);
 }
-void nameButtons() {
-}
-void nameInput() {
-}
+
+
 /*** END GAME SCREENS ***/
 
 //victory scenario
 void victoryScreen() {
-  victoryButtons();
-  victoryBackground();
 }
-void victoryButtons() {
-}
-void victoryBackground() {
-}
+
 //loss scenario
 void lossScreen() {
-  lossButtons();
-  lossBackground();
 }
-void lossButtons() {
-}
-void lossBackground() {
-}
+
 //Main Screen
 void mainScreen() {
   statBarMain();
@@ -132,23 +114,9 @@ void statBarMain() {
 /****** MINIGAMES ******/
 /*** study minigame ***/
 void studyMinigame() { //function for entire study minigame
-  studyMinigameBackground();
-  studyMinigameButtons();
 }
 //background
-void studyMinigameBackground() {
-}
-//buttons
-void studyMinigameButtons() {
-}
 /*** health minigame ***/
 void healthMinigame() { //function for entire health minigame
-  healthMinigameBackground();
-  healthMinigameButtons();
 }
 //background
-void healthMinigameBackground() {
-}
-//buttons
-void healthMinigameButtons() {
-}
