@@ -3,14 +3,14 @@
  **  Mike, Jana, RJ, Josh, Stanley
  ************/
 //global variables
-
-
+PImage titlePic;
 Boolean isTitleScreen = true;
 boolean isNameScreen;
 
 void setup() { //runs program once at program launch
   fullScreen(); //sets the game window size to the full screen of device
   smooth(8); //anti-aliasing x8
+  titlePic = loadImage("umbc_air.png");
 }
 
 void draw() { //runs programs at 60 fps at program launch
@@ -47,7 +47,7 @@ void minigames() {
 //titlescreen
 void titleScreen() { //main title function
   /* background */
-  background(0);
+  image(titlePic, 0, 0);
   //title box
   rectMode(CENTER);
   fill(255); //white
