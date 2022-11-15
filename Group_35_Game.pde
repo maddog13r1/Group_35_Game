@@ -7,6 +7,7 @@
 //global variables
 PImage titlePic;
 PImage Pic2;
+PImage Pic3;
 boolean isTitleScreen = true;
 boolean isMainScreen = false;
 boolean isHealthMinigame = false;
@@ -22,11 +23,13 @@ int healthStat;
 float timerX = -1920;
 float speedX = 0.5; //sets the time to ~60 seconds
 
+
 void setup() { //runs program once at program launch
-  fullScreen(); //sets the game window size to the full screen of device
+  size(1280,720); //720p resolution
   smooth(8); //anti-aliasing x8
   titlePic = loadImage("umbc_air.png");
   Pic2 = loadImage("2nd_page.jpg");
+  Pic3 = loadImage("2nd_pagea.jpg");
   financialStat = int(random(width/20.645, width/6.882));
   socialStat = int(random(width/20.645, width/6.882));
   gradeStat = int(random(width/20.645, width/6.882));
@@ -118,7 +121,7 @@ void titleScreen() { //main title function
 void mainScreen() { // main function calling all main screen functions
   /* background */
   background(0);
-  image(Pic2, width/6.4, 0);
+  image(Pic3, 0, 0);
   /* buttons */
   stroke(255);
   //study button
