@@ -71,7 +71,7 @@ void minigames() {
     physicalMinigame();
   }
   if ( isSocialMinigame == true ) {
-    socialMinigame();
+    workMinigame();
   }
 }
 
@@ -275,4 +275,7 @@ void physicalMinigame() {
   }
   fill(255, 0, 0);
   rect(timerX, 0, 1280, 64);
+}
+void workMinigame() {
+ //background 
 }
