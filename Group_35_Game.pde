@@ -5,7 +5,7 @@
  **  SP2 DEMO
  ************/
 //global variables
-PImage titlePic;
+PImage titlePic; //woah how cool
 PImage Pic2;
 boolean isTitleScreen = true;
 boolean isMainScreen = false;
