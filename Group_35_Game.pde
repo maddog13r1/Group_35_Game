@@ -7,10 +7,12 @@
 //global variables
 PImage titlePic;
 PImage Pic2;
-Boolean isTitleScreen = true;
+boolean isTitleScreen = true;
 boolean isMainScreen = false;
 boolean isHealthMinigame = false;
+boolean isStudyMinigame = false;
 boolean isMentalMinigame = false;
+boolean isPhysicalMinigame = false;
 
 void setup() { //runs program once at program launch
   fullScreen(); //sets the game window size to the full screen of device
@@ -37,16 +39,25 @@ void screens() {
     titleScreen(); //calling void titleScreen()
   }
   if ( isMainScreen == true) {
-   mainScreen(); //calling void mainScreen()
+    mainScreen(); //calling void mainScreen()
   }
-  victoryScreen(); //calling void victoryScreen()
-  lossScreen(); //calling void lossScreen()
 }
 //minigame call function
 void minigames() {
-  studyMinigame();
-  healthMinigame();
+  if ( isHealthMinigame == true ) {
+    healthMinigame();
+  }
+  if ( isStudyMinigame == true ) {
+    studyMinigame();
+  }
+  if ( isMentalMinigame == true ) {
+    mentalMinigame();
+  }
+  if ( isPhysicalMinigame == true ) {
+    physicalMinigame();
+  }
 }
+
 
 /****** GAME SCREENS ******/
 
@@ -95,9 +106,8 @@ void titleScreen() { //main title function
 void mainScreen() { // main function calling all main screen functions
   /* background */
   background(0);
-  image(Pic2,300,0);
+  image(Pic2, 300, 0);
   /* stat bar */
-  
 }
 
 
@@ -113,11 +123,20 @@ void lossScreen() {
 
 
 /****** MINIGAMES ******/
+
 /*** study minigame ***/
 void studyMinigame() { //function for entire study minigame
+  //background
 }
-//background
 /*** health minigame ***/
 void healthMinigame() { //function for entire health minigame
+  //background
 }
-//background
+/*** mental minigame ***/
+void mentalMinigame() {
+  //background
+}
+/*** physical minigame ***/
+void physicalMinigame() {
+  //background
+}
