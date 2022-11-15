@@ -18,6 +18,10 @@ int socialStat;
 int gradeStat;
 int healthStat;
 
+//timers
+float timerX = -1920;
+float speedX = 0.5; //sets the time to ~60 seconds
+
 void setup() { //runs program once at program launch
   fullScreen(); //sets the game window size to the full screen of device
   smooth(8); //anti-aliasing x8
@@ -216,7 +220,13 @@ void studyMinigame() { //function for entire study minigame
   //background
   background(0);
   fill(255);
-  text("study minigame", width/2,height/2);
+  text("study minigame", width/2, height/2);
+  //timer
+  if ( timerX != 0 ) {
+    timerX = timerX + speedX;
+  }
+  fill(255, 0, 0);
+  rect(timerX, 0, 1920, 64);
 }
 /*** health minigame ***/
 void healthMinigame() { //function for entire health minigame
@@ -231,5 +241,12 @@ void physicalMinigame() {
   //background
   background(0);
   fill(255, 0, 0);
-  text("physical minigame",width/2,height/2);
+  text("physical minigame", width/2, height/2);
+    //timer
+
+  if ( timerX != 0 ) {
+    timerX = timerX + speedX;
+  }
+  fill(255, 0, 0);
+  rect(timerX, 0, 1920, 64);
 }
