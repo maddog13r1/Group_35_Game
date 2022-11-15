@@ -25,10 +25,10 @@ float speedX = 0.5; //sets the time to ~60 seconds
 
 
 void setup() { //runs program once at program launch
-  size(1280,720); //720p resolution
+  size(1280, 720); //720p resolution
   smooth(8); //anti-aliasing x8
   titlePic = loadImage("umbc_air.png");
-  Pic2 = loadImage("2ndpage.jpg");
+  Pic2 = loadImage("mainScreen.png");
   financialStat = int(random(width/20.645, width/6.882));
   socialStat = int(random(width/20.645, width/6.882));
   gradeStat = int(random(width/20.645, width/6.882));
@@ -123,13 +123,17 @@ void titleScreen() { //main title function
 void mainScreen() { // main function calling all main screen functions
   /* background */
   background(0);
+
   image(Pic2, 0, 0);
+  rectMode(CENTER);
+  fill(255, 255, 255, 150);
+  rect(width/2, height/2, width, height);
   /* buttons */
   stroke(255);
-  
+
   //study button
-  float studyButtonX = 378; //678 in 1920
-  float studyButtonY = 470; //776 in 1080
+  float studyButtonX = width-64; //678 in 1920
+  float studyButtonY = height - 64; //776 in 1080
   int studyButtonColor = 0;
   if ( mouseX >= studyButtonX-27.5 && mouseY >= studyButtonY-27.5 && mouseX <= studyButtonX+27.5 && mouseY <= studyButtonY+27.5 ) {
     studyButtonColor = studyButtonColor + 255;
@@ -141,10 +145,10 @@ void mainScreen() { // main function calling all main screen functions
   }
   fill(studyButtonColor);
   ellipse(studyButtonX, studyButtonY, 55, 55);
-  
+
   //physical button
-  float physicalButtonX = 500; //802 in 1920
-  float physicalButtonY = 470; //776 in 1080;
+  float physicalButtonX = width-64; //802 in 1920
+  float physicalButtonY = height - 128; //776 in 1080;
   int physicalButtonColor = 0;
   if ( mouseX >= physicalButtonX-27.5 && mouseY >= physicalButtonY-27.5 && mouseX <=  physicalButtonX+27.5 && mouseY <= physicalButtonY+27.5 ) {
     physicalButtonColor = physicalButtonColor + 255;
@@ -156,12 +160,12 @@ void mainScreen() { // main function calling all main screen functions
   }
   fill(physicalButtonColor);
   ellipse(physicalButtonX, physicalButtonY, 55, 55);
-  
+
   //social button
-    float socialButtonX = 816;
-    float socialButtonY = 470;
-    int socialButtonColor = 0;
-    if ( mouseX >= socialButtonX-27.5 && mouseY >= socialButtonY-27.5 && mouseX <=  socialButtonX+27.5 && mouseY <= socialButtonY+27.5 ) {
+  float socialButtonX = width-64;
+  float socialButtonY = height - 192;
+  int socialButtonColor = 0;
+  if ( mouseX >= socialButtonX-27.5 && mouseY >= socialButtonY-27.5 && mouseX <=  socialButtonX+27.5 && mouseY <= socialButtonY+27.5 ) {
     physicalButtonColor = physicalButtonColor + 255;
   }
   if (mousePressed && mouseX >=  socialButtonX-27.5 && mouseY >= socialButtonY-27.5 && mouseX <=  socialButtonX+27.5 && mouseY <= socialButtonY+27.5 ) {
@@ -170,56 +174,56 @@ void mainScreen() { // main function calling all main screen functions
     return;
   }
   fill(socialButtonColor);
-  ellipse(socialButtonX, physicalButtonY, 55, 55);
+  ellipse(socialButtonX, socialButtonY, 55, 55);
   /* stat bar */
   //financial bar
   noStroke();
   rectMode(CORNER);
   fill(0);
-  rect(width/3 + 155, height - 45, width/5.5 + 23, 26, 90);
+  rect(width/20, height - 45, width/5.5 + 23, 26, 90);
 
   noStroke();
   fill(30, 144, 255);
-  rect(width/3 + 155, height - 45, financialStat, 26, 90);
+  rect(width/20, height - 45, financialStat, 26, 90);
   textSize(16);
   fill(255);
-  text(int(financialStat/3.72) + "%", width/2 + 5, height - 27);
+  text(int(financialStat/3.72) + "%", width/7 + 5, height - 27);
 
   //social bar
   rectMode(CORNER);
   fill(0);
-  rect(width/3 + 155, height - 84, width/5.5 + 23, 26, 90);
+  rect(width/20, height - 84, width/5.5 + 23, 26, 90);
 
   noStroke();
   fill(30, 144, 255);
-  rect(width/3 + 155, height - 84, socialStat, 26, 90);
+  rect(width/20, height - 84, socialStat, 26, 90);
   textSize(16);
   fill(255);
-  text(int(socialStat/3.72) + "%", width/2 + 5, height - 66);
+  text(int(socialStat/3.72) + "%", width/7 + 5, height - 66);
 
   //grade bar
   rectMode(CORNER);
   fill(0);
-  rect(width/3 + 155, height - 128, width/5.5 + 23, 26, 90);
+  rect(width/20, height - 128, width/5.5 + 23, 26, 90);
 
   noStroke();
   fill(30, 144, 255);
-  rect(width/3 + 155, height - 128, gradeStat, 26, 90);
+  rect(width/20, height - 128, gradeStat, 26, 90);
   textSize(16);
   fill(255);
-  text(int(gradeStat/3.72) + "%", width/2 + 5, height - 110);
+  text(int(gradeStat/3.72) + "%", width/7 + 5, height - 110);
 
   //health bar
   rectMode(CORNER);
   fill(0);
-  rect(width/3 + 155, height - 172, width/5.5 + 23, 26, 90);
+  rect(width/20, height - 172, width/5.5 + 23, 26, 90);
 
   noStroke();
   fill(30, 144, 255);
-  rect(width/3 + 155, height - 172, healthStat, 26, 90);
+  rect(width/20, height - 172, healthStat, 26, 90);
   textSize(16);
   fill(255);
-  text(int(healthStat/3.72) + "%", width/2 + 5, height - 154);
+  text(int(healthStat/3.72) + "%", width/7 + 5, height - 154);
 }
 
 
@@ -264,7 +268,7 @@ void physicalMinigame() {
   background(0);
   fill(255, 0, 0);
   text("physical minigame", width/2, height/2);
-    //timer
+  //timer
 
   if ( timerX != 0 ) {
     timerX = timerX + speedX;
@@ -273,7 +277,7 @@ void physicalMinigame() {
   rect(timerX, 0, 1280, 64);
 }
 /*** social minigame ***/
-void socialMinigame(){
+void socialMinigame() {
   //background
   background(0);
   text("social minigame", width/2, height/2);
