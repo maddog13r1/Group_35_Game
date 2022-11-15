@@ -115,6 +115,36 @@ void mainScreen() { // main function calling all main screen functions
   /* background */
   background(0);
   image(Pic2, width/6.4, 0);
+  /* buttons */
+  stroke(255);
+  //study button
+  float studyButtonX = width/2.83185841; //678 in 1920
+  float studyButtonY = height/1.39175258; //776 in 1080
+  int studyButtonColor = 0;
+  if ( mouseX >= studyButtonX-27.5 && mouseY >= studyButtonY-27.5 && mouseX <= studyButtonX+27.5 && mouseY <= studyButtonY+27.5 ) {
+    studyButtonColor = studyButtonColor + 255;
+  }
+  if (mousePressed && mouseX >= studyButtonX-27.5 && mouseY >= studyButtonY-27.5 && mouseX <= studyButtonX+27.5 && mouseY <= studyButtonY+27.5 ) {
+    isMainScreen = false;
+    isStudyMinigame = true;
+    return;
+  }
+  fill(studyButtonColor);
+  ellipse(studyButtonX, studyButtonY, 55, 55);
+  //physical button
+  float physicalButtonX = width/2.39401496; //802 in 1920
+  float physicalButtonY = height/1.39175258; //776 in 1080;
+  int physicalButtonColor = 0;
+  if ( mouseX >= physicalButtonX-27.5 && mouseY >= physicalButtonY-27.5 && mouseX <=  physicalButtonX+27.5 && mouseY <= physicalButtonY+27.5 ) {
+    physicalButtonColor = physicalButtonColor + 255;
+  }
+  if (mousePressed && mouseX >=  physicalButtonX-27.5 && mouseY >= physicalButtonY-27.5 && mouseX <=  physicalButtonX+27.5 && mouseY <= physicalButtonY+27.5 ) {
+    isMainScreen = false;
+    isPhysicalMinigame = true;
+    return;
+  }
+  fill(physicalButtonColor);
+  ellipse(physicalButtonX, physicalButtonY, 55, 55);
   /* stat bar */
   //financial bar
   noStroke();
@@ -184,6 +214,9 @@ void lossScreen() {
 /*** study minigame ***/
 void studyMinigame() { //function for entire study minigame
   //background
+  background(0);
+  fill(255);
+  text("study minigame", width/2,height/2);
 }
 /*** health minigame ***/
 void healthMinigame() { //function for entire health minigame
@@ -196,4 +229,7 @@ void mentalMinigame() {
 /*** physical minigame ***/
 void physicalMinigame() {
   //background
+  background(0);
+  fill(255, 0, 0);
+  text("physical minigame",width/2,height/2);
 }
