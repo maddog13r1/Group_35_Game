@@ -13,12 +13,20 @@ boolean isHealthMinigame = false;
 boolean isStudyMinigame = false;
 boolean isMentalMinigame = false;
 boolean isPhysicalMinigame = false;
+int financialStat;
+int socialStat;
+int gradeStat;
+int healthStat;
 
 void setup() { //runs program once at program launch
   fullScreen(); //sets the game window size to the full screen of device
   smooth(8); //anti-aliasing x8
   titlePic = loadImage("umbc_air.png");
   Pic2 = loadImage("2nd_page.jpg");
+  financialStat = int(random(width/20.645, width/6.882));
+  socialStat = int(random(width/20.645, width/6.882));
+  gradeStat = int(random(width/20.645, width/6.882));
+  healthStat = int(random(width/20.645, width/6.882));
 }
 
 void draw() { //runs programs at 60 fps at program launch
@@ -108,7 +116,56 @@ void mainScreen() { // main function calling all main screen functions
   background(0);
   image(Pic2, width/6.4, 0);
   /* stat bar */
+  //financial bar
+  noStroke();
+  rectMode(CORNER);
+  fill(0);
+  rect(width/3 + 155, height - 45, width/5.5 + 23, 26, 90);
+
+  noStroke();
+  fill(30, 144, 255);
+  rect(width/3 + 155, height - 45, financialStat, 26, 90);
+  textSize(16);
+  fill(255);
+  text(financialStat/3.72, width/2 + 5, height - 27);
+
+  //social bar
+  rectMode(CORNER);
+  fill(0);
+  rect(width/3 + 155, height - 84, width/5.5 + 23, 26, 90);
+
+  noStroke();
+  fill(30, 144, 255);
+  rect(width/3 + 155, height - 84, socialStat, 26, 90);
+  textSize(16);
+  fill(255);
+  text(socialStat/3.72, width/2 + 5, height - 66);
+
+  //grade bar
+  rectMode(CORNER);
+  fill(0);
+  rect(width/3 + 155, height - 128, width/5.5 + 23, 26, 90);
+
+  noStroke();
+  fill(30, 144, 255);
+  rect(width/3 + 155, height - 128, gradeStat, 26, 90);
+  textSize(16);
+  fill(255);
+  text(gradeStat/3.72, width/2 + 5, height - 110);
+
+  //health bar
+  rectMode(CORNER);
+  fill(0);
+  rect(width/3 + 155, height - 172, width/5.5 + 23, 26, 90);
+
+  noStroke();
+  fill(30, 144, 255);
+  rect(width/3 + 155, height - 172, healthStat, 26, 90);
+  textSize(16);
+  fill(255);
+  text(healthStat/3.72, width/2 + 5, height - 154);
 }
+
 
 
 /*** END GAME SCREENS ***/
