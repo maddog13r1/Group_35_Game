@@ -174,25 +174,15 @@ void mainScreen() { // main function calling all main screen functions
     isSocialMinigame = true;
     return;
   }
-  float timeButtonX = width-64;
-  float timeButtonY = height - 256;
-  int timeButtonColor = 0;
-  if ( mouseX >= timeButtonX-27.5 && mouseY >= timeButtonY-27.5 && mouseX <=  timeButtonX+27.5 && mouseY <= timeButtonY+27.5 ) {
-      timeButtonColor = timeButtonColor + 255;
-  }
-  if (mousePressed && mouseX >=  timeButtonX-27.5 && mouseY >= timeButtonY-27.5 && mouseX <=  timeButtonX+27.5 && mouseY <= timeButtonY+27.5 ) {
-    week += 1;
-  }
-    
-  fill(timeButtonColor);
-  ellipse(timeButtonX, timeButtonY, 55, 55);
+<<<<<<< HEAD
+  fill(socialButtonColor);
+  ellipse(socialButtonX, socialButtonY, 55, 55);
   
-  fill(0);
-  textSize(24);
-  text("Week "+ week, width/16, height/16);
-
+  
+=======
   fill(workButtonColor);
   ellipse(workButtonX, workButtonY, 55, 55);
+>>>>>>> ac192b3be091c1a207dc846d0d56380858cc486c
   /* stat bar */
   //financial bar
   noStroke();
@@ -242,6 +232,11 @@ void mainScreen() { // main function calling all main screen functions
   textSize(16);
   fill(255);
   text(int(healthStat/3.72) + "%", width/7 + 5, height - 154);
+  
+  fill(0);
+  textSize(24);
+  text("Week "+ week, width/16, height/16);
+
 }
 
 
