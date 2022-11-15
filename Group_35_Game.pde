@@ -14,6 +14,7 @@ boolean isHealthMinigame = false;
 boolean isStudyMinigame = false;
 boolean isMentalMinigame = false;
 boolean isPhysicalMinigame = false;
+boolean isSocialMinigame = false;
 int financialStat;
 int socialStat;
 int gradeStat;
@@ -71,6 +72,9 @@ void minigames() {
   if ( isPhysicalMinigame == true ) {
     physicalMinigame();
   }
+  if ( isSocialMinigame == true ) {
+    socialMinigame();
+  }
 }
 
 
@@ -124,6 +128,7 @@ void mainScreen() { // main function calling all main screen functions
   image(Pic3, 0, 0);
   /* buttons */
   stroke(255);
+  
   //study button
   float studyButtonX = 500; //678 in 1920
   float studyButtonY = 470; //776 in 1080
@@ -138,6 +143,7 @@ void mainScreen() { // main function calling all main screen functions
   }
   fill(studyButtonColor);
   ellipse(studyButtonX, studyButtonY, 55, 55);
+  
   //physical button
   float physicalButtonX = 378; //802 in 1920
   float physicalButtonY = 470; //776 in 1080;
@@ -152,6 +158,21 @@ void mainScreen() { // main function calling all main screen functions
   }
   fill(physicalButtonColor);
   ellipse(physicalButtonX, physicalButtonY, 55, 55);
+  
+  //social button
+    float socialButtonX = 816;
+    float socialButtonY = 470;
+    int socialButtonColor = 0;
+    if ( mouseX >= socialButtonX-27.5 && mouseY >= socialButtonY-27.5 && mouseX <=  socialButtonX+27.5 && mouseY <= socialButtonY+27.5 ) {
+    physicalButtonColor = physicalButtonColor + 255;
+  }
+  if (mousePressed && mouseX >=  socialButtonX-27.5 && mouseY >= socialButtonY-27.5 && mouseX <=  socialButtonX+27.5 && mouseY <= socialButtonY+27.5 ) {
+    isMainScreen = false;
+    isSocialMinigame = true;
+    return;
+  }
+  fill(socialButtonColor);
+  ellipse(socialButtonX, physicalButtonY, 55, 55);
   /* stat bar */
   //financial bar
   noStroke();
@@ -252,4 +273,9 @@ void physicalMinigame() {
   }
   fill(255, 0, 0);
   rect(timerX, 0, 1280, 64);
+}
+/*** social minigame ***/
+void socialMinigame(){
+  //background
+  
 }
