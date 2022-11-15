@@ -106,7 +106,7 @@ void titleScreen() { //main title function
 void mainScreen() { // main function calling all main screen functions
   /* background */
   background(0);
-  image(Pic2, 300, 0);
+  image(Pic2, width/6.4, 0);
   /* stat bar */
 }
 
