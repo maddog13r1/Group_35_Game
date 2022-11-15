@@ -278,3 +278,55 @@ void socialMinigame(){
   background(0);
   text("social minigame", width/2, height/2);
 }
+
+
+/*** 
+final int NUM_WEEK = 18;
+int[]weeks = new int [NUM_WEEK];
+int weekY = 50;
+int timeButtonX;
+int timeButtonY;
+
+void setup(){
+  fullScreen();
+  size(1920,1080);
+  frameRate(60);
+}
+
+void draw(){
+  weeks();
+}
+
+void weeks(){
+  timeButton();
+}
+
+void timeButton(){
+  int timeButtonX = width/2;
+  int timeButtonY = height-height/4;
+  stroke(255);
+  textMode(CENTER);
+  rectMode(CENTER);
+  fill(0);
+  rect(timeButtonX, timeButtonY, 280, 104);
+  fill(255); //white
+  textSize(72); //font size
+  text("PLAY", width/2-36*1.5, height-height/4);
+}
+
+void mousePressed(){
+  int timeButtonX = width/2;
+  int timeButtonY = height-height/4;
+  if (mousePressed && mouseX >= timeButtonX-140 && mouseY >= timeButtonY-52 && mouseX <= timeButtonX+140 && mouseY <= timeButtonY+52 ) {
+    for(int i=0; i < NUM_WEEK; i++){
+        fill(255);
+        textSize(40);
+        int textSize = 40;
+        background(0);
+        text("Week "+ weeks[i], width/2-textSize*1.5, weekY);
+        weeks[i] += 1;
+
+    }
+  }
+}
+***/
