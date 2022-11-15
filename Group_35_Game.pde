@@ -8,7 +8,9 @@
 PImage titlePic;
 PImage Pic2;
 Boolean isTitleScreen = true;
-boolean isNameScreen;
+boolean isMainScreen = false;
+boolean isHealthMinigame = false;
+boolean isMentalMinigame = false;
 
 void setup() { //runs program once at program launch
   fullScreen(); //sets the game window size to the full screen of device
@@ -34,7 +36,9 @@ void screens() {
   if ( isTitleScreen == true ) {
     titleScreen(); //calling void titleScreen()
   }
-  mainScreen(); //calling void mainScreen()
+  if ( isMainScreen == true) {
+   mainScreen(); //calling void mainScreen()
+  }
   victoryScreen(); //calling void victoryScreen()
   lossScreen(); //calling void lossScreen()
 }
@@ -74,7 +78,7 @@ void titleScreen() { //main title function
   }
   if (mousePressed && mouseX >= playButtonX-140 && mouseY >= playButtonY-52 && mouseX <= playButtonX+140 && mouseY <= playButtonY+52 ) {
     isTitleScreen = false;
-    nameScreen();
+    isMainScreen = true;
     return;
   }
   //play button
@@ -87,14 +91,13 @@ void titleScreen() { //main title function
 }
 
 
-//Naming Screen
-void nameScreen() { // main function calling all name screen functions
+//mainScreen
+void mainScreen() { // main function calling all main screen functions
   /* background */
-  int nameButtonX = width/2;
-  int nameButtonY = height/2;
   background(0);
-  fill(255);
-  rect(nameButtonX, nameButtonY, 128, 128);
+  image(Pic2,300,0);
+  /* stat bar */
+  
 }
 
 
@@ -108,13 +111,7 @@ void victoryScreen() {
 void lossScreen() {
 }
 
-//Main Screen
-void mainScreen() {
-  statBarMain();
-}
 
-void statBarMain() {
-}
 /****** MINIGAMES ******/
 /*** study minigame ***/
 void studyMinigame() { //function for entire study minigame
