@@ -178,15 +178,15 @@ void mainScreen() { // main function calling all main screen functions
   float timeButtonY = height - 256;
   int timeButtonColor = 0;
   if ( mouseX >= timeButtonX-27.5 && mouseY >= timeButtonY-27.5 && mouseX <=  timeButtonX+27.5 && mouseY <= timeButtonY+27.5 ) {
-      timeButtonColor = timeButtonColor + 255;
+    timeButtonColor = timeButtonColor + 255;
   }
   if (mousePressed && mouseX >=  timeButtonX-27.5 && mouseY >= timeButtonY-27.5 && mouseX <=  timeButtonX+27.5 && mouseY <= timeButtonY+27.5 ) {
     week += 1;
   }
-    
+
   fill(timeButtonColor);
   ellipse(timeButtonX, timeButtonY, 55, 55);
-  
+
   fill(0);
   textSize(24);
   text("Week "+ week, width/16, height/16);
@@ -283,9 +283,43 @@ void mentalMinigame() {
 /*** physical minigame ***/
 void physicalMinigame() {
   //background
-  background(0);
-  fill(255, 0, 0);
-  text("physical minigame", width/2, height/2);
+  int liftRequired = 30; //how many times you need to press w
+  int inputW = 0;
+  PImage GuyWeight;
+  PImage GuyLift;
+  void setup() {
+    // fullScreen();
+    size(1280, 720); //1080 screen size
+    GuyWeight = loadImage("mang1.png");
+    GuyLift = loadImage("mang2.png");
+  }
+
+  void draw() {
+    background(255);
+    image(GuyWeight, 500, 200);
+    winScreen();
+  }
+  void keyPressed() {
+    if (key == 'w') {
+      image(GuyLift, 500, 200);
+    }
+  }
+  void keyReleased() {
+    if (key == 'w' && liftRequired > 0) {
+      liftRequired = liftRequired - 1; //pressing w drops the amount needed (i believe the problem is that it
+      inputW = 0;
+    }
+  }                    //also works if you hold the button and then it goes to negative)
+
+
+  void winScreen() {
+    if (liftRequired == 0) { //when the requirement goes all the way down to zero a win screen appears
+      background(200, 100, 0);
+      textSize(100);
+      fill(255);
+      text("Wowza! You didn't f@%& it up!", 250, height/2);
+    }
+  }
   //timer
 
   if ( timerX != 0 ) {
@@ -295,5 +329,5 @@ void physicalMinigame() {
   rect(timerX, 0, 1280, 64);
 }
 void workMinigame() {
- //background 
+  //background
 }
