@@ -20,7 +20,7 @@ int gradeStat;
 int healthStat;
 
 //timers
-float timerX = -1920;
+float timerX = -1280;
 float speedX = 0.5; //sets the time to ~60 seconds
 
 
@@ -125,8 +125,8 @@ void mainScreen() { // main function calling all main screen functions
   /* buttons */
   stroke(255);
   //study button
-  float studyButtonX = width/2.83185841; //678 in 1920
-  float studyButtonY = height/1.39175258; //776 in 1080
+  float studyButtonX = 500; //678 in 1920
+  float studyButtonY = 470; //776 in 1080
   int studyButtonColor = 0;
   if ( mouseX >= studyButtonX-27.5 && mouseY >= studyButtonY-27.5 && mouseX <= studyButtonX+27.5 && mouseY <= studyButtonY+27.5 ) {
     studyButtonColor = studyButtonColor + 255;
@@ -139,8 +139,8 @@ void mainScreen() { // main function calling all main screen functions
   fill(studyButtonColor);
   ellipse(studyButtonX, studyButtonY, 55, 55);
   //physical button
-  float physicalButtonX = width/2.39401496; //802 in 1920
-  float physicalButtonY = height/1.39175258; //776 in 1080;
+  float physicalButtonX = 378; //802 in 1920
+  float physicalButtonY = 470; //776 in 1080;
   int physicalButtonColor = 0;
   if ( mouseX >= physicalButtonX-27.5 && mouseY >= physicalButtonY-27.5 && mouseX <=  physicalButtonX+27.5 && mouseY <= physicalButtonY+27.5 ) {
     physicalButtonColor = physicalButtonColor + 255;
@@ -229,7 +229,7 @@ void studyMinigame() { //function for entire study minigame
     timerX = timerX + speedX;
   }
   fill(255, 0, 0);
-  rect(timerX, 0, 1920, 64);
+  rect(timerX, 0, 1280, 64);
 }
 /*** health minigame ***/
 void healthMinigame() { //function for entire health minigame
@@ -251,5 +251,5 @@ void physicalMinigame() {
     timerX = timerX + speedX;
   }
   fill(255, 0, 0);
-  rect(timerX, 0, 1920, 64);
+  rect(timerX, 0, 1280, 64);
 }
