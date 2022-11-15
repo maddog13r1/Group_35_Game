@@ -128,7 +128,7 @@ void mainScreen() { // main function calling all main screen functions
   stroke(255);
   
   //study button
-  float studyButtonX = 500; //678 in 1920
+  float studyButtonX = 378; //678 in 1920
   float studyButtonY = 470; //776 in 1080
   int studyButtonColor = 0;
   if ( mouseX >= studyButtonX-27.5 && mouseY >= studyButtonY-27.5 && mouseX <= studyButtonX+27.5 && mouseY <= studyButtonY+27.5 ) {
@@ -143,7 +143,7 @@ void mainScreen() { // main function calling all main screen functions
   ellipse(studyButtonX, studyButtonY, 55, 55);
   
   //physical button
-  float physicalButtonX = 378; //802 in 1920
+  float physicalButtonX = 500; //802 in 1920
   float physicalButtonY = 470; //776 in 1080;
   int physicalButtonColor = 0;
   if ( mouseX >= physicalButtonX-27.5 && mouseY >= physicalButtonY-27.5 && mouseX <=  physicalButtonX+27.5 && mouseY <= physicalButtonY+27.5 ) {
