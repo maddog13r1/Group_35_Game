@@ -7,7 +7,6 @@
 //global variables
 PImage titlePic;
 PImage Pic2;
-PImage Pic3;
 boolean isTitleScreen = true;
 boolean isMainScreen = false;
 boolean isHealthMinigame = false;
@@ -29,8 +28,7 @@ void setup() { //runs program once at program launch
   size(1280,720); //720p resolution
   smooth(8); //anti-aliasing x8
   titlePic = loadImage("umbc_air.png");
-  Pic2 = loadImage("2nd_page.jpg");
-  Pic3 = loadImage("2nd_pagea.jpg");
+  Pic2 = loadImage("2ndpage.jpg");
   financialStat = int(random(width/20.645, width/6.882));
   socialStat = int(random(width/20.645, width/6.882));
   gradeStat = int(random(width/20.645, width/6.882));
@@ -125,7 +123,7 @@ void titleScreen() { //main title function
 void mainScreen() { // main function calling all main screen functions
   /* background */
   background(0);
-  image(Pic3, 0, 0);
+  image(Pic2, 0, 0);
   /* buttons */
   stroke(255);
   
@@ -277,5 +275,6 @@ void physicalMinigame() {
 /*** social minigame ***/
 void socialMinigame(){
   //background
-  
+  background(0);
+  text("social minigame", width/2, height/2);
 }
