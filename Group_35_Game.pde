@@ -19,7 +19,10 @@ int socialStat;
 int gradeStat;
 int healthStat;
 int week = 1;
-
+int liftRequired = 30; //how many times you need to press w
+int inputW = 0;
+PImage GuyWeight;
+PImage GuyLift;
 //timers
 float timerX = -1280;
 float speedX = 0.5; //sets the time to ~60 seconds
@@ -30,6 +33,8 @@ void setup() { //runs program once at program launch
   smooth(8); //anti-aliasing x8
   titlePic = loadImage("umbc_air.png");
   Pic2 = loadImage("mainScreen.png");
+  GuyWeight = loadImage("mang1.png");
+  GuyLift = loadImage("mang2.png");
   financialStat = int(random(width/20.645, width/6.882));
   socialStat = int(random(width/20.645, width/6.882));
   gradeStat = int(random(width/20.645, width/6.882));
@@ -283,51 +288,34 @@ void mentalMinigame() {
 /*** physical minigame ***/
 void physicalMinigame() {
   //background
-  int liftRequired = 30; //how many times you need to press w
-  int inputW = 0;
-  PImage GuyWeight;
-  PImage GuyLift;
-  void setup() {
-    // fullScreen();
-    size(1280, 720); //1080 screen size
-    GuyWeight = loadImage("mang1.png");
-    GuyLift = loadImage("mang2.png");
+  // fullScreen();
+  background(255);
+  image(GuyWeight, 500, 200);
+  if (liftRequired == 0) { //when the requirement goes all the way down to zero a win screen appears
+    background(200, 100, 0);
+    textSize(100);
+    fill(255);
+    text("Wowza! You didn't f@%& it up!", 250, height/2);
   }
-
-  void draw() {
-    background(255);
-    image(GuyWeight, 500, 200);
-    winScreen();
-  }
-  void keyPressed() {
-    if (key == 'w') {
-      image(GuyLift, 500, 200);
-    }
-  }
-  void keyReleased() {
-    if (key == 'w' && liftRequired > 0) {
-      liftRequired = liftRequired - 1; //pressing w drops the amount needed (i believe the problem is that it
-      inputW = 0;
-    }
-  }                    //also works if you hold the button and then it goes to negative)
-
-
-  void winScreen() {
-    if (liftRequired == 0) { //when the requirement goes all the way down to zero a win screen appears
-      background(200, 100, 0);
-      textSize(100);
-      fill(255);
-      text("Wowza! You didn't f@%& it up!", 250, height/2);
-    }
-  }
-  //timer
-
-  if ( timerX != 0 ) {
-    timerX = timerX + speedX;
-  }
-  fill(255, 0, 0);
-  rect(timerX, 0, 1280, 64);
+//timer
+if ( timerX != 0 ) {
+  timerX = timerX + speedX;
 }
+fill(255, 0, 0);
+rect(timerX, 0, 1280, 64);
+}
+void keyPressed() {
+  if (key == 'w') {
+    image(GuyLift, 500, 200);
+  }
+}
+void keyReleased() {
+  if (key == 'w' && liftRequired > 0) {
+    liftRequired = liftRequired - 1; //pressing w drops the amount needed (i believe the problem is that it
+    inputW = 0;
+  }
+}                    //also works if you hold the button and then it goes to negative)
+
 void workMinigame() {
   //background
 }
