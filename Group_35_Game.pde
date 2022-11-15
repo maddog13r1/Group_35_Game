@@ -161,7 +161,7 @@ void mainScreen() { // main function calling all main screen functions
   rect(width/3 + 155, height - 45, financialStat, 26, 90);
   textSize(16);
   fill(255);
-  text(financialStat/3.72, width/2 + 5, height - 27);
+  text(int(financialStat/3.72) + "%", width/2 + 5, height - 27);
 
   //social bar
   rectMode(CORNER);
@@ -173,7 +173,7 @@ void mainScreen() { // main function calling all main screen functions
   rect(width/3 + 155, height - 84, socialStat, 26, 90);
   textSize(16);
   fill(255);
-  text(socialStat/3.72, width/2 + 5, height - 66);
+  text(int(socialStat/3.72) + "%", width/2 + 5, height - 66);
 
   //grade bar
   rectMode(CORNER);
@@ -185,7 +185,7 @@ void mainScreen() { // main function calling all main screen functions
   rect(width/3 + 155, height - 128, gradeStat, 26, 90);
   textSize(16);
   fill(255);
-  text(gradeStat/3.72, width/2 + 5, height - 110);
+  text(int(gradeStat/3.72) + "%", width/2 + 5, height - 110);
 
   //health bar
   rectMode(CORNER);
@@ -197,7 +197,7 @@ void mainScreen() { // main function calling all main screen functions
   rect(width/3 + 155, height - 172, healthStat, 26, 90);
   textSize(16);
   fill(255);
-  text(healthStat/3.72, width/2 + 5, height - 154);
+  text(int(healthStat/3.72) + "%", width/2 + 5, height - 154);
 }
 
 
