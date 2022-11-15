@@ -6,6 +6,7 @@
  ************/
 //global variables
 PImage titlePic;
+PImage Pic2;
 Boolean isTitleScreen = true;
 boolean isNameScreen;
 
@@ -13,6 +14,7 @@ void setup() { //runs program once at program launch
   fullScreen(); //sets the game window size to the full screen of device
   smooth(8); //anti-aliasing x8
   titlePic = loadImage("umbc_air.png");
+  Pic2 = loadImage("2nd_page.jpg");
 }
 
 void draw() { //runs programs at 60 fps at program launch
