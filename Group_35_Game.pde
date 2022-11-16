@@ -138,6 +138,9 @@ void mainScreen() { // main function calling all main screen functions
   stroke(255);
 
   //study button
+  fill(0);
+  textSize(20);
+  text("Study", width - 128, height - 58);
   float studyButtonX = width-64; //678 in 1920
   float studyButtonY = height - 64; //776 in 1080
   int studyButtonColor = 0;
@@ -153,6 +156,9 @@ void mainScreen() { // main function calling all main screen functions
   ellipse(studyButtonX, studyButtonY, 55, 55);
 
   //physical button
+  fill(0);
+  textSize(20);
+  text("Workout", width - 136, height - 120);
   float physicalButtonX = width-64; //802 in 1920
   float physicalButtonY = height - 128; //776 in 1080;
   int physicalButtonColor = 0;
@@ -167,7 +173,10 @@ void mainScreen() { // main function calling all main screen functions
   fill(physicalButtonColor);
   ellipse(physicalButtonX, physicalButtonY, 55, 55);
 
-  //social button
+  //work button
+  fill(0);
+  textSize(20);
+  text("Work", width - 128, height - 188);
   float workButtonX = width-64;
   float workButtonY = height - 192;
   int workButtonColor = 0;
@@ -179,6 +188,13 @@ void mainScreen() { // main function calling all main screen functions
     isSocialMinigame = true;
     return;
   }
+  fill(workButtonColor);
+  ellipse(workButtonX, workButtonY, 55, 55);
+
+  //time button
+  fill(0);
+  textSize(20);
+  text("Advance Week", width - 166, height - 248);
   float timeButtonX = width-64;
   float timeButtonY = height - 256;
   int timeButtonColor = 0;
@@ -191,13 +207,10 @@ void mainScreen() { // main function calling all main screen functions
 
   fill(timeButtonColor);
   ellipse(timeButtonX, timeButtonY, 55, 55);
-
   fill(0);
   textSize(24);
   text("Week "+ week, width/16, height/16);
 
-  fill(workButtonColor);
-  ellipse(workButtonX, workButtonY, 55, 55);
   /* stat bar */
   //financial bar
   noStroke();
@@ -295,22 +308,22 @@ void physicalMinigame() {
     background(200, 100, 0);
     textSize(100);
     fill(255);
-    text("Wowza! You didn't f@%& it up!", 250, height/2);
+    text("Wowza! You didn't f@%& it up!", width/2, height/2);
   }
-//timer
-if ( timerX != 0 ) {
-  timerX = timerX + speedX;
-}
-fill(255, 0, 0);
-rect(timerX, 0, 1280, 64);
+  //timer
+  if ( timerX != 0 ) {
+    timerX = timerX + speedX;
+  }
+  fill(255, 0, 0);
+  rect(timerX, 0, 1280, 64);
 }
 void keyPressed() {
-  if (key == 'w') {
+  if (key == 'w' && isPhysicalMinigame == true) {
     image(GuyLift, 500, 200);
   }
 }
 void keyReleased() {
-  if (key == 'w' && liftRequired > 0) {
+  if (key == 'w' && liftRequired > 0 && isPhysicalMinigame == true) {
     liftRequired = liftRequired - 1; //pressing w drops the amount needed (i believe the problem is that it
     inputW = 0;
   }
