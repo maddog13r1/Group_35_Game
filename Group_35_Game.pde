@@ -232,7 +232,7 @@ void mainScreen() { // main function calling all main screen functions
   rect(width/20, height - 128, width/5.5 + 23, 26, 90);
 
   noStroke();
-  fill(30, 144, 255);
+  fill(288,208,10);
   rect(width/20, height - 128, gradeStat, 26, 90);
   textSize(16);
   fill(255);
@@ -244,7 +244,7 @@ void mainScreen() { // main function calling all main screen functions
   rect(width/20, height - 172, width/5.5 + 23, 26, 90);
 
   noStroke();
-  fill(30, 144, 255);
+  fill(220, 20, 60);
   rect(width/20, height - 172, healthStat, 26, 90);
   textSize(16);
   fill(255);
