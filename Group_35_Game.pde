@@ -24,7 +24,7 @@ int socialStat;
 int gradeStat;
 int healthStat;
 //game variables
-int liftRequired = 30; //how many times you need to press w
+int liftRequired = 50; //how many times you need to press w
 int inputW = 0;
 PImage GuyWeight;
 PImage GuyLift;
@@ -355,7 +355,7 @@ void physicalWin() {
     background(200, 100, 0);
     textSize(100);
     fill(255);
-    text("Wowza! You didn't f@%& it up!", width/2, height/2-80);
+    text("Wowza! Great Job!", width/2, height/2-80);
     text("Your health stat is now" + healthStat + "!", width/2, height/2+64);
   } else if (liftRequired != 0 && counter == 1) {
     counter = 0;
