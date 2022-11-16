@@ -230,7 +230,9 @@ void mainScreen() { // main function calling all main screen functions
   rectMode(CORNER);
   fill(0);
   rect(width/20, height - 128, width/5.5 + 23, 26, 90);
-
+  textSize(26);
+  text("Grades", width/4 + 40, height-105);
+  
   noStroke();
   fill(288,208,10);
   rect(width/20, height - 128, gradeStat, 26, 90);
@@ -242,7 +244,9 @@ void mainScreen() { // main function calling all main screen functions
   rectMode(CORNER);
   fill(0);
   rect(width/20, height - 172, width/5.5 + 23, 26, 90);
-
+  textSize(26);
+  text("Health", width/4 + 40, height-150);
+  
   noStroke();
   fill(220, 20, 60);
   rect(width/20, height - 172, healthStat, 26, 90);
