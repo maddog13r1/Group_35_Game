@@ -6,7 +6,7 @@
  ************/
 //global variables
 PImage titlePic; //woah how cool
-PImage Pic2; 
+PImage Pic2;
 PImage gym;
 boolean isTitleScreen = true;
 boolean isMainScreen = false;
@@ -16,6 +16,8 @@ boolean isMentalMinigame = false;
 boolean isPhysicalMinigame = false;
 boolean isSocialMinigame = false;
 boolean isPhysicalWin = false;
+boolean isPhysicalLose = false;
+boolean isGuyWeight = true;
 //stats
 int financialStat;
 int socialStat;
@@ -29,14 +31,14 @@ PImage GuyLift;
 int physicalMinigameWin = 0;
 //timers
 float timerX = -640;
-float speedX = 1; //sets the time to ~60 seconds
+float speedX = 2; //sets the time to ~60 seconds
 //time button and weeks
 int week = 1;
 //games played
 int gamesPlayed = 0;
 int counter = 0;
 void setup() { //runs program once at program launch
-  size(1280, 720); //720p resolution
+  size(1280, 720, P2D); //720p resolution
   smooth(8); //anti-aliasing x8
   titlePic = loadImage("umbc_air.png"); //background of the starting page
   Pic2 = loadImage("mainScreen.png"); //background of week 1 screen
@@ -90,6 +92,9 @@ void minigames() {
   }
   if ( isPhysicalWin == true ) {
     physicalWin();
+  }
+  if ( isPhysicalLose == true ) {
+   physicalLose(); 
   }
 }
 
@@ -148,11 +153,11 @@ void mainScreen() { // main function calling all main screen functions
   rect(width/2, height/2, width, height);
   /* buttons */
   stroke(255);
-  
+
   //study text highlight
-  fill(288,208,10, 120);
+  fill(288, 208, 10, 120);
   rect(width - 128, height - 64, 60, 40);
-  //study button  
+  //study button
   fill(0);
   textSize(20);
   text("Study", width - 128, height - 58);
@@ -169,7 +174,7 @@ void mainScreen() { // main function calling all main screen functions
   }
   fill(studyButtonColor);
   ellipse(studyButtonX, studyButtonY, 55, 55);
-  
+
   //physical text highlight
   fill(220, 20, 60, 120);
   rect(width - 137, height - 128, 84, 40);
@@ -232,7 +237,7 @@ void mainScreen() { // main function calling all main screen functions
   textSize(26);
   text("Week "+ week, width/16, height/16);
 
-    /* stat bar */
+  /* stat bar */
   //financial stat highlight
   fill(124, 252, 0, 120);
   rect(width/8, height -  70, 164, 50);
@@ -251,7 +256,7 @@ void mainScreen() { // main function calling all main screen functions
   rectMode(CORNER);
   rect(width/20, height - 128, 200, 26, 90);
   noStroke();
-  fill(288,208,10);
+  fill(288, 208, 10);
   rect(width/20, height - 128, gradeStat * 2, 26, 90);
   textSize(16);
   fill(255);
@@ -317,18 +322,28 @@ void physicalMinigame() {
   //background
   background(255);
   image(gym, 0, 0);
-  image(GuyWeight, 500, 200);
-
+  if ( isGuyWeight == true ) {
+    image(GuyWeight, 500, 200);
+  }
+  textSize(24);
+  fill(0);
+  text("Press W 30 times before the time runs out!", width/2, 75);
   if (liftRequired == 0) { //when the requirement goes all the way down to zero a win screen appears
     isPhysicalWin = true;
   }
-
+  if ( isGuyWeight == false ) {
+    image(GuyLift, 500, 200);
+  }
   //timer
   if ( timerX != 640 ) {
     timerX = timerX + speedX;
   }
   fill(255, 0, 0);
   rect(timerX, 0, 1280, 64);
+  if ( timerX == 640 ) {
+    isPhysicalLose = true;
+  }
+  text("You have to press W " + liftRequired + " more times!", width/2, 95);
 }
 
 void physicalWin() {
@@ -340,7 +355,7 @@ void physicalWin() {
     background(200, 100, 0);
     textSize(100);
     fill(255);
-    text("Wowza! You didn't f@%& it up!", width/2, height/2);
+    text("Wowza! You didn't f@%& it up!", width/2, height/2-80);
     text("Your health stat is now" + healthStat + "!", width/2, height/2+64);
   } else if (liftRequired != 0 && counter == 1) {
     counter = 0;
@@ -357,6 +372,42 @@ void physicalWin() {
     isPhysicalWin = false;
     return;
   }
+  textSize(24);
+  text("Return to Main Menu", width/2, height-120);
+
+  fill(timeButtonColor);
+  ellipse(timeButtonX, timeButtonY, 55, 55);
+  fill(0);
+  textSize(24);
+  text("Week "+ week, width/2, height/16);
+}
+void physicalLose() { //if you lose the physical minigame
+  isPhysicalMinigame = false;
+  if ( timerX == 640 && counter == 0 ) {
+    healthStat = healthStat - 10;
+    counter = 1;
+  } else if ( timerX == 640 && counter == 1 ) {
+    background(255, 0, 0);
+    textSize(100);
+    fill(255);
+    text("You lose!", width/2, height/2-80);
+    text("Your health stat is now" + healthStat + "!", width/2, height/2+64);
+  } else if (timerX != 640 && counter == 1) {
+    counter = 0;
+  }
+  float timeButtonX = width/2;
+  float timeButtonY = height-200;
+  int timeButtonColor = 0;
+  if ( mouseX >= timeButtonX-27.5 && mouseY >= timeButtonY-27.5 && mouseX <=  timeButtonX+27.5 && mouseY <= timeButtonY+27.5 ) {
+    timeButtonColor = timeButtonColor + 255;
+  }
+  if (mousePressed && mouseX >=  timeButtonX-27.5 && mouseY >= timeButtonY-27.5 && mouseX <=  timeButtonX+27.5 && mouseY <= timeButtonY+27.5) {
+    isMainScreen = true;
+    isPhysicalLose = false;
+    return;
+  }
+  textSize(24);
+  text("Return to Main Menu", width/2, height-120);
 
   fill(timeButtonColor);
   ellipse(timeButtonX, timeButtonY, 55, 55);
@@ -377,7 +428,7 @@ void physicalWin() {
 void keyPressed() {
   //physical minigame
   if (key == 'w' && isPhysicalMinigame == true) {
-    image(GuyLift, 500, 200);
+    isGuyWeight = false;
   }
 }
 //key released commands for minigames
@@ -385,7 +436,7 @@ void keyReleased() {
   //physical minigame
   if (key == 'w' && liftRequired > 0 && isPhysicalMinigame == true) {
     liftRequired = liftRequired - 1; //pressing w drops the amount needed
-    inputW = 0;
+    isGuyWeight = true;
   }
 }
 
@@ -397,6 +448,7 @@ void mouseReleased() {
     week = week + 1;
     liftRequired = 30;
     financialStat = financialStat - 10;
+    timerX = -640;
   }
 }
 
