@@ -232,7 +232,7 @@ void mainScreen() { // main function calling all main screen functions
   textSize(26);
   text("Week "+ week, width/16, height/16);
 
-  /* stat bar */
+    /* stat bar */
   //financial stat highlight
   fill(124, 252, 0, 120);
   rect(width/8, height -  70, 164, 50);
@@ -243,37 +243,37 @@ void mainScreen() { // main function calling all main screen functions
 
   //grade bar text
   fill(288, 208, 10, 120);
-  rect(width/4 + 62, height -  112, 86, 42);
+  rect(width/4, height -  112, 86, 42);
   fill(0);
   textSize(26);
-  text("Grades", width/4 + 64, height-106);
+  text("Grades", width/4, height-106);
   //grade bar
   rectMode(CORNER);
-  rect(width/20, height - 128, width/5.5 + 23, 26, 90);
+  rect(width/20, height - 128, 200, 26, 90);
   noStroke();
   fill(288,208,10);
-  rect(width/20, height - 128, gradeStat, 26, 90);
+  rect(width/20, height - 128, gradeStat * 2, 26, 90);
   textSize(16);
   fill(255);
-  text(int(gradeStat) + "%", width/7 + 5, height - 110);
+  text(int(gradeStat) + "%", width/8 + 8, height - 110);
 
   //health bar text
   rectMode(CENTER);
   stroke(255);
   fill(220, 20, 60, 120);
-  rect(width/4 + 62, height - 158, 86, 42);
+  rect(width/4, height - 158, 86, 42);
   fill(0);
   textSize(26);
-  text("Health", width/4 + 64, height-150);
+  text("Health", width/4, height-150);
   //health bar
   rectMode(CORNER);
-  rect(width/20, height - 172, width/5.5 + 23, 26, 90);
+  rect(width/20, height - 172, 200, 26, 90);
   noStroke();
   fill(220, 20, 60);
-  rect(width/20, height - 172, healthStat, 26, 90);
+  rect(width/20, height - 172, healthStat * 2, 26, 90);
   textSize(16);
   fill(255);
-  text(int(healthStat) + "%", width/7 + 5, height - 154);
+  text(int(healthStat) + "%", width/8 + 8, height - 154);
 }
 
 
