@@ -24,7 +24,7 @@ int socialStat;
 int gradeStat;
 int healthStat;
 //game variables
-int liftRequired = 50; //how many times you need to press w
+int liftRequired = 30; //how many times you need to press w
 int inputW = 0;
 PImage GuyWeight;
 PImage GuyLift;
@@ -446,7 +446,7 @@ void mouseReleased() {
   float timeButtonY = height - 256;
   if (mouseX >=  timeButtonX-27.5 && mouseY >= timeButtonY-27.5 && mouseX <=  timeButtonX+27.5 && mouseY <= timeButtonY+27.5 ) {
     week = week + 1;
-    liftRequired = 30;
+    liftRequired = 50;
     financialStat = financialStat - 10;
     timerX = -640;
   }
