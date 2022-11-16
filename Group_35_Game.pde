@@ -6,7 +6,7 @@
  ************/
 //global variables
 PImage titlePic; //woah how cool
-PImage Pic2;
+PImage Pic2; 
 PImage gym;
 boolean isTitleScreen = true;
 boolean isMainScreen = false;
@@ -38,8 +38,9 @@ int counter = 0;
 void setup() { //runs program once at program launch
   size(1280, 720); //720p resolution
   smooth(8); //anti-aliasing x8
-  titlePic = loadImage("umbc_air.png");
-  Pic2 = loadImage("mainScreen.png");
+  titlePic = loadImage("umbc_air.png"); //background of the starting page
+  Pic2 = loadImage("mainScreen.png"); //background of week 1 screen
+  //Images for gym minigame
   GuyWeight = loadImage("mang1.png");
   GuyLift = loadImage("mang2.png");
   gym = loadImage("UMBC_GYM.jpg");
