@@ -24,7 +24,7 @@ int socialStat;
 int gradeStat;
 int healthStat;
 //game variables
-int liftRequired = 30; //how many times you need to press w
+int liftRequired = 50; //how many times you need to press w
 int inputW = 0;
 PImage GuyWeight;
 PImage GuyLift;
