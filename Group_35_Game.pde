@@ -7,6 +7,7 @@
 //global variables
 PImage titlePic; //woah how cool
 PImage Pic2;
+PImage gym;
 boolean isTitleScreen = true;
 boolean isMainScreen = false;
 boolean isHealthMinigame = false;
@@ -14,20 +15,26 @@ boolean isStudyMinigame = false;
 boolean isMentalMinigame = false;
 boolean isPhysicalMinigame = false;
 boolean isSocialMinigame = false;
+boolean isPhysicalWin = false;
+//stats
 int financialStat;
 int socialStat;
 int gradeStat;
 int healthStat;
-int week = 1;
+//game variables
 int liftRequired = 30; //how many times you need to press w
 int inputW = 0;
 PImage GuyWeight;
 PImage GuyLift;
+int physicalMinigameWin = 0;
 //timers
-float timerX = -1280;
-float speedX = 0.5; //sets the time to ~60 seconds
-
-
+float timerX = -640;
+float speedX = 1; //sets the time to ~60 seconds
+//time button and weeks
+int week = 1;
+//games played
+int gamesPlayed = 0;
+int counter = 0;
 void setup() { //runs program once at program launch
   size(1280, 720); //720p resolution
   smooth(8); //anti-aliasing x8
@@ -35,10 +42,11 @@ void setup() { //runs program once at program launch
   Pic2 = loadImage("mainScreen.png");
   GuyWeight = loadImage("mang1.png");
   GuyLift = loadImage("mang2.png");
-  financialStat = int(random(width/20.645, width/6.882));
-  socialStat = int(random(width/20.645, width/6.882));
-  gradeStat = int(random(width/20.645, width/6.882));
-  healthStat = int(random(width/20.645, width/6.882));
+  gym = loadImage("UMBC_GYM.jpg");
+  financialStat = int(random(25, 75));
+  socialStat = int(random(25, 75));
+  gradeStat = int(random(25, 75));
+  healthStat = int(random(25, 75));
 }
 
 void draw() { //runs programs at 60 fps at program launch
@@ -78,6 +86,9 @@ void minigames() {
   }
   if ( isSocialMinigame == true ) {
     workMinigame();
+  }
+  if ( isPhysicalWin == true ) {
+    physicalWin();
   }
 }
 
@@ -201,9 +212,6 @@ void mainScreen() { // main function calling all main screen functions
   if ( mouseX >= timeButtonX-27.5 && mouseY >= timeButtonY-27.5 && mouseX <=  timeButtonX+27.5 && mouseY <= timeButtonY+27.5 ) {
     timeButtonColor = timeButtonColor + 255;
   }
-  if (mousePressed && mouseX >=  timeButtonX-27.5 && mouseY >= timeButtonY-27.5 && mouseX <=  timeButtonX+27.5 && mouseY <= timeButtonY+27.5 ) {
-    week += 1;
-  }
 
   fill(timeButtonColor);
   ellipse(timeButtonX, timeButtonY, 55, 55);
@@ -223,7 +231,7 @@ void mainScreen() { // main function calling all main screen functions
   rect(width/20, height - 45, financialStat, 26, 90);
   textSize(16);
   fill(255);
-  text(int(financialStat/3.72) + "%", width/7 + 5, height - 27);
+  text("Financial " + int(financialStat) + "%", width/7 + 5, height - 27);
 
   //social bar
   rectMode(CORNER);
@@ -235,7 +243,7 @@ void mainScreen() { // main function calling all main screen functions
   rect(width/20, height - 84, socialStat, 26, 90);
   textSize(16);
   fill(255);
-  text(int(socialStat/3.72) + "%", width/7 + 5, height - 66);
+  text(int(socialStat) + "%", width/7 + 5, height - 66);
 
   //grade bar
   rectMode(CORNER);
@@ -247,7 +255,7 @@ void mainScreen() { // main function calling all main screen functions
   rect(width/20, height - 128, gradeStat, 26, 90);
   textSize(16);
   fill(255);
-  text(int(gradeStat/3.72) + "%", width/7 + 5, height - 110);
+  text(int(gradeStat) + "%", width/7 + 5, height - 110);
 
   //health bar
   rectMode(CORNER);
@@ -259,7 +267,7 @@ void mainScreen() { // main function calling all main screen functions
   rect(width/20, height - 172, healthStat, 26, 90);
   textSize(16);
   fill(255);
-  text(int(healthStat/3.72) + "%", width/7 + 5, height - 154);
+  text(int(healthStat) + "%", width/7 + 5, height - 154);
 }
 
 
@@ -301,22 +309,65 @@ void mentalMinigame() {
 /*** physical minigame ***/
 void physicalMinigame() {
   //background
-  // fullScreen();
   background(255);
+  image(gym, 0, 0);
   image(GuyWeight, 500, 200);
+
   if (liftRequired == 0) { //when the requirement goes all the way down to zero a win screen appears
-    background(200, 100, 0);
-    textSize(100);
-    fill(255);
-    text("Wowza! You didn't f@%& it up!", width/2, height/2);
+    isPhysicalWin = true;
   }
+
   //timer
-  if ( timerX != 0 ) {
+  if ( timerX != 640 ) {
     timerX = timerX + speedX;
   }
   fill(255, 0, 0);
   rect(timerX, 0, 1280, 64);
 }
+
+void physicalWin() {
+  isPhysicalMinigame = false;
+  if (liftRequired == 0  && counter == 0) { //when the requirement goes all the way down to zero a win screen appears
+    healthStat = healthStat + 10;
+    counter = 1;
+  } else if (liftRequired == 0 && counter == 1) {
+    background(200, 100, 0);
+    textSize(100);
+    fill(255);
+    text("Wowza! You didn't f@%& it up!", width/2, height/2);
+    text("Your health stat is now" + healthStat + "!", width/2, height/2+64);
+  } else if (liftRequired != 0 && counter == 1) {
+    counter = 0;
+  }
+  //button
+  float timeButtonX = width/2;
+  float timeButtonY = height-200;
+  int timeButtonColor = 0;
+  if ( mouseX >= timeButtonX-27.5 && mouseY >= timeButtonY-27.5 && mouseX <=  timeButtonX+27.5 && mouseY <= timeButtonY+27.5 ) {
+    timeButtonColor = timeButtonColor + 255;
+  }
+  if (mousePressed && mouseX >=  timeButtonX-27.5 && mouseY >= timeButtonY-27.5 && mouseX <=  timeButtonX+27.5 && mouseY <= timeButtonY+27.5) {
+    isMainScreen = true;
+    isPhysicalWin = false;
+    return;
+  }
+
+  fill(timeButtonColor);
+  ellipse(timeButtonX, timeButtonY, 55, 55);
+  fill(0);
+  textSize(24);
+  text("Week "+ week, width/2, height/16);
+}
+
+
+
+
+
+
+
+
+
+
 void keyPressed() {
   if (key == 'w' && isPhysicalMinigame == true) {
     image(GuyLift, 500, 200);
@@ -324,10 +375,22 @@ void keyPressed() {
 }
 void keyReleased() {
   if (key == 'w' && liftRequired > 0 && isPhysicalMinigame == true) {
-    liftRequired = liftRequired - 1; //pressing w drops the amount needed (i believe the problem is that it
+    liftRequired = liftRequired - 1; //pressing w drops the amount needed
     inputW = 0;
   }
-}                    //also works if you hold the button and then it goes to negative)
+}
+
+
+
+//this progresses time only if you have played a minigame
+void mouseReleased() {
+  float timeButtonX = width-64;
+  float timeButtonY = height - 256;
+  if (mouseX >=  timeButtonX-27.5 && mouseY >= timeButtonY-27.5 && mouseX <=  timeButtonX+27.5 && mouseY <= timeButtonY+27.5 ) {
+    week = week + 1;
+    liftRequired = 30;
+  }
+}
 
 void workMinigame() {
   //background
