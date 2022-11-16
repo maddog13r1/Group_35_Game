@@ -220,30 +220,11 @@ void mainScreen() { // main function calling all main screen functions
   text("Week "+ week, width/16, height/16);
 
   /* stat bar */
-  //financial bar
-  noStroke();
-  rectMode(CORNER);
+  //financial stat
+  textSize(32);
   fill(0);
-  rect(width/20, height - 45, width/5.5 + 23, 26, 90);
+  text("Money: $" + int(financialStat), width/8, height - 60);
 
-  noStroke();
-  fill(30, 144, 255);
-  rect(width/20, height - 45, financialStat, 26, 90);
-  textSize(16);
-  fill(255);
-  text("Financial " + int(financialStat) + "%", width/7 + 5, height - 27);
-
-  //social bar
-  rectMode(CORNER);
-  fill(0);
-  rect(width/20, height - 84, width/5.5 + 23, 26, 90);
-
-  noStroke();
-  fill(30, 144, 255);
-  rect(width/20, height - 84, socialStat, 26, 90);
-  textSize(16);
-  fill(255);
-  text(int(socialStat) + "%", width/7 + 5, height - 66);
 
   //grade bar
   rectMode(CORNER);
@@ -367,20 +348,21 @@ void physicalWin() {
 
 
 
-
+//key pressed commands for minigames
 void keyPressed() {
+  //physical minigame
   if (key == 'w' && isPhysicalMinigame == true) {
     image(GuyLift, 500, 200);
   }
 }
+//key released commands for minigames
 void keyReleased() {
+  //physical minigame
   if (key == 'w' && liftRequired > 0 && isPhysicalMinigame == true) {
     liftRequired = liftRequired - 1; //pressing w drops the amount needed
     inputW = 0;
   }
 }
-
-
 
 //this progresses time only if you have played a minigame
 void mouseReleased() {
@@ -389,6 +371,7 @@ void mouseReleased() {
   if (mouseX >=  timeButtonX-27.5 && mouseY >= timeButtonY-27.5 && mouseX <=  timeButtonX+27.5 && mouseY <= timeButtonY+27.5 ) {
     week = week + 1;
     liftRequired = 30;
+    financialStat = financialStat - 10;
   }
 }
 
