@@ -327,7 +327,7 @@ void physicalMinigame() {
   }
   textSize(24);
   fill(0);
-  text("Press W 30 times before the time runs out!", width/2, 75);
+  text("Press W 50 times before the time runs out!", width/2, 75);
   if (liftRequired == 0) { //when the requirement goes all the way down to zero a win screen appears
     isPhysicalWin = true;
   }
@@ -356,7 +356,7 @@ void physicalWin() {
     textSize(100);
     fill(255);
     text("Wowza! Great Job!", width/2, height/2-80);
-    text("Your health stat is now" + healthStat + "!", width/2, height/2+64);
+    text("Your health stat is now " + healthStat + "!", width/2, height/2+64);
   } else if (liftRequired != 0 && counter == 1) {
     counter = 0;
   }
