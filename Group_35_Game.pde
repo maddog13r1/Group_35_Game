@@ -153,7 +153,9 @@ void mainScreen() { // main function calling all main screen functions
   rect(width/2, height/2, width, height);
   /* buttons */
   stroke(255);
-
+  textSize(100);
+  fill(0);
+text("hello" + counter, width/2,height/2);
   //study text highlight
   fill(288, 208, 10, 120);
   rect(width - 128, height - 64, 60, 40);
@@ -348,7 +350,7 @@ void physicalMinigame() {
 
 void physicalWin() {
   isPhysicalMinigame = false;
-  if (liftRequired == 0  && counter == 0) { //when the requirement goes all the way down to zero a win screen appears
+  if (counter == 0) { //when the requirement goes all the way down to zero a win screen appears
     healthStat = healthStat + 10;
     counter = 1;
   } else if (liftRequired == 0 && counter == 1) {
@@ -449,6 +451,7 @@ void mouseReleased() {
     liftRequired = 50;
     financialStat = financialStat - 10;
     timerX = -640;
+    counter = 0;
   }
 }
 
