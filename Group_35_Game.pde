@@ -37,6 +37,13 @@ int week = 1;
 //games played
 int gamesPlayed = 0;
 int counter = 0;
+public int backburner(int r, int g, int b, int s, int f) {
+  background(r, g, b);
+  textSize(s);
+  fill(f);
+  return 0;
+}
+
 void setup() { //runs program once at program launch
   size(1280, 720); //720p resolution
   smooth(8); //anti-aliasing x8
@@ -356,9 +363,7 @@ void physicalWin() {
     break;
   case 1:
     if (liftRequired == 0 && counter == 1) {
-      background(200, 100, 0);
-      textSize(100);
-      fill(255);
+      backburner(200, 100, 0, 100, 255);
       text("Wowza! Great Job!", width/2, height/2-80);
       text("Your health stat is now " + healthStat + "!", width/2, height/2+64);
     } else {
@@ -394,9 +399,7 @@ void physicalLose() { //if you lose the physical minigame
     break;
   case 1:
     if ( timerX == 640 && counter == 1) {
-      background(255, 0, 0);
-      textSize(100);
-      fill(255);
+      backburner(200,0,0,100,255);
       text("You lose!", width/2, height/2-80);
       text("Your health stat is now" + healthStat + "!", width/2, height/2+64);
     } else {
