@@ -1,9 +1,9 @@
-/************
- **  GROUP 35 GAME
- **  Mike, Jana, RJ, Josh, Stanley
- **  11/13/2022
- **  SP2 DEMO
- ************/
+/************************************
+ **  GROUP 35 GAME                 **
+ **  Mike, Jana, RJ, Josh, Stanley **
+ **  11/13/2022                    **
+ **  SP2 DEMO                      **
+ ************************************/
 //global variables
 PImage titlePic; //woah how cool
 PImage Pic2;
@@ -37,11 +37,47 @@ int week = 1;
 //games played
 int gamesPlayed = 0;
 int counter = 0;
-public int backburner(int r, int g, int b, int s, int f) {
-  background(r, g, b);
-  textSize(s);
-  fill(f);
+public int backburner(int c, int r, int g, int b, int s, int f) {
+  switch(c) {
+  case 1:
+    background(r, g, b);
+    textSize(s);
+    fill(f);
+    break;
+  case 2:
+    textSize(s);
+    fill(f);
+    break;
+  case 3:
+    fill(f);
+    break;
+  }
   return 0;
+  /***********************************************
+   ** this variable is made to condense and     **
+   ** improve performance of the program        **
+   ** boilerplate drawing code used on         **
+   ** game screens. The following is            **
+   ** complete documentation on how to          **
+   ** use the function:                         **
+   **                                           **
+   ** the function requires 6 int inputs to     **
+   ** work, the first is the case defined as    **
+   ** int c, it has the following cases         **
+   ** 1 == background, textSize, & fill         **
+   ** 2 == textSize, & fill                     **
+   ** 3 == fill                                 **
+   **                                           **
+   ** the next 3 ints are for the background    **
+   ** they are labeled r g b in order for the   **
+   ** RGB colors.                               **
+   ** the next two are for textSize and fill in **
+   ** that order.                               **
+   **                                           **
+   ** if you are using cases 2 or 3 please      **
+   ** leave all unused variables as 0           **
+   ** Ex backburner(3, 0, 0, 0, 0, 125);        **
+   ***********************************************/
 }
 
 void setup() { //runs program once at program launch
@@ -120,8 +156,7 @@ void titleScreen() { //main title function
   rect(width/2-4, height/4-46, 560, 208); //places a box for the text
   //title text
   textAlign(CENTER); //aligns text to the center
-  textSize(144); //font size
-  fill(0); //black
+  backburner(2,0,0,0,144,0); //textsize 144 and black text
   text("GRIT", width/2-140, height/4);
   fill(245, 245, 0); //yellow
   text("LIFE", width/2 +140, height/4);
@@ -143,8 +178,7 @@ void titleScreen() { //main title function
   stroke(255);
   fill(playButtonColor);
   rect(playButtonX, playButtonY, 280, 104);
-  fill(255); //white
-  textSize(72); //font size
+  backburner(2,0,0,0,72,255); //text size 72 and white text
   text("PLAY", width/2, height/2);
 }
 
@@ -160,14 +194,11 @@ void mainScreen() { // main function calling all main screen functions
   rect(width/2, height/2, width, height);
   /* buttons */
   stroke(255);
-  textSize(100);
-  fill(0);
   //study text highlight
   fill(288, 208, 10, 120);
   rect(width - 128, height - 64, 60, 40);
   //study button
-  fill(0);
-  textSize(20);
+  backburner(2,0,0,0,20,0);//text size 20 and black text
   text("Study", width - 128, height - 58);
   float studyButtonX = width-64; //678 in 1920
   float studyButtonY = height - 64; //776 in 1080
@@ -188,7 +219,6 @@ void mainScreen() { // main function calling all main screen functions
   rect(width - 137, height - 128, 84, 40);
   //physical button
   fill(0);
-  textSize(20);
   text("Workout", width - 136, height - 120);
   float physicalButtonX = width-64; //802 in 1920
   float physicalButtonY = height - 128; //776 in 1080;
@@ -209,7 +239,6 @@ void mainScreen() { // main function calling all main screen functions
   rect(width - 128, height - 194, 60, 40);
   //work button
   fill(0);
-  textSize(20);
   text("Work", width - 128, height - 188);
   float workButtonX = width-64;
   float workButtonY = height - 192;
@@ -230,7 +259,6 @@ void mainScreen() { // main function calling all main screen functions
   rect(width - 166, height - 256, 130, 40);
   //time button
   fill(0);
-  textSize(20);
   text("Advance Week", width - 166, height - 248);
   float timeButtonX = width-64;
   float timeButtonY = height - 256;
@@ -363,7 +391,7 @@ void physicalWin() {
     break;
   case 1:
     if (liftRequired == 0 && counter == 1) {
-      backburner(200, 100, 0, 100, 255);
+      backburner(1,200, 100, 0, 100, 255);
       text("Wowza! Great Job!", width/2, height/2-80);
       text("Your health stat is now " + healthStat + "!", width/2, height/2+64);
     } else {
@@ -399,7 +427,7 @@ void physicalLose() { //if you lose the physical minigame
     break;
   case 1:
     if ( timerX == 640 && counter == 1) {
-      backburner(200,0,0,100,255);
+      backburner(1,200, 0, 0, 100, 255);
       text("You lose!", width/2, height/2-80);
       text("Your health stat is now" + healthStat + "!", width/2, height/2+64);
     } else {
