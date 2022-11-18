@@ -38,7 +38,7 @@ int week = 1;
 int gamesPlayed = 0;
 int counter = 0;
 void setup() { //runs program once at program launch
-  size(1280, 720, P2D); //720p resolution
+  size(1280, 720); //720p resolution
   smooth(8); //anti-aliasing x8
   titlePic = loadImage("umbc_air.png"); //background of the starting page
   Pic2 = loadImage("mainScreen.png"); //background of week 1 screen
@@ -94,7 +94,7 @@ void minigames() {
     physicalWin();
   }
   if ( isPhysicalLose == true ) {
-   physicalLose(); 
+    physicalLose();
   }
 }
 
@@ -155,7 +155,6 @@ void mainScreen() { // main function calling all main screen functions
   stroke(255);
   textSize(100);
   fill(0);
-text("hello" + counter, width/2,height/2);
   //study text highlight
   fill(288, 208, 10, 120);
   rect(width - 128, height - 64, 60, 40);
@@ -350,19 +349,22 @@ void physicalMinigame() {
 
 void physicalWin() {
   isPhysicalMinigame = false;
-  if (counter == 0) { //when the requirement goes all the way down to zero a win screen appears
+  switch(counter) {
+  case 0:
     healthStat = healthStat + 10;
-    counter = 1;
-  } else if (liftRequired == 0 && counter == 1) {
-    background(200, 100, 0);
-    textSize(100);
-    fill(255);
-    text("Wowza! Great Job!", width/2, height/2-80);
-    text("Your health stat is now " + healthStat + "!", width/2, height/2+64);
-  } else if (liftRequired != 0 && counter == 1) {
-    counter = 0;
+    counter ++;
+    break;
+  case 1:
+    if (liftRequired == 0 && counter == 1) {
+      background(200, 100, 0);
+      textSize(100);
+      fill(255);
+      text("Wowza! Great Job!", width/2, height/2-80);
+      text("Your health stat is now " + healthStat + "!", width/2, height/2+64);
+    } else {
+      counter --;
+    }
   }
-  //button
   float timeButtonX = width/2;
   float timeButtonY = height-200;
   int timeButtonColor = 0;
@@ -385,17 +387,21 @@ void physicalWin() {
 }
 void physicalLose() { //if you lose the physical minigame
   isPhysicalMinigame = false;
-  if ( timerX == 640 && counter == 0 ) {
+  switch(counter) {
+  case 0:
     healthStat = healthStat - 10;
-    counter = 1;
-  } else if ( timerX == 640 && counter == 1 ) {
-    background(255, 0, 0);
-    textSize(100);
-    fill(255);
-    text("You lose!", width/2, height/2-80);
-    text("Your health stat is now" + healthStat + "!", width/2, height/2+64);
-  } else if (timerX != 640 && counter == 1) {
-    counter = 0;
+    counter ++;
+    break;
+  case 1:
+    if ( timerX == 640 && counter == 1) {
+      background(255, 0, 0);
+      textSize(100);
+      fill(255);
+      text("You lose!", width/2, height/2-80);
+      text("Your health stat is now" + healthStat + "!", width/2, height/2+64);
+    } else {
+      counter --;
+    }
   }
   float timeButtonX = width/2;
   float timeButtonY = height-200;
@@ -417,14 +423,6 @@ void physicalLose() { //if you lose the physical minigame
   textSize(24);
   text("Week "+ week, width/2, height/16);
 }
-
-
-
-
-
-
-
-
 
 //key pressed commands for minigames
 void keyPressed() {
