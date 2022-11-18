@@ -18,6 +18,8 @@ boolean isSocialMinigame = false;
 boolean isPhysicalWin = false;
 boolean isPhysicalLose = false;
 boolean isGuyWeight = true;
+boolean screen1;
+boolean screen2;
 //stats
 int financialStat;
 int socialStat;
@@ -37,48 +39,49 @@ int week = 1;
 //games played
 int gamesPlayed = 0;
 int counter = 0;
-public int backburner(int c, int r, int g, int b, int s, int f) {
-  switch(c) {
-  case 1:
-    background(r, g, b);
-    textSize(s);
-    fill(f);
-    break;
-  case 2:
-    textSize(s);
-    fill(f);
-    break;
-  case 3:
-    fill(f);
-    break;
-  }
-  return 0;
-  /***********************************************
-   ** this variable is made to condense and     **
-   ** improve performance of the program        **
-   ** boilerplate drawing code used on         **
-   ** game screens. The following is            **
-   ** complete documentation on how to          **
-   ** use the function:                         **
-   **                                           **
-   ** the function requires 6 int inputs to     **
-   ** work, the first is the case defined as    **
-   ** int c, it has the following cases         **
-   ** 1 == background, textSize, & fill         **
-   ** 2 == textSize, & fill                     **
-   ** 3 == fill                                 **
-   **                                           **
-   ** the next 3 ints are for the background    **
-   ** they are labeled r g b in order for the   **
-   ** RGB colors.                               **
-   ** the next two are for textSize and fill in **
-   ** that order.                               **
-   **                                           **
-   ** if you are using cases 2 or 3 please      **
-   ** leave all unused variables as 0           **
-   ** Ex backburner(3, 0, 0, 0, 0, 125);        **
-   ***********************************************/
-}
+ 
+
+public int backburner(int c, int r, int g, int b, int s, int f) {    /***********************************************/
+  switch(c) {                                                        /** this variable is made to condense and     **/
+  case 1:                                                            /** improve performance of the program        **/                                   
+    background(r, g, b);                                             /** boilerplate drawing code used on          **/
+    textSize(s);                                                     /** game screens. The following is            **/
+    fill(f);                                                         /** complete documentation on how to          **/
+    break;                                                           /** use the function:                         **/
+  case 2:                                                            /**                                           **/
+    textSize(s);                                                     /** the function requires 6 int inputs to     **/
+    fill(f);                                                         /** work, the first is the case defined as    **/
+    break;                                                           /** int c, it has the following cases         **/
+  case 3:                                                            /** 1 == background, textSize, & fill         **/
+    fill(f);                                                         /** 2 == textSize, & fill                     **/
+    break;                                                           /** 3 == fill                                 **/
+  }                                                                  /**                                           **/
+  return 0;                                                          /** the next 3 ints are for the background    **/
+}                                                                    /** they are labeled r g b in order for the   **/
+                                                                     /** RGB colors.                               **/
+                                                                     /** the next two are for textSize and fill in **/
+                                                                     /** that order.                               **/
+                                                                     /**                                           **/
+                                                                     /** if you are using cases 2 or 3 please      **/
+                                                                     /** leave all unused variables as 0           **/
+                                                                     /** Ex backburner(3, 0, 0, 0, 0, 125);        **/
+                                                                     /***********************************************/
+
+//public void buttonBackburner( int buttonX, int buttonY, int buttonColor, boolean screen1, boolean screen2, int tSize, String buttonText, int x, int y ) {
+//    if ( mouseX >= buttonX-27.5 && mouseY >= buttonY-27.5 && mouseX <=  buttonX+27.5 && mouseY <= buttonY+27.5 ) {
+//        buttonColor = buttonColor + 255;
+//    }
+//    if (mousePressed && mouseX >=  buttonX-27.5 && mouseY >= buttonY-27.5 && mouseX <=  buttonX+27.5 && mouseY <= buttonY+27.5) {
+//        screen1 = true;
+//        screen2 = false;
+//        return;
+//    }
+//    textSize(tSize);
+//    text("" + buttonText, x, y);
+
+//    fill(buttonColor);
+//    ellipse(buttonX, buttonY, 55, 55);
+//}
 
 void setup() { //runs program once at program launch
   size(1280, 720); //720p resolution
@@ -156,7 +159,7 @@ void titleScreen() { //main title function
   rect(width/2-4, height/4-46, 560, 208); //places a box for the text
   //title text
   textAlign(CENTER); //aligns text to the center
-  backburner(2,0,0,0,144,0); //textsize 144 and black text
+  backburner(2, 0, 0, 0, 144, 0); //textsize 144 and black text
   text("GRIT", width/2-140, height/4);
   fill(245, 245, 0); //yellow
   text("LIFE", width/2 +140, height/4);
@@ -175,13 +178,13 @@ void titleScreen() { //main title function
     return;
   }
   //play button
+  String Play = "Play";
   stroke(255);
   fill(playButtonColor);
   rect(playButtonX, playButtonY, 280, 104);
-  backburner(2,0,0,0,72,255); //text size 72 and white text
-  text("PLAY", width/2, height/2);
+  backburner(2, 0, 0, 0, 72, 255); //text size 72 and white text
+  text("" + Play, width/2, height/2);
 }
-
 
 //mainScreen
 void mainScreen() { // main function calling all main screen functions
@@ -198,7 +201,7 @@ void mainScreen() { // main function calling all main screen functions
   fill(288, 208, 10, 120);
   rect(width - 128, height - 64, 60, 40);
   //study button
-  backburner(2,0,0,0,20,0);//text size 20 and black text
+  backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
   text("Study", width - 128, height - 58);
   float studyButtonX = width-64; //678 in 1920
   float studyButtonY = height - 64; //776 in 1080
@@ -391,7 +394,7 @@ void physicalWin() {
     break;
   case 1:
     if (liftRequired == 0 && counter == 1) {
-      backburner(1,200, 100, 0, 100, 255);
+      backburner(1, 200, 100, 0, 100, 255);
       text("Wowza! Great Job!", width/2, height/2-80);
       text("Your health stat is now " + healthStat + "!", width/2, height/2+64);
     } else {
@@ -414,6 +417,7 @@ void physicalWin() {
 
   fill(timeButtonColor);
   ellipse(timeButtonX, timeButtonY, 55, 55);
+  //buttonBackburner( width/2, height-200, 0, isMainScreen, isPhysicalWin, 24, "Return to Main Menu" ,width/2, height-120 );
   fill(0);
   textSize(24);
   text("Week "+ week, width/2, height/16);
@@ -427,7 +431,7 @@ void physicalLose() { //if you lose the physical minigame
     break;
   case 1:
     if ( timerX == 640 && counter == 1) {
-      backburner(1,200, 0, 0, 100, 255);
+      backburner(1, 200, 0, 0, 100, 255);
       text("You lose!", width/2, height/2-80);
       text("Your health stat is now" + healthStat + "!", width/2, height/2+64);
     } else {
