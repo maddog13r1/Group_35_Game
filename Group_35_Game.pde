@@ -15,6 +15,8 @@ boolean isStudyMinigame = false;
 boolean isMentalMinigame = false;
 boolean isPhysicalMinigame = false;
 boolean isSocialMinigame = false;
+boolean isMidtermMinigame = false;
+boolean isFinalMinigame = false;
 boolean isPhysicalWin = false;
 boolean isPhysicalLose = false;
 boolean isGuyWeight = true;
@@ -135,6 +137,9 @@ void minigames() {
   }
   if ( isSocialMinigame == true ) {
     workMinigame();
+  }
+  if ( isMidtermMinigame == true ) {
+   midtermMinigame(); 
   }
   if ( isPhysicalWin == true ) {
     physicalWin();
@@ -318,6 +323,11 @@ void mainScreen() { // main function calling all main screen functions
   textSize(16);
   fill(255);
   text(int(healthStat) + "%", width/8 + 8, height - 154);
+  
+  if ( week == 7 ){
+    isMainScreen = false;
+    isMidtermMinigame = true;
+  }
 }
 
 
@@ -384,7 +394,13 @@ void physicalMinigame() {
   }
   text("You have to press W " + liftRequired + " more times!", width/2, 95);
 }
-
+void midtermMinigame(){
+  
+}
+void finalMinigame(){
+  
+}
+//result screens
 void physicalWin() {
   isPhysicalMinigame = false;
   switch(counter) {
