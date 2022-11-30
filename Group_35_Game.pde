@@ -41,7 +41,10 @@ int week = 1;
 //games played
 int gamesPlayed = 0;
 int counter = 0;
- 
+//midterm
+Person myPerson;
+boolean [] keys = new boolean[128];
+
 
 public int backburner(int c, int r, int g, int b, int s, int f) {    /***********************************************/
   switch(c) {                                                        /** this variable is made to condense and     **/
@@ -98,6 +101,9 @@ void setup() { //runs program once at program launch
   socialStat = int(random(25, 75));
   gradeStat = int(random(25, 75));
   healthStat = int(random(25, 75));
+  //midterm character setup
+  
+  /***myPerson = new Person();***/
 }
 
 void draw() { //runs programs at 60 fps at program launch
@@ -395,7 +401,8 @@ void physicalMinigame() {
   text("You have to press W " + liftRequired + " more times!", width/2, 95);
 }
 void midtermMinigame(){
-  
+  //displays object and allows movement
+  myPerson.perRun();
 }
 void finalMinigame(){
   
@@ -481,6 +488,8 @@ void keyPressed() {
   if (key == 'w' && isPhysicalMinigame == true) {
     isGuyWeight = false;
   }
+  //midterm
+  keys[key] = true;
 }
 //key released commands for minigames
 void keyReleased() {
@@ -489,6 +498,8 @@ void keyReleased() {
     liftRequired = liftRequired - 1; //pressing w drops the amount needed
     isGuyWeight = true;
   }
+  //midterm
+  keys[key] = true;
 }
 
 //this progresses time only if you have played a minigame
