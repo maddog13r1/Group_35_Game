@@ -331,8 +331,8 @@ void mainScreen() { // main function calling all main screen functions
   text(int(healthStat) + "%", width/8 + 8, height - 154);
   
   if ( week == 7 ){
-    isMainScreen = false;
-    isMidtermMinigame = true;
+    //isMainScreen = false;
+    //isMidtermMinigame = true;
   }
 }
 
