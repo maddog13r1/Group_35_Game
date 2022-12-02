@@ -42,13 +42,43 @@ int week = 1;
 int gamesPlayed = 0;
 int counter = 0;
 //midterm
+float JetPlayerX = 576/2 - 32; //player's starting x position
+float JetPlayerY = 704; //player's starting y position
+float xDeltaJETPLAYER = 5; //player's x speed
+float yDeltaJETPLAYER = xDeltaJETPLAYER; //player's y speed
+float xDeltaWRONGS = 5;//Wrongs x speed
+float xDeltaRIGHTS = 5; //Rights x speed
+float yDeltaWRONGS = xDeltaWRONGS; //Wrongs y speed
+final int NUM_RIGHTS = 3; //number of rights in game
+final int NUM_WRONGS = 3; //number of wrongs in game
+final int NUM_STARS = 10; //number of stars in background
+int RIGHTS_REMAINING = NUM_RIGHTS; //counts number of rights on screen
+float RightsX = 800; //declares RightsX array
+float RightsY = 800; //declares RightsY array
+float[] WrongsX = new float [NUM_WRONGS]; //declares RightX array
+float[] WrongsY = new float [NUM_WRONGS]; //declares WrongX array
+float[] StarsX = new float [NUM_STARS]; //declares StarsX array
+float[] StarsY = new float [NUM_STARS]; //declares StarsY array
+PImage Jetpack; //player character
+PImage JetHit;//player getting hit
+PImage Midterm; //Midterm image
+int MaxWidth = 500; //empty health bar
+int rectWidth = 500; //health
+int MaxWidthMT = 500; //midterm health bar
+int rectWidthMT = 500; //midterm health
+int rectDelta = 1; //amount of pixels the players health goes down when touching wrongs
+int rectDeltaMT = 25; //amount of pixels the midterms health goes down when player touches rights
+boolean isJetHit = false; //declares the player getting hit animation is currently false
+boolean isJetSafe = true; //declares the player's idle animation is currently true
+
 Person myPerson;
 boolean [] keys = new boolean[128];
 
 
 public int backburner(int c, int r, int g, int b, int s, int f) {    /***********************************************/
   switch(c) {                                                        /** this variable is made to condense and     **/
-  case 1:                                                            /** improve performance of the program        **/                                   
+  case 1:                                                            /** improve performance of the program        **/
+
     background(r, g, b);                                             /** boilerplate drawing code used on          **/
     textSize(s);                                                     /** game screens. The following is            **/
     fill(f);                                                         /** complete documentation on how to          **/
@@ -63,14 +93,14 @@ public int backburner(int c, int r, int g, int b, int s, int f) {    /**********
   }                                                                  /**                                           **/
   return 0;                                                          /** the next 3 ints are for the background    **/
 }                                                                    /** they are labeled r g b in order for the   **/
-                                                                     /** RGB colors.                               **/
-                                                                     /** the next two are for textSize and fill in **/
-                                                                     /** that order.                               **/
-                                                                     /**                                           **/
-                                                                     /** if you are using cases 2 or 3 please      **/
-                                                                     /** leave all unused variables as 0           **/
-                                                                     /** Ex backburner(3, 0, 0, 0, 0, 125);        **/
-                                                                     /***********************************************/
+/** RGB colors.                               **/
+/** the next two are for textSize and fill in **/
+/** that order.                               **/
+/**                                           **/
+/** if you are using cases 2 or 3 please      **/
+/** leave all unused variables as 0           **/
+/** Ex backburner(3, 0, 0, 0, 0, 125);        **/
+/***********************************************/
 
 //public void buttonBackburner( int buttonX, int buttonY, int buttonColor, boolean screen1, boolean screen2, int tSize, String buttonText, int x, int y ) {
 //    if ( mouseX >= buttonX-27.5 && mouseY >= buttonY-27.5 && mouseX <=  buttonX+27.5 && mouseY <= buttonY+27.5 ) {
@@ -94,15 +124,28 @@ void setup() { //runs program once at program launch
   titlePic = loadImage("umbc_air.png"); //background of the starting page
   Pic2 = loadImage("mainScreen.png"); //background of week 1 screen
   //Images for gym minigame
-  GuyWeight = loadImage("mang1.png");
-  GuyLift = loadImage("mang2.png");
+  GuyWeight = loadImage("player_weight.png");
+  GuyLift = loadImage("player_lift.png");
   gym = loadImage("UMBC_GYM.jpg");
   financialStat = int(random(25, 75));
   socialStat = int(random(25, 75));
   gradeStat = int(random(25, 75));
   healthStat = int(random(25, 75));
   //midterm character setup
-  
+  size(1280, 720);
+  background(0, 255, 0);
+  Jetpack = loadImage("player_jetpack.png"); //loads player image
+  JetHit = loadImage("player_jetpack_hit.png"); //loads player hit image
+  Midterm = loadImage("midterm.png"); //loads midterm image
+
+  //places Right answer block on the screen
+  placeRights();
+
+  //places Wrong answer blocks on the screen
+  placeWrongs();
+
+  //places star blocks in the background
+  placeStars();
   /***myPerson = new Person();***/
 }
 
@@ -145,7 +188,7 @@ void minigames() {
     workMinigame();
   }
   if ( isMidtermMinigame == true ) {
-   midtermMinigame(); 
+    midtermMinigame();
   }
   if ( isPhysicalWin == true ) {
     physicalWin();
@@ -329,12 +372,283 @@ void mainScreen() { // main function calling all main screen functions
   textSize(16);
   fill(255);
   text(int(healthStat) + "%", width/8 + 8, height - 154);
-  
-  if ( week == 7 ){
-    //isMainScreen = false;
-    //isMidtermMinigame = true;
-  }
 }
+  void midtermMinigame() {
+    if ( week == 7 ) {
+      isMainScreen = false;
+      isMidtermMinigame = true;
+      background(0, 0, 50); //blue background
+
+      //create stars in background
+      drawStars();
+
+      //moves stars to go across the background
+      moveStars();
+
+      //creates midterm boss on the right
+      drawMidterm();
+
+
+      //creates player character
+      drawJetPlayer();
+
+      //creates positive items (Correct answer C)
+      drawRights();
+
+      //creates negative items (Wrong answer A, B, D)
+      drawWrongs();
+
+      //move player up, down, left, right
+      movePlayer();
+
+      //check bounds and keep player from going too far off screen or too close to boss
+      restrictPlayer();
+
+      //has wrong answers move left spawn back from the midterm one they go pass screen
+      moveWrongs();
+
+      //has right answer move left and spawn back from midterm once off screen or collected
+      moveRights();
+
+      //creates the player's health bar
+      drawPlayerHealth();
+
+      //creates the midterm's health bar
+      drawMidtermHealth();
+    }
+
+  }
+    //draws player at the given playerX, playerY
+    void drawJetPlayer() {
+      if (isJetSafe = true) {
+        image(Jetpack, JetPlayerX, JetPlayerY, 64, 128);
+      } else {
+        isJetSafe = false;
+        image(JetHit, JetPlayerX, JetPlayerY, 64, 128);
+      }
+    }
+
+    //draws number of rights required by the for loop
+    void drawRights() {
+      for (int i = 0; i < NUM_RIGHTS; i++) {
+        fill(0, 255, 0); //white
+        rect(RightsX, RightsY, 64, 64); //block
+
+        //when player touches right answer, it disappears and decreases midterm health
+        if ((JetPlayerX >= RightsX && JetPlayerX <= RightsX + 64) &&
+          (JetPlayerY >= RightsY && JetPlayerY <= RightsY + 64)) {
+
+          rectWidthMT -= rectDeltaMT;
+          RightsX = -500;
+          RightsY = -500;
+        }
+        if ((JetPlayerX + 64>= RightsX && JetPlayerX + 64<= RightsX + 64) &&
+          (JetPlayerY + 128 >= RightsY && JetPlayerY + 64 <= RightsY + 64)) {
+          rectWidthMT -= rectDeltaMT;
+          RightsX = -500;
+          RightsY = -500;
+        }
+        if ((JetPlayerX + 64>= RightsX && JetPlayerX + 64<= RightsX + 64) &&
+          (JetPlayerY >= RightsY && JetPlayerY <= RightsY + 64)) {
+
+          rectWidthMT -= rectDeltaMT;
+          RightsX = -500;
+          RightsY = -500;
+        }
+        if ((JetPlayerX >= RightsX && JetPlayerX <= RightsX + 64) &&
+          (JetPlayerY + 128 >= RightsY && JetPlayerY + 64 <= RightsY + 64)) {
+
+          rectWidthMT -= rectDeltaMT;
+          RightsX = -500;
+          RightsY = -500;
+        }
+      }
+    }
+
+    //draws number of wrong answers required by the for loop
+    void drawWrongs() {
+      for (int i = 0; i < NUM_WRONGS; i++) {
+        fill(255); //white
+        rect(WrongsX[i], WrongsY[i], 64, 64); //block
+        //when player touches wrong answer, their health decreases
+        if ((JetPlayerX >= WrongsX[i] && JetPlayerX <= WrongsX[i] + 64) &&
+          (JetPlayerY >= WrongsY[i] && JetPlayerY <= WrongsY[i] + 64)) {
+
+          rectWidth -= rectDelta;
+          isJetSafe = false;
+          isJetHit = true;
+          if (isJetHit = true) {
+            image(JetHit, JetPlayerX, JetPlayerY, 64, 128);
+          }
+        }
+
+        if ((JetPlayerX + 64>= WrongsX[i] && JetPlayerX + 64<= WrongsX[i] + 64) &&
+          (JetPlayerY + 128 >= WrongsY[i] && JetPlayerY + 64 <= WrongsY[i] + 64)) {
+
+          rectWidth -= rectDelta;
+          isJetSafe = false;
+          isJetHit = true;
+          if (isJetHit = true) {
+            image(JetHit, JetPlayerX, JetPlayerY, 64, 128);
+          }
+        }
+        if ((JetPlayerX + 64>= WrongsX[i] && JetPlayerX + 64<= WrongsX[i] + 64) &&
+          (JetPlayerY >= WrongsY[i] && JetPlayerY <= WrongsY[i] + 64)) {
+
+          rectWidth -= rectDelta;
+          isJetSafe = false;
+          isJetHit = true;
+          if (isJetHit = true) {
+            image(JetHit, JetPlayerX, JetPlayerY, 64, 128);
+          }
+        }
+        if ((JetPlayerX >= WrongsX[i] && JetPlayerX <= WrongsX[i] + 64) &&
+          (JetPlayerY + 128 >= WrongsY[i] && JetPlayerY + 64 <= WrongsY[i] + 64)) {
+
+          rectWidth -= rectDelta;
+          isJetSafe = false;
+          isJetHit = true;
+          if (isJetHit = true) {
+            image(JetHit, JetPlayerX, JetPlayerY, 64, 128);
+          }
+        }
+      }
+    }
+
+    //draws Midterm enemy
+    void drawMidterm() {
+      image( Midterm, 600, 10, 1080, 720);
+    }
+
+    //draws Stars in background
+    void drawStars() {
+      for (int i = 0; i < NUM_STARS; i++) {
+        noStroke();
+        fill(255);
+        rect(StarsX[i], StarsY[i], 5, 5);
+      }
+    }
+
+    //draws the Player's health bar and health
+    void drawPlayerHealth() {
+      fill(200); //empty health bar
+      rect(0, 0, MaxWidth, 64);
+
+      fill(0, 0, 255); //health
+      rect(0, 0, rectWidth, 64);
+    }
+
+    //draws the Midterm's health bar and health
+    void drawMidtermHealth() {
+      fill(200); //empty midterm health bar
+      rect(780, 0, MaxWidthMT, 64);
+
+      fill(255, 0, 0); //midterm health
+      rect(780, 0, rectWidthMT, 64);
+    }
+
+    //moves player up, down, left, right
+    void movePlayer() {
+      if (keyPressed) { //moves player right
+        if (key == 'd' || key == 'D') {
+          JetPlayerX += xDeltaJETPLAYER;
+        }
+      }
+
+      if (keyPressed) { //moves player down
+        if (key == 's' || key == 'S') {
+          JetPlayerY += yDeltaJETPLAYER;
+        }
+      }
+
+      if (keyPressed) { //moves player left
+        if (key == 'a' || key == 'A') {
+          JetPlayerX -= xDeltaJETPLAYER;
+        }
+      }
+
+      if (keyPressed) { //moves player up
+        if (key == 'w' || key == 'W') {
+          JetPlayerY -= yDeltaJETPLAYER;
+        }
+      }
+    }
+
+    //player does not advance when hitting the health bar or too far down screen
+    void restrictPlayer() {
+      if (JetPlayerY > 656) { //stops player from going too far bottom
+        JetPlayerY = 656;
+      }
+      if (JetPlayerY < 64) { //stops player from going past health bar
+        JetPlayerY = 64;
+      }
+      if (JetPlayerX > 700) { //stops player from getting too close to midterm
+        JetPlayerX = 700;
+      }
+      if (JetPlayerX < 0 ) { //stops player from going left pass the screen
+        JetPlayerX = 0;
+      }
+    }
+
+    void placeRights() { //places right answer coming from midterm in a random y postion
+      RightsX = 1400;
+      RightsY = random(128, 720 - 128);
+    }
+
+    void placeWrongs() { //places each of the wrong answers in a random location between the set bounds
+      for (int i = 0; i < NUM_WRONGS; i++) {
+        WrongsX[0] = 1000;
+        WrongsX[1] = 1200;
+        WrongsX[2] = 800;
+        WrongsY[i] = random(128, 720 - 128);
+      }
+    }
+
+    void moveWrongs() { //Wrongs move left off the screen and starts from the right
+      for (int i = 0; i < NUM_WRONGS; i++) {
+        WrongsX[i] -= xDeltaWRONGS;
+        if (WrongsX[i] < -64) {
+          WrongsX[i] = 1200;
+          WrongsY[i] = random(64, 720 - 128);
+        }
+      }
+    }
+
+    void moveRights() { //wrong answers move left off the screen and starts from the midterm on the right
+      RightsX -= xDeltaRIGHTS;
+      if (RightsX < -64) {
+        RightsX = 1200;
+        RightsY = random(128, 720 - 128);
+      }
+    }
+
+    void placeStars() { //places each of the Stars in a random location between the set bounds
+      for (int i = 0; i < NUM_STARS; i++) {
+        StarsX[0] = 1280;
+        StarsX[1] = 1100;
+        StarsX[2] = 1000;
+        StarsX[3] = 900;
+        StarsX[4] = 800;
+        StarsX[5] = 700;
+        StarsX[6] = 600;
+        StarsX[7] = 500;
+        StarsX[8] = 400;
+        StarsX[9] = 300;
+        StarsY[i] = random(128, 720);
+      }
+    }
+
+    void moveStars() { // moves stars left off the screen and starts from the right
+      for (int i = 0; i < NUM_STARS; i++) {
+        StarsX[i] -= xDeltaWRONGS;
+        if (StarsX[i] < -64) {
+          StarsX[i] = 1200;
+          StarsY[i] = random(64, 720);
+        }
+      }
+    }
+
+
 
 
 
@@ -378,7 +692,7 @@ void physicalMinigame() {
   background(255);
   image(gym, 0, 0);
   if ( isGuyWeight == true ) {
-    image(GuyWeight, 500, 200);
+    image(GuyWeight, 500, 50);
   }
   textSize(24);
   fill(0);
@@ -387,7 +701,7 @@ void physicalMinigame() {
     isPhysicalWin = true;
   }
   if ( isGuyWeight == false ) {
-    image(GuyLift, 500, 200);
+    image(GuyLift, 500, 50);
   }
   //timer
   if ( timerX != 640 ) {
@@ -400,12 +714,8 @@ void physicalMinigame() {
   }
   text("You have to press W " + liftRequired + " more times!", width/2, 95);
 }
-void midtermMinigame(){
-  //displays object and allows movement
-  myPerson.perRun();
-}
-void finalMinigame(){
-  
+
+void finalMinigame() {
 }
 //result screens
 void physicalWin() {
