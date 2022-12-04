@@ -8,6 +8,7 @@
 PImage titlePic; //woah how cool
 PImage Pic2;
 PImage gym;
+PImage uniCenter;
 boolean isTitleScreen = true;
 boolean isMainScreen = false;
 boolean isHealthMinigame = false;
@@ -137,7 +138,7 @@ void setup() { //runs program once at program launch
   Jetpack = loadImage("player_jetpack.png"); //loads player image
   JetHit = loadImage("player_jetpack_hit.png"); //loads player hit image
   Midterm = loadImage("midterm.png"); //loads midterm image
-
+  uniCenter = loadImage("uniCenter.png"); //loads uniCenter image
   //places Right answer block on the screen
   placeRights();
 
@@ -373,280 +374,279 @@ void mainScreen() { // main function calling all main screen functions
   fill(255);
   text(int(healthStat) + "%", width/8 + 8, height - 154);
 }
-  void midtermMinigame() {
-    if ( week == 7 ) {
-      isMainScreen = false;
-      isMidtermMinigame = true;
-      background(0, 0, 50); //blue background
+void midtermMinigame() {
+  if ( week == 7 ) {
+    isMainScreen = false;
+    isMidtermMinigame = true;
+    background(0, 0, 50); //blue background
 
-      //create stars in background
-      drawStars();
+    //create stars in background
+    drawStars();
 
-      //moves stars to go across the background
-      moveStars();
+    //moves stars to go across the background
+    moveStars();
 
-      //creates midterm boss on the right
-      drawMidterm();
+    //creates midterm boss on the right
+    drawMidterm();
 
 
-      //creates player character
-      drawJetPlayer();
+    //creates player character
+    drawJetPlayer();
 
-      //creates positive items (Correct answer C)
-      drawRights();
+    //creates positive items (Correct answer C)
+    drawRights();
 
-      //creates negative items (Wrong answer A, B, D)
-      drawWrongs();
+    //creates negative items (Wrong answer A, B, D)
+    drawWrongs();
 
-      //move player up, down, left, right
-      movePlayer();
+    //move player up, down, left, right
+    movePlayer();
 
-      //check bounds and keep player from going too far off screen or too close to boss
-      restrictPlayer();
+    //check bounds and keep player from going too far off screen or too close to boss
+    restrictPlayer();
 
-      //has wrong answers move left spawn back from the midterm one they go pass screen
-      moveWrongs();
+    //has wrong answers move left spawn back from the midterm one they go pass screen
+    moveWrongs();
 
-      //has right answer move left and spawn back from midterm once off screen or collected
-      moveRights();
+    //has right answer move left and spawn back from midterm once off screen or collected
+    moveRights();
 
-      //creates the player's health bar
-      drawPlayerHealth();
+    //creates the player's health bar
+    drawPlayerHealth();
 
-      //creates the midterm's health bar
-      drawMidtermHealth();
-    }
-
+    //creates the midterm's health bar
+    drawMidtermHealth();
   }
-    //draws player at the given playerX, playerY
-    void drawJetPlayer() {
-      if (isJetSafe = true) {
-        image(Jetpack, JetPlayerX, JetPlayerY, 64, 128);
-      } else {
-        isJetSafe = false;
+}
+//draws player at the given playerX, playerY
+void drawJetPlayer() {
+  if (isJetSafe = true) {
+    image(Jetpack, JetPlayerX, JetPlayerY, 64, 128);
+  } else {
+    isJetSafe = false;
+    image(JetHit, JetPlayerX, JetPlayerY, 64, 128);
+  }
+}
+
+//draws number of rights required by the for loop
+void drawRights() {
+  for (int i = 0; i < NUM_RIGHTS; i++) {
+    fill(0, 255, 0); //white
+    rect(RightsX, RightsY, 64, 64); //block
+
+    //when player touches right answer, it disappears and decreases midterm health
+    if ((JetPlayerX >= RightsX && JetPlayerX <= RightsX + 64) &&
+      (JetPlayerY >= RightsY && JetPlayerY <= RightsY + 64)) {
+
+      rectWidthMT -= rectDeltaMT;
+      RightsX = -500;
+      RightsY = -500;
+    }
+    if ((JetPlayerX + 64>= RightsX && JetPlayerX + 64<= RightsX + 64) &&
+      (JetPlayerY + 128 >= RightsY && JetPlayerY + 64 <= RightsY + 64)) {
+      rectWidthMT -= rectDeltaMT;
+      RightsX = -500;
+      RightsY = -500;
+    }
+    if ((JetPlayerX + 64>= RightsX && JetPlayerX + 64<= RightsX + 64) &&
+      (JetPlayerY >= RightsY && JetPlayerY <= RightsY + 64)) {
+
+      rectWidthMT -= rectDeltaMT;
+      RightsX = -500;
+      RightsY = -500;
+    }
+    if ((JetPlayerX >= RightsX && JetPlayerX <= RightsX + 64) &&
+      (JetPlayerY + 128 >= RightsY && JetPlayerY + 64 <= RightsY + 64)) {
+
+      rectWidthMT -= rectDeltaMT;
+      RightsX = -500;
+      RightsY = -500;
+    }
+  }
+}
+
+//draws number of wrong answers required by the for loop
+void drawWrongs() {
+  for (int i = 0; i < NUM_WRONGS; i++) {
+    fill(255); //white
+    rect(WrongsX[i], WrongsY[i], 64, 64); //block
+    //when player touches wrong answer, their health decreases
+    if ((JetPlayerX >= WrongsX[i] && JetPlayerX <= WrongsX[i] + 64) &&
+      (JetPlayerY >= WrongsY[i] && JetPlayerY <= WrongsY[i] + 64)) {
+
+      rectWidth -= rectDelta;
+      isJetSafe = false;
+      isJetHit = true;
+      if (isJetHit = true) {
         image(JetHit, JetPlayerX, JetPlayerY, 64, 128);
       }
     }
 
-    //draws number of rights required by the for loop
-    void drawRights() {
-      for (int i = 0; i < NUM_RIGHTS; i++) {
-        fill(0, 255, 0); //white
-        rect(RightsX, RightsY, 64, 64); //block
+    if ((JetPlayerX + 64>= WrongsX[i] && JetPlayerX + 64<= WrongsX[i] + 64) &&
+      (JetPlayerY + 128 >= WrongsY[i] && JetPlayerY + 64 <= WrongsY[i] + 64)) {
 
-        //when player touches right answer, it disappears and decreases midterm health
-        if ((JetPlayerX >= RightsX && JetPlayerX <= RightsX + 64) &&
-          (JetPlayerY >= RightsY && JetPlayerY <= RightsY + 64)) {
-
-          rectWidthMT -= rectDeltaMT;
-          RightsX = -500;
-          RightsY = -500;
-        }
-        if ((JetPlayerX + 64>= RightsX && JetPlayerX + 64<= RightsX + 64) &&
-          (JetPlayerY + 128 >= RightsY && JetPlayerY + 64 <= RightsY + 64)) {
-          rectWidthMT -= rectDeltaMT;
-          RightsX = -500;
-          RightsY = -500;
-        }
-        if ((JetPlayerX + 64>= RightsX && JetPlayerX + 64<= RightsX + 64) &&
-          (JetPlayerY >= RightsY && JetPlayerY <= RightsY + 64)) {
-
-          rectWidthMT -= rectDeltaMT;
-          RightsX = -500;
-          RightsY = -500;
-        }
-        if ((JetPlayerX >= RightsX && JetPlayerX <= RightsX + 64) &&
-          (JetPlayerY + 128 >= RightsY && JetPlayerY + 64 <= RightsY + 64)) {
-
-          rectWidthMT -= rectDeltaMT;
-          RightsX = -500;
-          RightsY = -500;
-        }
+      rectWidth -= rectDelta;
+      isJetSafe = false;
+      isJetHit = true;
+      if (isJetHit = true) {
+        image(JetHit, JetPlayerX, JetPlayerY, 64, 128);
       }
     }
+    if ((JetPlayerX + 64>= WrongsX[i] && JetPlayerX + 64<= WrongsX[i] + 64) &&
+      (JetPlayerY >= WrongsY[i] && JetPlayerY <= WrongsY[i] + 64)) {
 
-    //draws number of wrong answers required by the for loop
-    void drawWrongs() {
-      for (int i = 0; i < NUM_WRONGS; i++) {
-        fill(255); //white
-        rect(WrongsX[i], WrongsY[i], 64, 64); //block
-        //when player touches wrong answer, their health decreases
-        if ((JetPlayerX >= WrongsX[i] && JetPlayerX <= WrongsX[i] + 64) &&
-          (JetPlayerY >= WrongsY[i] && JetPlayerY <= WrongsY[i] + 64)) {
-
-          rectWidth -= rectDelta;
-          isJetSafe = false;
-          isJetHit = true;
-          if (isJetHit = true) {
-            image(JetHit, JetPlayerX, JetPlayerY, 64, 128);
-          }
-        }
-
-        if ((JetPlayerX + 64>= WrongsX[i] && JetPlayerX + 64<= WrongsX[i] + 64) &&
-          (JetPlayerY + 128 >= WrongsY[i] && JetPlayerY + 64 <= WrongsY[i] + 64)) {
-
-          rectWidth -= rectDelta;
-          isJetSafe = false;
-          isJetHit = true;
-          if (isJetHit = true) {
-            image(JetHit, JetPlayerX, JetPlayerY, 64, 128);
-          }
-        }
-        if ((JetPlayerX + 64>= WrongsX[i] && JetPlayerX + 64<= WrongsX[i] + 64) &&
-          (JetPlayerY >= WrongsY[i] && JetPlayerY <= WrongsY[i] + 64)) {
-
-          rectWidth -= rectDelta;
-          isJetSafe = false;
-          isJetHit = true;
-          if (isJetHit = true) {
-            image(JetHit, JetPlayerX, JetPlayerY, 64, 128);
-          }
-        }
-        if ((JetPlayerX >= WrongsX[i] && JetPlayerX <= WrongsX[i] + 64) &&
-          (JetPlayerY + 128 >= WrongsY[i] && JetPlayerY + 64 <= WrongsY[i] + 64)) {
-
-          rectWidth -= rectDelta;
-          isJetSafe = false;
-          isJetHit = true;
-          if (isJetHit = true) {
-            image(JetHit, JetPlayerX, JetPlayerY, 64, 128);
-          }
-        }
+      rectWidth -= rectDelta;
+      isJetSafe = false;
+      isJetHit = true;
+      if (isJetHit = true) {
+        image(JetHit, JetPlayerX, JetPlayerY, 64, 128);
       }
     }
+    if ((JetPlayerX >= WrongsX[i] && JetPlayerX <= WrongsX[i] + 64) &&
+      (JetPlayerY + 128 >= WrongsY[i] && JetPlayerY + 64 <= WrongsY[i] + 64)) {
 
-    //draws Midterm enemy
-    void drawMidterm() {
-      image( Midterm, 600, 10, 1080, 720);
-    }
-
-    //draws Stars in background
-    void drawStars() {
-      for (int i = 0; i < NUM_STARS; i++) {
-        noStroke();
-        fill(255);
-        rect(StarsX[i], StarsY[i], 5, 5);
+      rectWidth -= rectDelta;
+      isJetSafe = false;
+      isJetHit = true;
+      if (isJetHit = true) {
+        image(JetHit, JetPlayerX, JetPlayerY, 64, 128);
       }
     }
+  }
+}
 
-    //draws the Player's health bar and health
-    void drawPlayerHealth() {
-      fill(200); //empty health bar
-      rect(0, 0, MaxWidth, 64);
+//draws Midterm enemy
+void drawMidterm() {
+  image( Midterm, 600, 10, 1080, 720);
+}
 
-      fill(0, 0, 255); //health
-      rect(0, 0, rectWidth, 64);
+//draws Stars in background
+void drawStars() {
+  for (int i = 0; i < NUM_STARS; i++) {
+    noStroke();
+    fill(255);
+    rect(StarsX[i], StarsY[i], 5, 5);
+  }
+}
+
+//draws the Player's health bar and health
+void drawPlayerHealth() {
+  fill(200); //empty health bar
+  rect(0, 0, MaxWidth, 64);
+
+  fill(0, 0, 255); //health
+  rect(0, 0, rectWidth, 64);
+}
+
+//draws the Midterm's health bar and health
+void drawMidtermHealth() {
+  fill(200); //empty midterm health bar
+  rect(780, 0, MaxWidthMT, 64);
+
+  fill(255, 0, 0); //midterm health
+  rect(780, 0, rectWidthMT, 64);
+}
+
+//moves player up, down, left, right
+void movePlayer() {
+  if (keyPressed) { //moves player right
+    if (key == 'd' || key == 'D') {
+      JetPlayerX += xDeltaJETPLAYER;
     }
+  }
 
-    //draws the Midterm's health bar and health
-    void drawMidtermHealth() {
-      fill(200); //empty midterm health bar
-      rect(780, 0, MaxWidthMT, 64);
-
-      fill(255, 0, 0); //midterm health
-      rect(780, 0, rectWidthMT, 64);
+  if (keyPressed) { //moves player down
+    if (key == 's' || key == 'S') {
+      JetPlayerY += yDeltaJETPLAYER;
     }
+  }
 
-    //moves player up, down, left, right
-    void movePlayer() {
-      if (keyPressed) { //moves player right
-        if (key == 'd' || key == 'D') {
-          JetPlayerX += xDeltaJETPLAYER;
-        }
-      }
-
-      if (keyPressed) { //moves player down
-        if (key == 's' || key == 'S') {
-          JetPlayerY += yDeltaJETPLAYER;
-        }
-      }
-
-      if (keyPressed) { //moves player left
-        if (key == 'a' || key == 'A') {
-          JetPlayerX -= xDeltaJETPLAYER;
-        }
-      }
-
-      if (keyPressed) { //moves player up
-        if (key == 'w' || key == 'W') {
-          JetPlayerY -= yDeltaJETPLAYER;
-        }
-      }
+  if (keyPressed) { //moves player left
+    if (key == 'a' || key == 'A') {
+      JetPlayerX -= xDeltaJETPLAYER;
     }
+  }
 
-    //player does not advance when hitting the health bar or too far down screen
-    void restrictPlayer() {
-      if (JetPlayerY > 656) { //stops player from going too far bottom
-        JetPlayerY = 656;
-      }
-      if (JetPlayerY < 64) { //stops player from going past health bar
-        JetPlayerY = 64;
-      }
-      if (JetPlayerX > 700) { //stops player from getting too close to midterm
-        JetPlayerX = 700;
-      }
-      if (JetPlayerX < 0 ) { //stops player from going left pass the screen
-        JetPlayerX = 0;
-      }
+  if (keyPressed) { //moves player up
+    if (key == 'w' || key == 'W') {
+      JetPlayerY -= yDeltaJETPLAYER;
     }
+  }
+}
 
-    void placeRights() { //places right answer coming from midterm in a random y postion
-      RightsX = 1400;
-      RightsY = random(128, 720 - 128);
-    }
+//player does not advance when hitting the health bar or too far down screen
+void restrictPlayer() {
+  if (JetPlayerY > 656) { //stops player from going too far bottom
+    JetPlayerY = 656;
+  }
+  if (JetPlayerY < 64) { //stops player from going past health bar
+    JetPlayerY = 64;
+  }
+  if (JetPlayerX > 700) { //stops player from getting too close to midterm
+    JetPlayerX = 700;
+  }
+  if (JetPlayerX < 0 ) { //stops player from going left pass the screen
+    JetPlayerX = 0;
+  }
+}
 
-    void placeWrongs() { //places each of the wrong answers in a random location between the set bounds
-      for (int i = 0; i < NUM_WRONGS; i++) {
-        WrongsX[0] = 1000;
-        WrongsX[1] = 1200;
-        WrongsX[2] = 800;
-        WrongsY[i] = random(128, 720 - 128);
-      }
-    }
+void placeRights() { //places right answer coming from midterm in a random y postion
+  RightsX = 1400;
+  RightsY = random(128, 720 - 128);
+}
 
-    void moveWrongs() { //Wrongs move left off the screen and starts from the right
-      for (int i = 0; i < NUM_WRONGS; i++) {
-        WrongsX[i] -= xDeltaWRONGS;
-        if (WrongsX[i] < -64) {
-          WrongsX[i] = 1200;
-          WrongsY[i] = random(64, 720 - 128);
-        }
-      }
-    }
+void placeWrongs() { //places each of the wrong answers in a random location between the set bounds
+  for (int i = 0; i < NUM_WRONGS; i++) {
+    WrongsX[0] = 1000;
+    WrongsX[1] = 1200;
+    WrongsX[2] = 800;
+    WrongsY[i] = random(128, 720 - 128);
+  }
+}
 
-    void moveRights() { //wrong answers move left off the screen and starts from the midterm on the right
-      RightsX -= xDeltaRIGHTS;
-      if (RightsX < -64) {
-        RightsX = 1200;
-        RightsY = random(128, 720 - 128);
-      }
+void moveWrongs() { //Wrongs move left off the screen and starts from the right
+  for (int i = 0; i < NUM_WRONGS; i++) {
+    WrongsX[i] -= xDeltaWRONGS;
+    if (WrongsX[i] < -64) {
+      WrongsX[i] = 1200;
+      WrongsY[i] = random(64, 720 - 128);
     }
+  }
+}
 
-    void placeStars() { //places each of the Stars in a random location between the set bounds
-      for (int i = 0; i < NUM_STARS; i++) {
-        StarsX[0] = 1280;
-        StarsX[1] = 1100;
-        StarsX[2] = 1000;
-        StarsX[3] = 900;
-        StarsX[4] = 800;
-        StarsX[5] = 700;
-        StarsX[6] = 600;
-        StarsX[7] = 500;
-        StarsX[8] = 400;
-        StarsX[9] = 300;
-        StarsY[i] = random(128, 720);
-      }
-    }
+void moveRights() { //wrong answers move left off the screen and starts from the midterm on the right
+  RightsX -= xDeltaRIGHTS;
+  if (RightsX < -64) {
+    RightsX = 1200;
+    RightsY = random(128, 720 - 128);
+  }
+}
 
-    void moveStars() { // moves stars left off the screen and starts from the right
-      for (int i = 0; i < NUM_STARS; i++) {
-        StarsX[i] -= xDeltaWRONGS;
-        if (StarsX[i] < -64) {
-          StarsX[i] = 1200;
-          StarsY[i] = random(64, 720);
-        }
-      }
+void placeStars() { //places each of the Stars in a random location between the set bounds
+  for (int i = 0; i < NUM_STARS; i++) {
+    StarsX[0] = 1280;
+    StarsX[1] = 1100;
+    StarsX[2] = 1000;
+    StarsX[3] = 900;
+    StarsX[4] = 800;
+    StarsX[5] = 700;
+    StarsX[6] = 600;
+    StarsX[7] = 500;
+    StarsX[8] = 400;
+    StarsX[9] = 300;
+    StarsY[i] = random(128, 720);
+  }
+}
+
+void moveStars() { // moves stars left off the screen and starts from the right
+  for (int i = 0; i < NUM_STARS; i++) {
+    StarsX[i] -= xDeltaWRONGS;
+    if (StarsX[i] < -64) {
+      StarsX[i] = 1200;
+      StarsY[i] = random(64, 720);
     }
+  }
+}
 
 
 
@@ -669,8 +669,28 @@ void lossScreen() {
 void studyMinigame() { //function for entire study minigame
   //background
   background(0);
-  fill(255);
-  text("study minigame", width/2, height/2);
+  image(uniCenter, -700, -100);
+  rectMode(CENTER);
+  fill(255, 255, 255, 150);
+  rect(width/2, height/2, width, height);
+  //University Center text highlight
+  fill(288, 208, 10, 120);
+  rect(width-500, height-360, 200, 40);
+  //University Center button
+  backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
+  text("University Center", width - 500, height - 350);
+  //The RAC text highlight
+  fill(288, 208, 10, 120);
+  rect(width-780, height-360, 200, 40);
+  //The RAC button
+  backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
+  text("The RAC", width - 780, height - 350);
+  //The Commons text highlight
+  fill(288, 208, 10, 120);
+  rect(width-640, height-260, 200, 40);
+  //The Commons button
+  backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
+  text("The Commons", width - 640, height - 255);
   //timer
   if ( timerX != 0 ) {
     timerX = timerX + speedX;
