@@ -691,6 +691,20 @@ void studyMinigame() { //function for entire study minigame
   //The Commons button
   backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
   text("The Commons", width - 640, height - 255);
+  float studyButtonX = width-500; 
+  float studyButtonY = height - 360; 
+  int studyButtonColor = 255;
+  if ( mouseX >= studyButtonX-27.5 && mouseY >= studyButtonY-27.5 && mouseX <= studyButtonX+27.5 && mouseY <= studyButtonY+27.5 ) {
+    studyButtonColor = studyButtonColor + 255;
+  }
+  if (mousePressed && mouseX >= studyButtonX-27.5 && mouseY >= studyButtonY-27.5 && mouseX <= studyButtonX+27.5 && mouseY <= studyButtonY+27.5 ) {
+    isMainScreen = false;
+    isStudyMinigame = true;
+    return;
+  }
+  fill(studyButtonColor);
+  rect(studyButtonX, studyButtonY, 200, 40);
+
   //timer
   if ( timerX != 0 ) {
     timerX = timerX + speedX;
