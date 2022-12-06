@@ -81,6 +81,8 @@ int rectDeltaMT = 25; //amount of pixels the midterms health goes down when play
 boolean isJetHit = false; //declares the player getting hit animation is currently false
 boolean isJetSafe = true; //declares the player's idle animation is currently true
 
+
+
 boolean [] keys = new boolean[128];
 
 
@@ -279,7 +281,7 @@ void mainScreen() { // main function calling all main screen functions
   if ( mouseX >= studyButtonX-27.5 && mouseY >= studyButtonY-27.5 && mouseX <= studyButtonX+27.5 && mouseY <= studyButtonY+27.5 ) {
     studyButtonColor = studyButtonColor + 255;
   }
-  if (mousePressed && mouseX >= studyButtonX-27.5 && mouseY >= studyButtonY-27.5 && mouseX <= studyButtonX+27.5 && mouseY <= studyButtonY+27.5 ) {
+  if (mousePressed && mouseX >= studyButtonX-27.5 && mouseY >= studyButtonY-27.5 && mouseX <= studyButtonX+27.5 && mouseY <= studyButtonY+27.5 && gamesPlayed == 0) {
     isMainScreen = false;
     isStudyMinigame = true;
   }
@@ -287,13 +289,13 @@ void mainScreen() { // main function calling all main screen functions
   float midtermButtonY = height/2;
   int midtermButtonColor = 0;
   if (week == 7 || week == 14) {
-  if (mouseX >= midtermButtonX && mouseY >= midtermButtonY && mouseX <=  midtermButtonX + 400 && mouseY <= midtermButtonY + 100 ) {
-    midtermButtonColor = midtermButtonColor + 255;
-  }
-  if (mousePressed && mouseX >= midtermButtonX && mouseY >= midtermButtonY && mouseX <=  midtermButtonX + 400 && mouseY <= midtermButtonY + 100 ) {
-    midtermMinigame();
-    return;
-  }
+    if (mouseX >= midtermButtonX && mouseY >= midtermButtonY && mouseX <=  midtermButtonX + 400 && mouseY <= midtermButtonY + 100 ) {
+      midtermButtonColor = midtermButtonColor + 255;
+    }
+    if (mousePressed && mouseX >= midtermButtonX && mouseY >= midtermButtonY && mouseX <=  midtermButtonX + 400 && mouseY <= midtermButtonY + 100 ) {
+      midtermMinigame();
+      return;
+    }
   }
   backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
   rectMode(CENTER);
@@ -312,7 +314,7 @@ void mainScreen() { // main function calling all main screen functions
   if ( mouseX >= physicalButtonX-27.5 && mouseY >= physicalButtonY-27.5 && mouseX <=  physicalButtonX+27.5 && mouseY <= physicalButtonY+27.5 ) {
     physicalButtonColor = physicalButtonColor + 255;
   }
-  if (mousePressed && mouseX >=  physicalButtonX-27.5 && mouseY >= physicalButtonY-27.5 && mouseX <=  physicalButtonX+27.5 && mouseY <= physicalButtonY+27.5 ) {
+  if (mousePressed && mouseX >=  physicalButtonX-27.5 && mouseY >= physicalButtonY-27.5 && mouseX <=  physicalButtonX+27.5 && mouseY <= physicalButtonY+27.5 && gamesPlayed == 0) {
     isMainScreen = false;
     isPhysicalMinigame = true;
     return;
@@ -332,7 +334,7 @@ void mainScreen() { // main function calling all main screen functions
   if ( mouseX >= workButtonX-27.5 && mouseY >= workButtonY-27.5 && mouseX <=  workButtonX+27.5 && mouseY <= workButtonY+27.5 ) {
     workButtonColor = workButtonColor + 255;
   }
-  if (mousePressed && mouseX >=  workButtonX-27.5 && mouseY >= workButtonY-27.5 && mouseX <=  workButtonX+27.5 && mouseY <= workButtonY+27.5 ) {
+  if (mousePressed && mouseX >=  workButtonX-27.5 && mouseY >= workButtonY-27.5 && mouseX <=  workButtonX+27.5 && mouseY <= workButtonY+27.5 && gamesPlayed == 0 ) {
     isMainScreen = false;
     isWorkMinigame = true;
     return;
@@ -358,16 +360,16 @@ void mainScreen() { // main function calling all main screen functions
   fill(0);
   textSize(26);
   text("Week "+ week, width/16, height/16);
-  
+
   if (week == 7 || week == 14) {
-  rectMode(CORNER);
-  fill(midtermButtonColor);
-  rect(midtermButtonX, midtermButtonY, 400, 100);
-  fill(255);
-  textSize(50);
-  text("Midterm", width/2, height/2 + 60);
+    rectMode(CORNER);
+    fill(midtermButtonColor);
+    rect(midtermButtonX, midtermButtonY, 400, 100);
+    fill(255);
+    textSize(50);
+    text("Midterm", width/2, height/2 + 60);
   }
-  
+
   /* stat bar */
   //financial stat highlight
   rectMode(CENTER);
@@ -830,6 +832,7 @@ void physicalWin() {
   isPhysicalMinigame = false;
   switch(counter) {
   case 0:
+    gamesPlayed = 1;
     healthStat = healthStat + 10;
     counter ++;
     break;
@@ -867,6 +870,7 @@ void physicalLose() { //if you lose the physical minigame
   isPhysicalMinigame = false;
   switch(counter) {
   case 0:
+    gamesPlayed = 1;
     healthStat = healthStat - 10;
     counter ++;
     break;
@@ -931,6 +935,7 @@ void mouseReleased() {
     financialStat = financialStat - 10;
     timerX = -640;
     counter = 0;
+    gamesPlayed = 0;
   }
 }
 
@@ -951,6 +956,7 @@ void workMinigame() {
     break;
   case 1:
     if (  counter == 1 ) {
+      gamesPlayed = 1;
       fill(0);
       rect(width/2+350, height/2-226, 546, 72);
       fill(0, 255, 0);
