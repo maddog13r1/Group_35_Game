@@ -15,7 +15,7 @@ boolean isHealthMinigame = false;
 boolean isStudyMinigame = false;
 boolean isMentalMinigame = false;
 boolean isPhysicalMinigame = false;
-boolean isSocialMinigame = false;
+boolean isWorkMinigame = false;
 boolean isMidtermMinigame = false;
 boolean isFinalMinigame = false;
 boolean isPhysicalWin = false;
@@ -64,6 +64,9 @@ PImage Jetpack; //player character
 PImage JetHit;//player getting hit
 PImage Midterm; //Midterm image
 PImage Midterm2; //Midterm second idle animation
+//work
+PImage starbucks; //work background
+PImage workPlayer; // player for work
 int midtermDelta = 2; //midterm speed
 float MidtermX = 600; //midterm's x location
 float MidtermY = 10; //midterm's y location
@@ -145,6 +148,9 @@ void setup() { //runs program once at program launch
   Midterm = loadImage("midterm.png"); //loads midterm image
   Midterm2 = loadImage("midterm2.png"); //loads second midterm image
   uniCenter = loadImage("uniCenter.png"); //loads uniCenter image
+  //work
+  starbucks = loadImage("UMBC_STARBUCKS.jpg"); //loads starbucks
+  workPlayer = loadImage("GritLife_Player_Work.png"); //loads player
   //places Right answer block on the screen
   placeRights();
 
@@ -191,7 +197,7 @@ void minigames() {
   if ( isPhysicalMinigame == true ) {
     physicalMinigame();
   }
-  if ( isSocialMinigame == true ) {
+  if ( isWorkMinigame == true ) {
     workMinigame();
   }
   if ( isMidtermMinigame == true ) {
@@ -318,7 +324,7 @@ void mainScreen() { // main function calling all main screen functions
   }
   if (mousePressed && mouseX >=  workButtonX-27.5 && mouseY >= workButtonY-27.5 && mouseX <=  workButtonX+27.5 && mouseY <= workButtonY+27.5 ) {
     isMainScreen = false;
-    isSocialMinigame = true;
+    isWorkMinigame = true;
     return;
   }
   fill(workButtonColor);
@@ -548,19 +554,19 @@ void drawMidterm() {
 }
 
 void ChangeMidtermDir() {
-    if (MidtermX == 550) {
-      midtermDelta *= -1;
-      isMidLeft = true;
-    }
+  if (MidtermX == 550) {
+    midtermDelta *= -1;
+    isMidLeft = true;
   }
+}
 
-  void ChangeMidtermDir2() {
-    if (MidtermX == 750) {
-      midtermDelta *= -1;
-      image( Midterm2, MidtermX, MidtermY, 1080, 720);
-      isMidRight = true;
-    }
+void ChangeMidtermDir2() {
+  if (MidtermX == 750) {
+    midtermDelta *= -1;
+    image( Midterm2, MidtermX, MidtermY, 1080, 720);
+    isMidRight = true;
   }
+}
 
 //draws Stars in background
 void drawStars() {
@@ -909,4 +915,47 @@ void mouseReleased() {
 
 void workMinigame() {
   //background
+  background(0);
+  image(starbucks, 0, 0);
+  image(workPlayer, width/2-170, 160);
+  fill(0);
+  rect(640, 56, 1280, 72);
+  textSize(72);
+  fill(245, 245, 0); //yellow
+  text("You pulled a shift at the UMBC Starbucks", width/2, 75);
+  switch(counter) {
+  case 0:
+    financialStat = financialStat + 10;
+    counter ++;
+    break;
+  case 1:
+    if (  counter == 1 ) {
+      fill(0);
+      rect(width/2+350, height/2-226, 546, 72);
+      fill(0, 255, 0);
+      text("You now have $" + financialStat, width/2+350, height/2-200);
+    } else {
+      counter --;
+    }
+  }
+  //button
+
+  float timeButtonX = width/2+310;
+  float timeButtonY = height-400;
+  int timeButtonColor = 0;
+  if ( mouseX >= timeButtonX-27.5 && mouseY >= timeButtonY-27.5 && mouseX <=  timeButtonX+27.5 && mouseY <= timeButtonY+27.5 ) {
+    timeButtonColor = timeButtonColor + 255;
+  }
+  if (mousePressed && mouseX >=  timeButtonX-27.5 && mouseY >= timeButtonY-27.5 && mouseX <=  timeButtonX+27.5 && mouseY <= timeButtonY+27.5) {
+    isMainScreen = true;
+    isWorkMinigame = false;
+    return;
+  }
+  fill(245, 245, 0); //yellow
+  ellipse(timeButtonX, timeButtonY, 110, 110);
+  fill(timeButtonColor);
+  ellipse(timeButtonX, timeButtonY, 55, 55);
+  fill(225);
+  textSize(24);
+  text("Return to Main Menu", width/2+310, height-320);
 }
