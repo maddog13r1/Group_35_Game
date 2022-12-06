@@ -267,7 +267,7 @@ void mainScreen() { // main function calling all main screen functions
   //study button
   backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
   text("Study", width - 128, height - 58);
-  float studyButtonX = width-64; //678 in 1920
+  float studyButtonX = width - 64; //678 in 1920
   float studyButtonY = height - 64; //776 in 1080
   int studyButtonColor = 0;
   if ( mouseX >= studyButtonX-27.5 && mouseY >= studyButtonY-27.5 && mouseX <= studyButtonX+27.5 && mouseY <= studyButtonY+27.5 ) {
@@ -276,11 +276,21 @@ void mainScreen() { // main function calling all main screen functions
   if (mousePressed && mouseX >= studyButtonX-27.5 && mouseY >= studyButtonY-27.5 && mouseX <= studyButtonX+27.5 && mouseY <= studyButtonY+27.5 ) {
     isMainScreen = false;
     isStudyMinigame = true;
-    if (week == 7 || week == 14) {
-      midtermMinigame();
-    }
+  }
+  float midtermButtonX = width/2 - 200;
+  float midtermButtonY = height/2;
+  int midtermButtonColor = 0;
+  if (week == 7 || week == 14) {
+  if (mouseX >= midtermButtonX && mouseY >= midtermButtonY && mouseX <=  midtermButtonX + 400 && mouseY <= midtermButtonY + 100 ) {
+    midtermButtonColor = midtermButtonColor + 255;
+  }
+  if (mousePressed && mouseX >= midtermButtonX && mouseY >= midtermButtonY && mouseX <=  midtermButtonX + 400 && mouseY <= midtermButtonY + 100 ) {
+    midtermMinigame();
     return;
   }
+  }
+  backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
+  rectMode(CENTER);
   fill(studyButtonColor);
   ellipse(studyButtonX, studyButtonY, 55, 55);
 
@@ -290,7 +300,7 @@ void mainScreen() { // main function calling all main screen functions
   //physical button
   fill(0);
   text("Workout", width - 136, height - 120);
-  float physicalButtonX = width-64; //802 in 1920
+  float physicalButtonX = width - 64; //802 in 1920
   float physicalButtonY = height - 128; //776 in 1080;
   int physicalButtonColor = 0;
   if ( mouseX >= physicalButtonX-27.5 && mouseY >= physicalButtonY-27.5 && mouseX <=  physicalButtonX+27.5 && mouseY <= physicalButtonY+27.5 ) {
@@ -342,9 +352,19 @@ void mainScreen() { // main function calling all main screen functions
   fill(0);
   textSize(26);
   text("Week "+ week, width/16, height/16);
-
+  
+  if (week == 7 || week == 14) {
+  rectMode(CORNER);
+  fill(midtermButtonColor);
+  rect(midtermButtonX, midtermButtonY, 400, 100);
+  fill(255);
+  textSize(50);
+  text("Midterm", width/2, height/2 + 60);
+  }
+  
   /* stat bar */
   //financial stat highlight
+  rectMode(CENTER);
   fill(124, 252, 0, 120);
   rect(width/8, height -  70, 164, 50);
   //financial stat
@@ -539,10 +559,10 @@ void drawWrongs() {
 //draws Midterm enemy
 void drawMidterm() {
   MidtermX -= midtermDelta;
-  if (isMidLeft = true) {
+  if (isMidLeft == true) {
     image( Midterm, MidtermX, MidtermY, 1080, 720);
   }
-  if (isMidRight = true) {
+  if (isMidRight == true) {
     image( Midterm2, MidtermX, MidtermY, 1080, 720);
   }
 }
@@ -582,6 +602,7 @@ void drawPlayerHealth() {
 
 //draws the Midterm's health bar and health
 void drawMidtermHealth() {
+  rectMode(CORNER);
   fill(200); //empty midterm health bar
   rect(780, 0, MaxWidthMT, 64);
 
