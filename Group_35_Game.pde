@@ -72,7 +72,6 @@ int rectDeltaMT = 25; //amount of pixels the midterms health goes down when play
 boolean isJetHit = false; //declares the player getting hit animation is currently false
 boolean isJetSafe = true; //declares the player's idle animation is currently true
 
-Person myPerson;
 boolean [] keys = new boolean[128];
 
 
@@ -394,7 +393,6 @@ void midtermMinigame() {
     //creates midterm boss on the right
     drawMidterm();
 
-
     //creates player character
     drawJetPlayer();
 
@@ -554,25 +552,25 @@ void drawMidtermHealth() {
 //moves player up, down, left, right
 void movePlayer() {
   if (keyPressed) { //moves player right
-    if (key == 'd' || key == 'D') {
+    if (keys['d']) {
       JetPlayerX += xDeltaJETPLAYER;
     }
   }
 
   if (keyPressed) { //moves player down
-    if (key == 's' || key == 'S') {
+    if (keys['s']) {
       JetPlayerY += yDeltaJETPLAYER;
     }
   }
 
   if (keyPressed) { //moves player left
-    if (key == 'a' || key == 'A') {
+    if (keys['a']) {
       JetPlayerX -= xDeltaJETPLAYER;
     }
   }
 
   if (keyPressed) { //moves player up
-    if (key == 'w' || key == 'W') {
+    if (keys['w']) {
       JetPlayerY -= yDeltaJETPLAYER;
     }
   }
@@ -839,6 +837,7 @@ void keyPressed() {
   //midterm
   keys[key] = true;
 }
+
 //key released commands for minigames
 void keyReleased() {
   //physical minigame
@@ -847,7 +846,7 @@ void keyReleased() {
     isGuyWeight = true;
   }
   //midterm
-  keys[key] = true;
+    keys[key] = false;
 }
 
 //this progresses time only if you have played a minigame
