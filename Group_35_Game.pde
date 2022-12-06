@@ -196,6 +196,9 @@ void minigames() {
   if ( isPhysicalLose == true ) {
     physicalLose();
   }
+  if ( isFinalMinigame == true ) {
+    midtermMinigame();
+  }
 }
 
 
@@ -266,7 +269,7 @@ void mainScreen() { // main function calling all main screen functions
   if (mousePressed && mouseX >= studyButtonX-27.5 && mouseY >= studyButtonY-27.5 && mouseX <= studyButtonX+27.5 && mouseY <= studyButtonY+27.5 ) {
     isMainScreen = false;
     isStudyMinigame = true;
-    if(week == 7){
+    if(week == 7 || week == 14){
       midtermMinigame();
     }
     return;
@@ -419,6 +422,9 @@ void midtermMinigame() {
 
     //creates the midterm's health bar
     drawMidtermHealth();
+    
+    //endscreens for midterm
+    midtermEnd();
 }
 //draws player at the given playerX, playerY
 void drawJetPlayer() {
@@ -650,7 +656,12 @@ void moveStars() { // moves stars left off the screen and starts from the right
   }
 }
 
-
+void midtermEnd(){
+  if(rectWidthMT <= 0){
+    isMidtermMinigame = false;
+    isMainScreen = true;
+  }
+}
 
 
 
