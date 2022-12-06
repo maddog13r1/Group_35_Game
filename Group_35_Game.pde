@@ -80,8 +80,8 @@ int rectDelta = 1; //amount of pixels the players health goes down when touching
 int rectDeltaMT = 25; //amount of pixels the midterms health goes down when player touches rights
 boolean isJetHit = false; //declares the player getting hit animation is currently false
 boolean isJetSafe = true; //declares the player's idle animation is currently true
-
-
+boolean isMidtermLose = false;
+boolean isMidtermWin = false;
 
 boolean [] keys = new boolean[128];
 
@@ -205,6 +205,12 @@ void minigames() {
   if ( isMidtermMinigame == true ) {
     midtermMinigame();
   }
+  if ( isMidtermWin == true ) {
+    midtermWin();
+  }
+  if ( isMidtermLose == true ) {
+   midtermLose(); 
+  }
   if ( isPhysicalWin == true ) {
     physicalWin();
   }
@@ -293,7 +299,8 @@ void mainScreen() { // main function calling all main screen functions
       midtermButtonColor = midtermButtonColor + 255;
     }
     if (mousePressed && mouseX >= midtermButtonX && mouseY >= midtermButtonY && mouseX <=  midtermButtonX + 400 && mouseY <= midtermButtonY + 100 ) {
-      midtermMinigame();
+      isMainScreen = false;
+      isMidtermMinigame = true;
       return;
     }
   }
@@ -416,9 +423,6 @@ void mainScreen() { // main function calling all main screen functions
 }
 
 void midtermMinigame() {
-  isMainScreen = false;
-  isStudyMinigame = false;
-  isMidtermMinigame = true;
 
   background(0, 0, 50); //blue background
 
@@ -720,12 +724,23 @@ void moveStars() { // moves stars left off the screen and starts from the right
 }
 
 void midtermEnd() {
-  if (rectWidthMT <= 0) {
+  if (rectWidth <= 0) {
     isMidtermMinigame = false;
-    isMainScreen = true;
+    isMidtermLose = true;
+  }
+  if (rectWidthMT == MaxWidthMT-500) {
+    isMidtermMinigame = false;
+    isMidtermWin = true;
   }
 }
 
+void midtermWin() {
+  background(0);
+}
+
+void midtermLose() {
+  background(0);
+}
 
 
 /*** END GAME SCREENS ***/
