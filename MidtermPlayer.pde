@@ -1,9 +1,9 @@
 class Person {  
   PVector perPos, perVel;
   Person() {
-    int vel = 7;
+    int vel = 5;
   
-    perPos = new PVector(width/2, height/2);
+    perPos = new PVector(576/2 - 32, 704);
     perVel = new PVector(vel, vel);
   }
   void perRun() {    //displays and allows movement

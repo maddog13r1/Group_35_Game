@@ -267,6 +267,9 @@ void mainScreen() { // main function calling all main screen functions
   if (mousePressed && mouseX >= studyButtonX-27.5 && mouseY >= studyButtonY-27.5 && mouseX <= studyButtonX+27.5 && mouseY <= studyButtonY+27.5 ) {
     isMainScreen = false;
     isStudyMinigame = true;
+    if(week == 7){
+      midtermMinigame();
+    }
     return;
   }
   fill(studyButtonColor);
@@ -374,10 +377,12 @@ void mainScreen() { // main function calling all main screen functions
   fill(255);
   text(int(healthStat) + "%", width/8 + 8, height - 154);
 }
+
 void midtermMinigame() {
-  if ( week == 7 ) {
-    isMainScreen = false;
-    isMidtermMinigame = true;
+     isMainScreen = false;
+     isStudyMinigame = false;
+     isMidtermMinigame = true;
+     
     background(0, 0, 50); //blue background
 
     //create stars in background
@@ -416,11 +421,10 @@ void midtermMinigame() {
 
     //creates the midterm's health bar
     drawMidtermHealth();
-  }
 }
 //draws player at the given playerX, playerY
 void drawJetPlayer() {
-  if (isJetSafe = true) {
+  if (isJetSafe == true) {
     image(Jetpack, JetPlayerX, JetPlayerY, 64, 128);
   } else {
     isJetSafe = false;
@@ -477,7 +481,7 @@ void drawWrongs() {
       rectWidth -= rectDelta;
       isJetSafe = false;
       isJetHit = true;
-      if (isJetHit = true) {
+      if (isJetHit == true) {
         image(JetHit, JetPlayerX, JetPlayerY, 64, 128);
       }
     }
@@ -488,7 +492,7 @@ void drawWrongs() {
       rectWidth -= rectDelta;
       isJetSafe = false;
       isJetHit = true;
-      if (isJetHit = true) {
+      if (isJetHit == true) {
         image(JetHit, JetPlayerX, JetPlayerY, 64, 128);
       }
     }
@@ -498,7 +502,7 @@ void drawWrongs() {
       rectWidth -= rectDelta;
       isJetSafe = false;
       isJetHit = true;
-      if (isJetHit = true) {
+      if (isJetHit == true) {
         image(JetHit, JetPlayerX, JetPlayerY, 64, 128);
       }
     }
@@ -508,7 +512,7 @@ void drawWrongs() {
       rectWidth -= rectDelta;
       isJetSafe = false;
       isJetHit = true;
-      if (isJetHit = true) {
+      if (isJetHit == true) {
         image(JetHit, JetPlayerX, JetPlayerY, 64, 128);
       }
     }
