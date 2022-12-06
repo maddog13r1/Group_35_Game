@@ -63,6 +63,12 @@ float[] StarsY = new float [NUM_STARS]; //declares StarsY array
 PImage Jetpack; //player character
 PImage JetHit;//player getting hit
 PImage Midterm; //Midterm image
+PImage Midterm2; //Midterm second idle animation
+int midtermDelta = 2; //midterm speed
+float MidtermX = 600; //midterm's x location
+float MidtermY = 10; //midterm's y location
+boolean isMidLeft = false;
+boolean isMidRight = false;
 int MaxWidth = 500; //empty health bar
 int rectWidth = 500; //health
 int MaxWidthMT = 500; //midterm health bar
@@ -137,6 +143,7 @@ void setup() { //runs program once at program launch
   Jetpack = loadImage("player_jetpack.png"); //loads player image
   JetHit = loadImage("player_jetpack_hit.png"); //loads player hit image
   Midterm = loadImage("midterm.png"); //loads midterm image
+  Midterm2 = loadImage("midterm2.png"); //loads second midterm image
   uniCenter = loadImage("uniCenter.png"); //loads uniCenter image
   //places Right answer block on the screen
   placeRights();
@@ -269,7 +276,7 @@ void mainScreen() { // main function calling all main screen functions
   if (mousePressed && mouseX >= studyButtonX-27.5 && mouseY >= studyButtonY-27.5 && mouseX <= studyButtonX+27.5 && mouseY <= studyButtonY+27.5 ) {
     isMainScreen = false;
     isStudyMinigame = true;
-    if(week == 7 || week == 14){
+    if (week == 7 || week == 14) {
       midtermMinigame();
     }
     return;
@@ -381,50 +388,56 @@ void mainScreen() { // main function calling all main screen functions
 }
 
 void midtermMinigame() {
-     isMainScreen = false;
-     isStudyMinigame = false;
-     isMidtermMinigame = true;
-     
-    background(0, 0, 50); //blue background
+  isMainScreen = false;
+  isStudyMinigame = false;
+  isMidtermMinigame = true;
 
-    //create stars in background
-    drawStars();
+  background(0, 0, 50); //blue background
 
-    //moves stars to go across the background
-    moveStars();
+  //create stars in background
+  drawStars();
 
-    //creates midterm boss on the right
-    drawMidterm();
+  //moves stars to go across the background
+  moveStars();
 
-    //creates player character
-    drawJetPlayer();
+  //creates midterm boss on the right
+  drawMidterm();
 
-    //creates positive items (Correct answer C)
-    drawRights();
+  //creates player character
+  drawJetPlayer();
 
-    //creates negative items (Wrong answer A, B, D)
-    drawWrongs();
+  //creates positive items (Correct answer C)
+  drawRights();
 
-    //move player up, down, left, right
-    movePlayer();
+  //creates negative items (Wrong answer A, B, D)
+  drawWrongs();
 
-    //check bounds and keep player from going too far off screen or too close to boss
-    restrictPlayer();
+  //move player up, down, left, right
+  movePlayer();
 
-    //has wrong answers move left spawn back from the midterm one they go pass screen
-    moveWrongs();
+  //check bounds and keep player from going too far off screen or too close to boss
+  restrictPlayer();
 
-    //has right answer move left and spawn back from midterm once off screen or collected
-    moveRights();
+  //has wrong answers move left spawn back from the midterm one they go pass screen
+  moveWrongs();
 
-    //creates the player's health bar
-    drawPlayerHealth();
+  //has right answer move left and spawn back from midterm once off screen or collected
+  moveRights();
 
-    //creates the midterm's health bar
-    drawMidtermHealth();
-    
-    //endscreens for midterm
-    midtermEnd();
+  //creates the player's health bar
+  drawPlayerHealth();
+
+  //creates the midterm's health bar
+  drawMidtermHealth();
+
+  //controlls midterm direction to left
+  ChangeMidtermDir();
+
+  //controls midterm direction to right
+  ChangeMidtermDir2();
+
+  //endscreens for midterm
+  midtermEnd();
 }
 //draws player at the given playerX, playerY
 void drawJetPlayer() {
@@ -525,8 +538,29 @@ void drawWrongs() {
 
 //draws Midterm enemy
 void drawMidterm() {
-  image( Midterm, 600, 10, 1080, 720);
+  MidtermX -= midtermDelta;
+  if (isMidLeft = true) {
+    image( Midterm, MidtermX, MidtermY, 1080, 720);
+  }
+  if (isMidRight = true) {
+    image( Midterm2, MidtermX, MidtermY, 1080, 720);
+  }
 }
+
+void ChangeMidtermDir() {
+    if (MidtermX == 550) {
+      midtermDelta *= -1;
+      isMidLeft = true;
+    }
+  }
+
+  void ChangeMidtermDir2() {
+    if (MidtermX == 750) {
+      midtermDelta *= -1;
+      image( Midterm2, MidtermX, MidtermY, 1080, 720);
+      isMidRight = true;
+    }
+  }
 
 //draws Stars in background
 void drawStars() {
@@ -656,8 +690,8 @@ void moveStars() { // moves stars left off the screen and starts from the right
   }
 }
 
-void midtermEnd(){
-  if(rectWidthMT <= 0){
+void midtermEnd() {
+  if (rectWidthMT <= 0) {
     isMidtermMinigame = false;
     isMainScreen = true;
   }
@@ -704,8 +738,8 @@ void studyMinigame() { //function for entire study minigame
   //The Commons button
   backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
   text("The Commons", width - 640, height - 255);
-  float studyButtonX = width-500; 
-  float studyButtonY = height - 360; 
+  float studyButtonX = width-500;
+  float studyButtonY = height - 360;
   int studyButtonColor = 255;
   if ( mouseX >= studyButtonX-27.5 && mouseY >= studyButtonY-27.5 && mouseX <= studyButtonX+27.5 && mouseY <= studyButtonY+27.5 ) {
     studyButtonColor = studyButtonColor + 255;
@@ -857,7 +891,7 @@ void keyReleased() {
     isGuyWeight = true;
   }
   //midterm
-    keys[key] = false;
+  keys[key] = false;
 }
 
 //this progresses time only if you have played a minigame
