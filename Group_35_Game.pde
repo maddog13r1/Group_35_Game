@@ -24,6 +24,7 @@ boolean isFinalWin = false;
 boolean isFinalLose = false;
 boolean isPhysicalWin = false;
 boolean isPhysicalLose = false;
+boolean isLoseScreen = false;
 boolean isGuyWeight = true;
 boolean screen1;
 boolean screen2;
@@ -234,6 +235,9 @@ void minigames() {
   }
   if ( isPhysicalLose == true ) {
     physicalLose();
+  }
+  if ( isLoseScreen == true ) {
+   lossScreen(); 
   }
 }
 
@@ -495,7 +499,7 @@ void mainScreen() { // main function calling all main screen functions
 
   /* losing at certain stats */
   if (healthStat < 0 || gradeStat < 0) {
-    lossScreen();
+    isLoseScreen = true;
   }
 }
 
