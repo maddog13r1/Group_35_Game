@@ -1001,6 +1001,8 @@ void mouseReleased() {
     timerX = -640;
     counter = 0;
     gamesPlayed = 0;
+    healthStat = healthStat - int(random(0,10));
+    gradeStat = gradeStat - int(random(0,10));
   }
 }
 
