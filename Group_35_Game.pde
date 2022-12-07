@@ -208,7 +208,7 @@ void minigames() {
     midtermWin();
   }
   if ( isMidtermLose == true ) {
-   midtermLose(); 
+    midtermLose();
   }
   if ( isPhysicalWin == true ) {
     physicalWin();
@@ -291,7 +291,7 @@ void mainScreen() { // main function calling all main screen functions
     isMainScreen = false;
     isStudyMinigame = true;
   }
-  
+
   float midtermButtonX = width/2 - 200;
   float midtermButtonY = height/2;
   int midtermButtonColor = 0;
@@ -315,7 +315,7 @@ void mainScreen() { // main function calling all main screen functions
       isMainScreen = false;
       isFinalMinigame = true;
       return;
-  }
+    }
   }
   backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
   rectMode(CENTER);
@@ -397,12 +397,12 @@ void mainScreen() { // main function calling all main screen functions
     textSize(50);
     text("Finals", width/2, height/2 + 60);
   }
-  if (week < 7){
+  if (week < 7) {
     int midtermGap = 7 - week;
     textSize(50);
     text("Weeks until Midterm " + midtermGap, width/2, height/4 - 60 );
   }
-  if (week > 7 && week < 14){
+  if (week > 7 && week < 14) {
     int finalGap = 14 - week;
     textSize(50);
     text("Weeks until Final " + finalGap, width/2, height/4 - 60 );
@@ -456,10 +456,10 @@ void mainScreen() { // main function calling all main screen functions
 void midtermMinigame() {
 
   background(0, 0, 50); //blue background
-  
+
   // if stats are over a certain number, decrease difficultly of midterm/finals
   statChanges();
-  
+
   //create stars in background
   drawStars();
 
@@ -756,20 +756,20 @@ void moveStars() { // moves stars left off the screen and starts from the right
   }
 }
 void statChanges() { // if stats are over a certain number, decrease difficultly of midterm/finals
-//health changes
-    if (week == 14) { //increased difficultly placeholder for finals
-      xDeltaWRONGS = 7;
-    }
-    if (week == 7 && healthStat >= 50) { //stat influence placeholder for midterm
-      xDeltaWRONGS = 3;
-    }
-    if (week == 14 && healthStat >= 50) { //stat influence placeholder for finals
-      xDeltaWRONGS = 5;
-    }
-//grade changes
-    if ((week == 7 || week == 14) && gradeStat >= 50) { //stat influence placeholder for midterm/final
-      rectDeltaMT = 50;
-    }
+  //health changes
+  if (week == 14) { //increased difficultly placeholder for finals
+    xDeltaWRONGS = 7;
+  }
+  if (week == 7 && healthStat >= 50) { //stat influence placeholder for midterm
+    xDeltaWRONGS = 3;
+  }
+  if (week == 14 && healthStat >= 50) { //stat influence placeholder for finals
+    xDeltaWRONGS = 5;
+  }
+  //grade changes
+  if ((week == 7 || week == 14) && gradeStat >= 50) { //stat influence placeholder for midterm/final
+    rectDeltaMT = 50;
+  }
 }
 
 void midtermEnd() {
@@ -1001,8 +1001,12 @@ void mouseReleased() {
     timerX = -640;
     counter = 0;
     gamesPlayed = 0;
-    healthStat = healthStat - int(random(0,10));
-    gradeStat = gradeStat - int(random(0,10));
+    if ( financialStat > 0 ) {
+      healthStat = healthStat - int(random(0, 10));
+    } else {
+      healthStat = healthStat - int(random(10, 20));
+    }
+    gradeStat = gradeStat - int(random(0, 10));
   }
 }
 
