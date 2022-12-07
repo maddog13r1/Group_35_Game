@@ -17,6 +17,7 @@ boolean isStudyMinigame = false;
 boolean isMentalMinigame = false;
 boolean isPhysicalMinigame = false;
 boolean isWorkMinigame = false;
+boolean isWorkWin = false;
 boolean isMidtermMinigame = false;
 boolean isFinalMinigame = false;
 boolean isFinalWin = false;
@@ -71,6 +72,7 @@ PImage Midterm; //Midterm image
 PImage Midterm2; //Midterm second idle animation
 //work
 PImage starbucks; //work background
+PImage chicfila; //work background
 PImage nextWeek; //screen to appear when transitioning from week to week
 PImage workPlayer; // player for work
 int midtermDelta = 2; //midterm speed
@@ -160,6 +162,7 @@ void setup() { //runs program once at program launch
   uniCenter = loadImage("uniCenter.png"); //loads uniCenter image
   //work
   starbucks = loadImage("UMBC_STARBUCKS.jpg"); //loads starbucks
+  chicfila = loadImage("chickfila_work.png"); //loads chicfila
   nextWeek = loadImage("week_next.png"); //loads week transition
   workPlayer = loadImage("GritLife_Player_Work.png"); //loads player
   //places Right answer block on the screen
@@ -196,20 +199,17 @@ void screens() {
 }
 //minigame call function
 void minigames() {
-  if ( isHealthMinigame == true ) {
-    healthMinigame();
-  }
   if ( isStudyMinigame == true ) {
     studyMinigame();
-  }
-  if ( isMentalMinigame == true ) {
-    mentalMinigame();
   }
   if ( isPhysicalMinigame == true ) {
     physicalMinigame();
   }
   if ( isWorkMinigame == true ) {
     workMinigame();
+  }
+  if ( isWorkWin == true ) {
+    workWin();
   }
   if ( isMidtermMinigame == true ) {
     midtermMinigame();
@@ -468,23 +468,23 @@ void mainScreen() { // main function calling all main screen functions
   textSize(16);
   fill(255);
   text(int(healthStat) + "%", width/8 + 8, height - 154);
-  
-  /* warnings for stats */ 
+
+  /* warnings for stats */
   backburner(2, 0, 0, 0, 26, 0);//text size 26 and black text
   rectMode(CENTER);
-  if(healthStat <= 25){
+  if (healthStat <= 25) {
     fill(220, 20, 60, 120);
     rect(width/8, height/2, 130, 35);
     fill(0);
     text("Health Low", width/8, height/2 + 10);
   }
-  if(gradeStat <= 25){
+  if (gradeStat <= 25) {
     fill(288, 208, 10, 120);
     rect(width/8, height/2 + 42, 130, 35);
     fill(0);
     text("Grades Low", width/8, height/2 + 50);
   }
-  if(financialStat <= 25){
+  if (financialStat <= 25) {
     fill(124, 252, 0, 120);
     rect(width/8, height/2 + 84, 140, 35);
     fill(0);
@@ -492,9 +492,9 @@ void mainScreen() { // main function calling all main screen functions
   }
   fill(0);
   rectMode(CORNER);
-  
+
   /* losing at certain stats */
-  if(healthStat < 0 || gradeStat < 0){
+  if (healthStat < 0 || gradeStat < 0) {
     lossScreen();
   }
 }
@@ -938,14 +938,7 @@ void studyMinigame() { //function for entire study minigame
   fill(255, 0, 0);
   rect(timerX, 0, 1280, 64);
 }
-/*** health minigame ***/
-void healthMinigame() { //function for entire health minigame
-  //background
-}
-/*** mental minigame ***/
-void mentalMinigame() {
-  //background
-}
+
 /*** physical minigame ***/
 void physicalMinigame() {
   //background
@@ -1097,13 +1090,42 @@ void mouseReleased() {
 void workMinigame() {
   //background
   background(0);
-  image(starbucks, 0, 0);
-  image(workPlayer, width/2-170, 160);
+  image(chicfila, 0, 0);
+  //timer
+  if ( timerX != 640 ) {
+    timerX = timerX + speedX;
+  }
+  fill(255, 0, 0);
+  rect(timerX, 0, 1280, 64);
+  if ( timerX == 640 ) {
+    isWorkWin = true;
+  }
+  fill(255, 0, 0);
+  rect(timerX, 0, 1280, 64);
+}
+
+void workWin() {
+  isWorkMinigame = false;
+  background(200, 0, 0);
+  float timeButtonX = width/2;
+  float timeButtonY = height-200;
+  int timeButtonColor = 0;
+  if ( mouseX >= timeButtonX-27.5 && mouseY >= timeButtonY-27.5 && mouseX <=  timeButtonX+27.5 && mouseY <= timeButtonY+27.5 ) {
+    timeButtonColor = timeButtonColor + 255;
+  }
+  if (mousePressed && mouseX >=  timeButtonX-27.5 && mouseY >= timeButtonY-27.5 && mouseX <=  timeButtonX+27.5 && mouseY <= timeButtonY+27.5) {
+    isMainScreen = true;
+    isWorkWin = false;
+    return;
+  }
+  textSize(24);
+  text("Return to Main Menu", width/2, height-120);
+
+  fill(timeButtonColor);
+  ellipse(timeButtonX, timeButtonY, 55, 55);
   fill(0);
-  rect(640, 56, 1280, 72);
-  textSize(72);
-  fill(245, 245, 0); //yellow
-  text("You pulled a shift at the UMBC Starbucks", width/2, 75);
+  textSize(24);
+  text("Week "+ week, width/2, height/16);
   switch(counter) {
   case 0:
     financialStat = financialStat + int(random(15, 25));
@@ -1112,32 +1134,11 @@ void workMinigame() {
   case 1:
     if (  counter == 1 ) {
       gamesPlayed = 1;
+      textSize(72);
       fill(0);
-      rect(width/2+350, height/2-226, 546, 72);
-      fill(0, 255, 0);
-      text("You now have $" + financialStat, width/2+350, height/2-200);
+      text("You now have $" + financialStat, width/2, height/2-80);
     } else {
       counter --;
     }
   }
-  //button
-
-  float timeButtonX = width/2+310;
-  float timeButtonY = height-400;
-  int timeButtonColor = 0;
-  if ( mouseX >= timeButtonX-27.5 && mouseY >= timeButtonY-27.5 && mouseX <=  timeButtonX+27.5 && mouseY <= timeButtonY+27.5 ) {
-    timeButtonColor = timeButtonColor + 255;
-  }
-  if (mousePressed && mouseX >=  timeButtonX-27.5 && mouseY >= timeButtonY-27.5 && mouseX <=  timeButtonX+27.5 && mouseY <= timeButtonY+27.5) {
-    isMainScreen = true;
-    isWorkMinigame = false;
-    return;
-  }
-  fill(245, 245, 0); //yellow
-  ellipse(timeButtonX, timeButtonY, 110, 110);
-  fill(timeButtonColor);
-  ellipse(timeButtonX, timeButtonY, 55, 55);
-  fill(225);
-  textSize(24);
-  text("Return to Main Menu", width/2+310, height-320);
 }
