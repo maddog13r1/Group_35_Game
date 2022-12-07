@@ -72,6 +72,8 @@ PImage Jetpack; //player character
 PImage JetHit;//player getting hit
 PImage Midterm; //Midterm image
 PImage Midterm2; //Midterm second idle animation
+PImage MidPlayerWin; //player image displayed when player beats midterm
+PImage MidtermDead; //Midterm image displayed when player beats midterm
 //work
 PImage starbucks; //work background
 PImage chicfila; //work background
@@ -161,7 +163,9 @@ void setup() { //runs program once at program launch
   JetHit = loadImage("player_jetpack_hit.png"); //loads player hit image
   Midterm = loadImage("midterm.png"); //loads midterm image
   Midterm2 = loadImage("midterm2.png"); //loads second midterm image
+  MidPlayerWin = loadImage("player_midterm_victory.png"); //loads player winning midterm image
   uniCenter = loadImage("uniCenter.png"); //loads uniCenter image
+  MidtermDead = loadImage("midterm_dead.png"); //loads midterm dead image
   //work
   starbucks = loadImage("UMBC_STARBUCKS.jpg"); //loads starbucks
   chicfila = loadImage("chickfila_work.png"); //loads chicfila
@@ -844,6 +848,8 @@ void midtermWin() {
   fill(150);
   textSize(72);
   text("You passed your midterm :)", width/2, height/2);
+  image(MidPlayerWin, 0, 100); //player winning on screen
+  image(MidtermDead, 600, 25); //midterm losing on screen
 }
 
 void midtermLose() {
@@ -982,6 +988,11 @@ void physicalMinigame() {
   textSize(24);
   fill(0);
   text("Press W 50 times before the time runs out!", width/2, 75);
+  if (liftRequired == 1) { //when player is on the last push they lift it up
+    if ( isGuyWeight == false ) {
+    image(GuySucceed, 500, 50);
+  }
+  }
   if (liftRequired == 0) { //when the requirement goes all the way down to zero a win screen appears
     isPhysicalWin = true;
   }
