@@ -18,6 +18,8 @@ boolean isPhysicalMinigame = false;
 boolean isWorkMinigame = false;
 boolean isMidtermMinigame = false;
 boolean isFinalMinigame = false;
+boolean isFinalWin = false;
+boolean isFinalLose = false;
 boolean isPhysicalWin = false;
 boolean isPhysicalLose = false;
 boolean isGuyWeight = true;
@@ -208,16 +210,22 @@ void minigames() {
     midtermWin();
   }
   if ( isMidtermLose == true ) {
-   midtermLose(); 
+    midtermLose();
+  }
+  if ( isFinalMinigame == true ) {
+    finalMinigame();
+  }
+  if ( isFinalWin == true ) {
+    finalWin();
+  }
+  if ( isFinalLose == true ) {
+    finalLose();
   }
   if ( isPhysicalWin == true ) {
     physicalWin();
   }
   if ( isPhysicalLose == true ) {
     physicalLose();
-  }
-  if ( isFinalMinigame == true ) {
-    midtermMinigame();
   }
 }
 
@@ -291,7 +299,7 @@ void mainScreen() { // main function calling all main screen functions
     isMainScreen = false;
     isStudyMinigame = true;
   }
-  
+
   float midtermButtonX = width/2 - 200;
   float midtermButtonY = height/2;
   int midtermButtonColor = 0;
@@ -315,7 +323,7 @@ void mainScreen() { // main function calling all main screen functions
       isMainScreen = false;
       isFinalMinigame = true;
       return;
-  }
+    }
   }
   backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
   rectMode(CENTER);
@@ -397,12 +405,12 @@ void mainScreen() { // main function calling all main screen functions
     textSize(50);
     text("Finals", width/2, height/2 + 60);
   }
-  if (week < 7){
+  if (week < 7) {
     int midtermGap = 7 - week;
     textSize(50);
     text("Weeks until Midterm: " + midtermGap, width/2, height/4 - 60 );
   }
-  if (week > 7 && week < 14){
+  if (week > 7 && week < 14) {
     int finalGap = 14 - week;
     textSize(50);
     text("Weeks until Final: " + finalGap, width/2, height/4 - 60 );
@@ -485,10 +493,10 @@ void mainScreen() { // main function calling all main screen functions
 void midtermMinigame() {
 
   background(0, 0, 50); //blue background
-  
+
   // if stats are over a certain number, decrease difficultly of midterm/finals
   statChanges();
-  
+
   //create stars in background
   drawStars();
 
@@ -785,20 +793,20 @@ void moveStars() { // moves stars left off the screen and starts from the right
   }
 }
 void statChanges() { // if stats are over a certain number, decrease difficultly of midterm/finals
-//health changes
-    if (week == 14) { //increased difficultly placeholder for finals
-      xDeltaWRONGS = 7;
-    }
-    if (week == 7 && healthStat >= 50) { //stat influence placeholder for midterm
-      xDeltaWRONGS = 3;
-    }
-    if (week == 14 && healthStat >= 50) { //stat influence placeholder for finals
-      xDeltaWRONGS = 5;
-    }
-//grade changes
-    if ((week == 7 || week == 14) && gradeStat >= 50) { //stat influence placeholder for midterm/final
-      rectDeltaMT = 50;
-    }
+  //health changes
+  if (week == 14) { //increased difficultly placeholder for finals
+    xDeltaWRONGS = 7;
+  }
+  if (week == 7 && healthStat >= 50) { //stat influence placeholder for midterm
+    xDeltaWRONGS = 3;
+  }
+  if (week == 14 && healthStat >= 50) { //stat influence placeholder for finals
+    xDeltaWRONGS = 5;
+  }
+  //grade changes
+  if ((week == 7 || week == 14) && gradeStat >= 50) { //stat influence placeholder for midterm/final
+    rectDeltaMT = 50;
+  }
 }
 
 void midtermEnd() {
@@ -813,14 +821,53 @@ void midtermEnd() {
 }
 
 void midtermWin() {
-  background(0);
+  background(0, 0, 50); //blue background
+  drawStars();
+  moveStars();
+  fill(150);
+  textSize(72);
+  text("You passed your midterm :)", width/2, height/2);
 }
 
 void midtermLose() {
-  background(0);
+  background(0, 0, 50); //blue background
+  drawStars();
+  moveStars();
+  fill(150);
+  textSize(72);
+  text("You failed your midterm :(", width/2, height/2);
 }
 
-
+void finalMinigame() {
+  midtermMinigame();
+  finalEnd();
+}
+void finalEnd() {
+  if (rectWidth <= 0) {
+    isFinalMinigame = false;
+    isFinalLose = true;
+  }
+  if (rectWidthMT == MaxWidthMT-500) {
+    isFinalMinigame = false;
+    isFinalWin = true;
+  }
+}
+void finalWin() {
+  background(0, 0, 50); //blue background
+  drawStars();
+  moveStars();
+  fill(150);
+  textSize(72);
+  text("You passed your final :)", width/2, height/2);
+}
+void finalLose() {
+  background(0, 0, 50); //blue background
+  drawStars();
+  moveStars();
+  fill(150);
+  textSize(72);
+  text("You failed your final :(", width/2, height/2);
+}
 /*** END GAME SCREENS ***/
 
 //victory scenario
@@ -919,9 +966,7 @@ void physicalMinigame() {
   text("You have to press W " + liftRequired + " more times!", width/2, 95);
 }
 
-void finalMinigame() {
-  midtermMinigame();
-}
+
 //result screens
 void physicalWin() {
   isPhysicalMinigame = false;
@@ -1031,6 +1076,12 @@ void mouseReleased() {
     timerX = -640;
     counter = 0;
     gamesPlayed = 0;
+    if ( financialStat > 0 ) {
+      healthStat = healthStat - int(random(0, 10));
+    } else {
+      healthStat = healthStat - int(random(10, 20));
+    }
+    gradeStat = gradeStat - int(random(0, 10));
   }
 }
 
@@ -1046,7 +1097,7 @@ void workMinigame() {
   text("You pulled a shift at the UMBC Starbucks", width/2, 75);
   switch(counter) {
   case 0:
-    financialStat = financialStat + 10;
+    financialStat = financialStat + int(random(15, 25));
     counter ++;
     break;
   case 1:
