@@ -784,14 +784,38 @@ void midtermEnd() {
 }
 
 void midtermWin() {
-  background(0);
+  background(0, 0, 50); //blue background
+  drawStars();
+  moveStars();
+  fill(150);
+  textSize(72);
+  text("You passed your midterm :)", width/2, height/2);
 }
 
 void midtermLose() {
-  background(0);
+  background(0, 0, 50); //blue background
+  drawStars();
+  moveStars();
+  fill(150);
+  textSize(72);
+  text("You failed your midterm :(", width/2, height/2);
 }
-
-
+void finalWin() {
+  background(0, 0, 50); //blue background
+  drawStars();
+  moveStars();
+  fill(150);
+  textSize(72);
+  text("You passed your final :)", width/2, height/2);
+}
+void finalLose() {
+  background(0, 0, 50); //blue background
+  drawStars();
+  moveStars();
+  fill(150);
+  textSize(72);
+  text("You failed your final :(", width/2, height/2);
+}
 /*** END GAME SCREENS ***/
 
 //victory scenario
@@ -1022,7 +1046,7 @@ void workMinigame() {
   text("You pulled a shift at the UMBC Starbucks", width/2, 75);
   switch(counter) {
   case 0:
-    financialStat = financialStat + int(random(15,25));
+    financialStat = financialStat + int(random(15, 25));
     counter ++;
     break;
   case 1:
