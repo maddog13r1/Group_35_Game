@@ -1022,7 +1022,7 @@ void workMinigame() {
   text("You pulled a shift at the UMBC Starbucks", width/2, 75);
   switch(counter) {
   case 0:
-    financialStat = financialStat + 10;
+    financialStat = financialStat + int(random(15,25));
     counter ++;
     break;
   case 1:
