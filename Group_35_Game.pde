@@ -416,13 +416,13 @@ void mainScreen() { // main function calling all main screen functions
   }
   if (week < 7) {
     int midtermGap = 7 - week;
-    textSize(50);
-    text("Weeks until Midterm: " + midtermGap, width/2, height/4 - 60 );
+    textSize(26);
+    text("Weeks until Midterm: " + midtermGap, width/16+84, height/16+40 );
   }
   if (week > 7 && week < 14) {
     int finalGap = 14 - week;
-    textSize(50);
-    text("Weeks until Final: " + finalGap, width/2, height/4 - 60 );
+    textSize(26);
+    text("Weeks until Final: " + finalGap, width/2+84, height/4+40 );
   }
 
   /* stat bar */
