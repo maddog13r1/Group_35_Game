@@ -6,6 +6,7 @@
  ************************************/
 //global variables
 PImage titlePic; //woah how cool
+PImage playerThink; //character thinking thoughts
 PImage Pic2;
 PImage gym;
 PImage uniCenter;
@@ -33,6 +34,8 @@ int liftRequired = 50; //how many times you need to press w
 int inputW = 0;
 PImage GuyWeight;
 PImage GuyLift;
+PImage GuySucceed;
+PImage GuyFail;
 int physicalMinigameWin = 0;
 //timers
 float timerX = -640;
@@ -66,6 +69,7 @@ PImage Midterm; //Midterm image
 PImage Midterm2; //Midterm second idle animation
 //work
 PImage starbucks; //work background
+PImage nextWeek; //screen to appear when transitioning from week to week
 PImage workPlayer; // player for work
 int midtermDelta = 2; //midterm speed
 float MidtermX = 600; //midterm's x location
@@ -133,9 +137,12 @@ void setup() { //runs program once at program launch
   smooth(8); //anti-aliasing x8
   titlePic = loadImage("umbc_air.png"); //background of the starting page
   Pic2 = loadImage("mainScreen.png"); //background of week 1 screen
+  playerThink = loadImage("player_thinking.png");
   //Images for gym minigame
   GuyWeight = loadImage("player_weight.png");
   GuyLift = loadImage("player_lift.png");
+  GuySucceed = loadImage("player_physical_win.png");
+  GuyFail = loadImage("player_physical_lose.png");
   gym = loadImage("UMBC_GYM.jpg");
   financialStat = int(random(25, 75));
   socialStat = int(random(25, 75));
@@ -151,6 +158,7 @@ void setup() { //runs program once at program launch
   uniCenter = loadImage("uniCenter.png"); //loads uniCenter image
   //work
   starbucks = loadImage("UMBC_STARBUCKS.jpg"); //loads starbucks
+  nextWeek = loadImage("week_next.png"); //loads week transition
   workPlayer = loadImage("GritLife_Player_Work.png"); //loads player
   //places Right answer block on the screen
   placeRights();
@@ -270,6 +278,7 @@ void mainScreen() { // main function calling all main screen functions
   background(0);
 
   image(Pic2, 0, 0);
+  image(playerThink, 500, 0); //player thinking- should be in foreground but size wont work
   rectMode(CENTER);
   fill(255, 255, 255, 150);
   rect(width/2, height/2, width, height);
