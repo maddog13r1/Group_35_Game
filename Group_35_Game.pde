@@ -400,12 +400,12 @@ void mainScreen() { // main function calling all main screen functions
   if (week < 7){
     int midtermGap = 7 - week;
     textSize(50);
-    text("Weeks until Midterm " + midtermGap, width/2, height/4 - 60 );
+    text("Weeks until Midterm: " + midtermGap, width/2, height/4 - 60 );
   }
   if (week > 7 && week < 14){
     int finalGap = 14 - week;
     textSize(50);
-    text("Weeks until Final " + finalGap, width/2, height/4 - 60 );
+    text("Weeks until Final: " + finalGap, width/2, height/4 - 60 );
   }
 
   /* stat bar */
@@ -451,6 +451,35 @@ void mainScreen() { // main function calling all main screen functions
   textSize(16);
   fill(255);
   text(int(healthStat) + "%", width/8 + 8, height - 154);
+  
+  /* warnings for stats */ 
+  backburner(2, 0, 0, 0, 26, 0);//text size 26 and black text
+  rectMode(CENTER);
+  if(healthStat <= 25){
+    fill(220, 20, 60, 120);
+    rect(width/8, height/2, 130, 35);
+    fill(0);
+    text("Health Low", width/8, height/2 + 10);
+  }
+  if(gradeStat <= 25){
+    fill(288, 208, 10, 120);
+    rect(width/8, height/2 + 42, 130, 35);
+    fill(0);
+    text("Grades Low", width/8, height/2 + 50);
+  }
+  if(financialStat <= 25){
+    fill(124, 252, 0, 120);
+    rect(width/8, height/2 + 84, 140, 35);
+    fill(0);
+    text("Money Low", width/8, height/2 + 90);
+  }
+  fill(0);
+  rectMode(CORNER);
+  
+  /* losing at certain stats */
+  if(healthStat < 0 || gradeStat < 0){
+    lossScreen();
+  }
 }
 
 void midtermMinigame() {
@@ -800,6 +829,7 @@ void victoryScreen() {
 
 //loss scenario
 void lossScreen() {
+  background(0);
 }
 
 
@@ -994,7 +1024,7 @@ void keyReleased() {
 void mouseReleased() {
   float timeButtonX = width-64;
   float timeButtonY = height - 256;
-  if (mouseX >=  timeButtonX-27.5 && mouseY >= timeButtonY-27.5 && mouseX <=  timeButtonX+27.5 && mouseY <= timeButtonY+27.5 ) {
+  if (mouseX >=  timeButtonX-27.5 && mouseY >= timeButtonY-27.5 && mouseX <=  timeButtonX+27.5 && mouseY <= timeButtonY + 27.5 ) {
     week = week + 1;
     liftRequired = 50;
     financialStat = financialStat - 10;
