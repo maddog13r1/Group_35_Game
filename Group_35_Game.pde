@@ -376,6 +376,16 @@ void mainScreen() { // main function calling all main screen functions
     textSize(50);
     text("Midterm", width/2, height/2 + 60);
   }
+  if (week < 7){
+    int midtermGap = 7 - week;
+    textSize(50);
+    text("Weeks until Midterm " + midtermGap, width/2, height/4 - 60 );
+  }
+  if (week > 7 && week < 14){
+    int finalGap = 14 - week;
+    textSize(50);
+    text("Weeks until Final " + finalGap, width/2, height/4 - 60 );
+  }
 
   /* stat bar */
   //financial stat highlight
@@ -486,7 +496,9 @@ void drawRights() {
   for (int i = 0; i < NUM_RIGHTS; i++) {
     fill(0, 255, 0); //white
     rect(RightsX, RightsY, 64, 64); //block
-
+    if ((week == 7 || week == 14) && gradeStat >= 50) { //stat influence placeholder for midterm/final
+      rectDeltaMT = 50;
+    }
     //when player touches right answer, it disappears and decreases midterm health
     if ((JetPlayerX >= RightsX && JetPlayerX <= RightsX + 64) &&
       (JetPlayerY >= RightsY && JetPlayerY <= RightsY + 64)) {
@@ -681,6 +693,15 @@ void placeWrongs() { //places each of the wrong answers in a random location bet
 
 void moveWrongs() { //Wrongs move left off the screen and starts from the right
   for (int i = 0; i < NUM_WRONGS; i++) {
+    if (week == 14) { //increased difficultly placeholder for finals
+      xDeltaWRONGS = 7;
+    }
+    if (week == 7 && healthStat >= 50) { //stat influence placeholder for midterm
+      xDeltaWRONGS = 3;
+    }
+        if (week == 14 && healthStat >= 50) { //stat influence placeholder for finals
+      xDeltaWRONGS = 5;
+    }
     WrongsX[i] -= xDeltaWRONGS;
     if (WrongsX[i] < -64) {
       WrongsX[i] = 1200;
