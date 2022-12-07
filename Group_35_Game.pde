@@ -18,6 +18,8 @@ boolean isPhysicalMinigame = false;
 boolean isWorkMinigame = false;
 boolean isMidtermMinigame = false;
 boolean isFinalMinigame = false;
+boolean isFinalWin = false;
+boolean isFinalLose = false;
 boolean isPhysicalWin = false;
 boolean isPhysicalLose = false;
 boolean isGuyWeight = true;
@@ -210,14 +212,20 @@ void minigames() {
   if ( isMidtermLose == true ) {
     midtermLose();
   }
+  if ( isFinalMinigame == true ) {
+    finalMinigame();
+  }
+  if ( isFinalWin == true ) {
+    finalWin();
+  }
+  if ( isFinalLose == true ) {
+    finalLose();
+  }
   if ( isPhysicalWin == true ) {
     physicalWin();
   }
   if ( isPhysicalLose == true ) {
     physicalLose();
-  }
-  if ( isFinalMinigame == true ) {
-    midtermMinigame();
   }
 }
 
@@ -800,6 +808,21 @@ void midtermLose() {
   textSize(72);
   text("You failed your midterm :(", width/2, height/2);
 }
+
+void finalMinigame() {
+  midtermMinigame();
+  finalEnd();
+}
+void finalEnd() {
+  if (rectWidth <= 0) {
+    isFinalMinigame = false;
+    isFinalLose = true;
+  }
+  if (rectWidthMT == MaxWidthMT-500) {
+    isFinalMinigame = false;
+    isFinalWin = true;
+  }
+}
 void finalWin() {
   background(0, 0, 50); //blue background
   drawStars();
@@ -913,9 +936,7 @@ void physicalMinigame() {
   text("You have to press W " + liftRequired + " more times!", width/2, 95);
 }
 
-void finalMinigame() {
-  midtermMinigame();
-}
+
 //result screens
 void physicalWin() {
   isPhysicalMinigame = false;
