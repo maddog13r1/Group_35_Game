@@ -10,6 +10,7 @@ PImage playerThink; //character thinking thoughts
 PImage Pic2;
 PImage gym;
 PImage uniCenter;
+PImage nightFail;
 boolean isTitleScreen = true;
 boolean isMainScreen = false;
 boolean isHealthMinigame = false;
@@ -166,6 +167,8 @@ void setup() { //runs program once at program launch
   chicfila = loadImage("chickfila_work.png"); //loads chicfila
   nextWeek = loadImage("week_next.png"); //loads week transition
   workPlayer = loadImage("GritLife_Player_Work.png"); //loads player
+  //fail
+  nightFail = loadImage ("UMBC-nightlose.jpg"); 
   //places Right answer block on the screen
   placeRights();
 
@@ -174,7 +177,6 @@ void setup() { //runs program once at program launch
 
   //places star blocks in the background
   placeStars();
-  /***myPerson = new Person();***/
 }
 
 void draw() { //runs programs at 60 fps at program launch
@@ -421,12 +423,12 @@ void mainScreen() { // main function calling all main screen functions
   if (week < 7) {
     int midtermGap = 7 - week;
     textSize(26);
-    text("Weeks until Midterm: " + midtermGap, width/16+84, height/16+40 );
+    text("Weeks until Midterm: " + midtermGap, width/16 + 84, height/16+40 );
   }
   if (week > 7 && week < 14) {
     int finalGap = 14 - week;
     textSize(26);
-    text("Weeks until Final: " + finalGap, width/2+84, height/4+40 );
+    text("Weeks until Final: " + finalGap, width/16 + 64, height/16+40 );
   }
 
   /* stat bar */
@@ -476,6 +478,7 @@ void mainScreen() { // main function calling all main screen functions
   /* warnings for stats */
   backburner(2, 0, 0, 0, 26, 0);//text size 26 and black text
   rectMode(CENTER);
+  stroke(255);
   if (healthStat <= 25) {
     fill(220, 20, 60, 120);
     rect(width/8, height/2, 130, 35);
@@ -495,6 +498,7 @@ void mainScreen() { // main function calling all main screen functions
     text("Money Low", width/8, height/2 + 90);
   }
   fill(0);
+  stroke(0);
   rectMode(CORNER);
 
   /* losing at certain stats */
@@ -890,6 +894,30 @@ void victoryScreen() {
 //loss scenario
 void lossScreen() {
   background(0);
+  image(nightFail, 0, 0);
+  float retryButtonX = width/2 - 200;
+  float retryButtonY = height/2 + height/4;
+  int retryButtonColor = 0;
+  if (mouseX >= retryButtonX && mouseY >= retryButtonY && mouseX <=  retryButtonX + 400 && mouseY <= retryButtonY + 100 ) {
+      retryButtonColor = retryButtonColor + 255;
+  }
+  if (mousePressed && mouseX >= retryButtonX && mouseY >= retryButtonY && mouseX <=  retryButtonX + 400 && mouseY <= retryButtonY + 100 ) {
+      week = 1;
+      financialStat = int(random(25, 75));
+      socialStat = int(random(25, 75));
+      gradeStat = int(random(25, 75));
+      healthStat = int(random(25, 75));
+      isLoseScreen = false;
+      isMainScreen = true;
+  }
+  rectMode(CORNER);
+  stroke(255);
+    fill(retryButtonColor);
+    rect(retryButtonX, retryButtonY, 400, 100);
+    fill(255);
+    textSize(50);
+    text("Retry?", width/2, height/2 + height/4 + 60);
+    stroke(0);
 }
 
 
