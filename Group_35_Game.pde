@@ -82,7 +82,6 @@ boolean isJetHit = false; //declares the player getting hit animation is current
 boolean isJetSafe = true; //declares the player's idle animation is currently true
 boolean isMidtermLose = false;
 boolean isMidtermWin = false;
-
 boolean [] keys = new boolean[128];
 
 
@@ -292,18 +291,31 @@ void mainScreen() { // main function calling all main screen functions
     isMainScreen = false;
     isStudyMinigame = true;
   }
+  
   float midtermButtonX = width/2 - 200;
   float midtermButtonY = height/2;
   int midtermButtonColor = 0;
-  if (week == 7 || week == 14) {
+  if (week == 7) {
     if (mouseX >= midtermButtonX && mouseY >= midtermButtonY && mouseX <=  midtermButtonX + 400 && mouseY <= midtermButtonY + 100 ) {
       midtermButtonColor = midtermButtonColor + 255;
     }
     if (mousePressed && mouseX >= midtermButtonX && mouseY >= midtermButtonY && mouseX <=  midtermButtonX + 400 && mouseY <= midtermButtonY + 100 ) {
       isMainScreen = false;
       isMidtermMinigame = true;
-      return;
     }
+  }
+  float finalButtonX = width/2 - 200;
+  float finalButtonY = height/2;
+  int finalButtonColor = 0;
+  if (week == 14) {
+    if (mouseX >= finalButtonX && mouseY >= finalButtonY && mouseX <=  finalButtonX + 400 && mouseY <= finalButtonY + 100 ) {
+      finalButtonColor = finalButtonColor + 255;
+    }
+    if (mousePressed && mouseX >= finalButtonX && mouseY >= finalButtonY && mouseX <=  finalButtonX + 400 && mouseY <= finalButtonY + 100 ) {
+      isMainScreen = false;
+      isFinalMinigame = true;
+      return;
+  }
   }
   backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
   rectMode(CENTER);
@@ -369,13 +381,21 @@ void mainScreen() { // main function calling all main screen functions
   textSize(26);
   text("Week "+ week, width/16, height/16);
 
-  if (week == 7 || week == 14) {
+  if (week == 7) {
     rectMode(CORNER);
     fill(midtermButtonColor);
     rect(midtermButtonX, midtermButtonY, 400, 100);
     fill(255);
     textSize(50);
     text("Midterm", width/2, height/2 + 60);
+  }
+  if (week == 14) {
+    rectMode(CORNER);
+    fill(finalButtonColor);
+    rect(finalButtonX, finalButtonY, 400, 100);
+    fill(255);
+    textSize(50);
+    text("Finals", width/2, height/2 + 60);
   }
   if (week < 7){
     int midtermGap = 7 - week;
@@ -436,7 +456,10 @@ void mainScreen() { // main function calling all main screen functions
 void midtermMinigame() {
 
   background(0, 0, 50); //blue background
-
+  
+  // if stats are over a certain number, decrease difficultly of midterm/finals
+  statChanges();
+  
   //create stars in background
   drawStars();
 
@@ -497,9 +520,6 @@ void drawRights() {
   for (int i = 0; i < NUM_RIGHTS; i++) {
     fill(0, 255, 0); //white
     rect(RightsX, RightsY, 64, 64); //block
-    if ((week == 7 || week == 14) && gradeStat >= 50) { //stat influence placeholder for midterm/final
-      rectDeltaMT = 50;
-    }
     //when player touches right answer, it disappears and decreases midterm health
     if ((JetPlayerX >= RightsX && JetPlayerX <= RightsX + 64) &&
       (JetPlayerY >= RightsY && JetPlayerY <= RightsY + 64)) {
@@ -694,15 +714,6 @@ void placeWrongs() { //places each of the wrong answers in a random location bet
 
 void moveWrongs() { //Wrongs move left off the screen and starts from the right
   for (int i = 0; i < NUM_WRONGS; i++) {
-    if (week == 14) { //increased difficultly placeholder for finals
-      xDeltaWRONGS = 7;
-    }
-    if (week == 7 && healthStat >= 50) { //stat influence placeholder for midterm
-      xDeltaWRONGS = 3;
-    }
-        if (week == 14 && healthStat >= 50) { //stat influence placeholder for finals
-      xDeltaWRONGS = 5;
-    }
     WrongsX[i] -= xDeltaWRONGS;
     if (WrongsX[i] < -64) {
       WrongsX[i] = 1200;
@@ -743,6 +754,22 @@ void moveStars() { // moves stars left off the screen and starts from the right
       StarsY[i] = random(64, 720);
     }
   }
+}
+void statChanges() { // if stats are over a certain number, decrease difficultly of midterm/finals
+//health changes
+    if (week == 14) { //increased difficultly placeholder for finals
+      xDeltaWRONGS = 7;
+    }
+    if (week == 7 && healthStat >= 50) { //stat influence placeholder for midterm
+      xDeltaWRONGS = 3;
+    }
+    if (week == 14 && healthStat >= 50) { //stat influence placeholder for finals
+      xDeltaWRONGS = 5;
+    }
+//grade changes
+    if ((week == 7 || week == 14) && gradeStat >= 50) { //stat influence placeholder for midterm/final
+      rectDeltaMT = 50;
+    }
 }
 
 void midtermEnd() {
@@ -863,6 +890,7 @@ void physicalMinigame() {
 }
 
 void finalMinigame() {
+  midtermMinigame();
 }
 //result screens
 void physicalWin() {
