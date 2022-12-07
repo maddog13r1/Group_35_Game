@@ -262,6 +262,7 @@ void titleScreen() { //main title function
   rect(playButtonX, playButtonY, 280, 104);
   backburner(2, 0, 0, 0, 72, 255); //text size 72 and white text
   text("" + Play, width/2, height/2);
+  image(workPlayer, 480, 400);
 }
 
 //mainScreen
