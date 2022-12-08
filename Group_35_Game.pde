@@ -104,7 +104,7 @@ boolean isJetSafe = true; //declares the player's idle animation is currently tr
 boolean [] keys = new boolean[128];
 float midtermPlayed = 0;
 float finalPlayed = 0;
-
+float testPlayed;
 public int backburner(int c, int r, int g, int b, int s, int f) {    /***********************************************/
   switch(c) {                                                        /** this variable is made to condense and     **/
   case 1:                                                            /** improve performance of the program        **/
@@ -339,6 +339,7 @@ void mainScreen() { // main function calling all main screen functions
   float midtermButtonY = height/2;
   int midtermButtonColor = 0;
   if (week == 7) {
+    testPlayed = 1;
     if (mouseX >= midtermButtonX && mouseY >= midtermButtonY && mouseX <=  midtermButtonX + 400 && mouseY <= midtermButtonY + 100 ) {
       midtermButtonColor = midtermButtonColor + 255;
     }
@@ -352,6 +353,7 @@ void mainScreen() { // main function calling all main screen functions
   float finalButtonY = height/2;
   int finalButtonColor = 0;
   if (week == 14) {
+    testPlayed = 1;
     if (mouseX >= finalButtonX && mouseY >= finalButtonY && mouseX <=  finalButtonX + 400 && mouseY <= finalButtonY + 100 ) {
       finalButtonColor = finalButtonColor + 255;
     }
@@ -919,6 +921,7 @@ void midtermEnd() {
 }
 
 void midtermWin() {
+  testPlayed = 0;
   background(0, 0, 50); //blue background
   drawStars();
   moveStars();
@@ -950,6 +953,7 @@ void finalEnd() {
   }
 }
 void finalWin() {
+  testPlayed = 0;
   background(0, 0, 50); //blue background
   drawStars();
   moveStars();
@@ -1164,7 +1168,7 @@ void keyReleased() {
 void mouseReleased() {
   float timeButtonX = width-64;
   float timeButtonY = height - 256;
-  if (mouseX >=  timeButtonX-27.5 && mouseY >= timeButtonY-27.5 && mouseX <=  timeButtonX+27.5 && mouseY <= timeButtonY + 27.5 ) {
+  if (mouseX >=  timeButtonX-27.5 && mouseY >= timeButtonY-27.5 && mouseX <=  timeButtonX+27.5 && mouseY <= timeButtonY + 27.5 && testPlayed == 0) {
     week = week + 1;
     liftRequired = 50;
     financialStat = financialStat - 10;
