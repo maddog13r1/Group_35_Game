@@ -84,6 +84,10 @@ PImage Midterm2; //Midterm second idle animation
 PImage MidPlayerWin; //player image displayed when player beats midterm
 PImage MidtermDead; //Midterm image displayed when player beats midterm
 //work
+PImage answerC; //correct answer C you need to collect
+PImage answerB; //wrong answer B you need to avoid
+PImage answerA; //wrong answer A you need to avoid
+PImage answerD; //wrong answer D you need to avoid
 PImage starbucks; //work background
 PImage chicfila; //work background
 PImage nextWeek; //screen to appear when transitioning from week to week
@@ -173,6 +177,10 @@ void setup() { //runs program once at program launch
   MidPlayerWin = loadImage("player_midterm_victory.png"); //loads player winning midterm image
   uniCenter = loadImage("uniCenter.png"); //loads uniCenter image
   MidtermDead = loadImage("midterm_dead.png"); //loads midterm dead image
+  answerC = loadImage("answer_C.png"); //loads answer C image
+  answerD = loadImage("answer_D.png"); //loads answer D image
+  answerA = loadImage("answer_A.png"); //loads answer A image
+  answerB = loadImage("answer_B.png"); //loads answer B image
   //work
   starbucks = loadImage("UMBC_STARBUCKS.jpg"); //loads starbucks
   chicfila = loadImage("chickfila_work.png"); //loads chicfila
@@ -685,7 +693,7 @@ void drawJetPlayer() {
 void drawRights() {
   for (int i = 0; i < NUM_RIGHTS; i++) {
     fill(0, 255, 0); //white
-    rect(RightsX, RightsY, 64, 64); //block
+    image(answerC, RightsX, RightsY, 64, 64); //block
     //when player touches right answer, it disappears and decreases midterm health
     if ((JetPlayerX >= RightsX && JetPlayerX <= RightsX + 64) &&
       (JetPlayerY >= RightsY && JetPlayerY <= RightsY + 64)) {
@@ -721,7 +729,11 @@ void drawRights() {
 void drawWrongs() {
   for (int i = 0; i < NUM_WRONGS; i++) {
     fill(255); //white
-    rect(WrongsX[i], WrongsY[i], 64, 64); //block
+    image(answerA, WrongsX[1], WrongsY[1], 64, 64); //block
+    fill(0);
+    image(answerB, WrongsX[0], WrongsY[0], 64, 64);
+    fill(0,255,0);
+    image(answerD, WrongsX[2], WrongsY[2], 64, 64);
     //when player touches wrong answer, their health decreases
     if ((JetPlayerX >= WrongsX[i] && JetPlayerX <= WrongsX[i] + 64) &&
       (JetPlayerY >= WrongsY[i] && JetPlayerY <= WrongsY[i] + 64)) {
