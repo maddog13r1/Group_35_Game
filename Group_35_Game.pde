@@ -1118,7 +1118,7 @@ void studyMinigame() { //function for entire study minigame
 
     //timer
     if ( timerX != 0 ) {
-      timerX = timerX + speedX;
+      timerX = timerX;
     }
     fill(255, 0, 0);
     rect(timerX, 0, 1280, 64);
