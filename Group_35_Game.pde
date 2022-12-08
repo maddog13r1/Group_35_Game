@@ -559,6 +559,30 @@ void retryButton() {
   stroke(0);
 }
 
+void continueButton() {
+  float continueButtonX = width/2 - 200;
+  float continueButtonY = height/2 + height/4;
+  int continueButtonColor = 0;
+  if (mouseX >= continueButtonX && mouseY >= continueButtonY && mouseX <=  continueButtonX + 400 && mouseY <= continueButtonY + 100 ) {
+    continueButtonColor = continueButtonColor + 255;
+  }
+  if (mousePressed && mouseX >= continueButtonX && mouseY >= continueButtonY && mouseX <=  continueButtonX + 400 && mouseY <= continueButtonY + 100 ) {
+    if (week == 7){
+    isMidtermWin = false;
+    isFinalWin = false;
+    isMainScreen = true;
+    }
+  }
+  rectMode(CORNER);
+  stroke(255);
+  fill(continueButtonColor);
+  rect(continueButtonX, continueButtonY, 400, 100);
+  fill(255);
+  textSize(50);
+  text("Continue", width/2, height/2 + height/4 + 60);
+  stroke(0);
+}
+
 void midtermLoad() {
   //timer
   if ( timerMidtermX != 640 ) {
@@ -930,6 +954,7 @@ void midtermWin() {
   text("You passed your midterm :)", width/2, 70);
   image(MidPlayerWin, 0, 100); //player winning on screen
   image(MidtermDead, 600, 25); //midterm losing on screen
+  continueButton();
 }
 
 void midtermLose() {
@@ -962,6 +987,7 @@ void finalWin() {
   text("You passed your final :)", width/2, 70);
   image(MidPlayerWin, 0, 100); //player winning on screen
   image(MidtermDead, 600, 25); //midterm losing on screen
+  continueButton();
 }
 void finalLose() {
   isFinalMinigame = false;
