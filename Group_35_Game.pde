@@ -101,9 +101,9 @@ int rectDelta = 1; //amount of pixels the players health goes down when touching
 int rectDeltaMT = 25; //amount of pixels the midterms health goes down when player touches rights
 boolean isJetHit = false; //declares the player getting hit animation is currently false
 boolean isJetSafe = true; //declares the player's idle animation is currently true
-
 boolean [] keys = new boolean[128];
-
+float midtermPlayed = 0;
+float finalPlayed = 0;
 
 public int backburner(int c, int r, int g, int b, int s, int f) {    /***********************************************/
   switch(c) {                                                        /** this variable is made to condense and     **/
@@ -274,7 +274,7 @@ void titleScreen() { //main title function
   image(titlePic, 0, 0);
   //title box
   rectMode(CENTER);
-  fill(255); //white
+  fill(255,255,255,120); //white
   rect(width/2-4, height/4-46, 560, 208); //places a box for the text
   //title text
   textAlign(CENTER); //aligns text to the center
