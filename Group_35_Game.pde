@@ -568,10 +568,12 @@ void continueButton() {
   }
   if (mousePressed && mouseX >= continueButtonX && mouseY >= continueButtonY && mouseX <=  continueButtonX + 400 && mouseY <= continueButtonY + 100 ) {
     if (week == 7){
+    isMidtermLoad = false;
     isMidtermWin = false;
     isMainScreen = true;
     }
     if (week == 14){
+    isFinalLoad = false;
     isFinalWin = false;
     isMainScreen = true;
     }
