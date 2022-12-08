@@ -97,7 +97,7 @@ int MaxWidth = 500; //empty health bar
 int rectWidth = 500; //health
 int MaxWidthMT = 500; //midterm health bar
 int rectWidthMT = 500; //midterm health
-int rectDelta = 1; //amount of pixels the players health goes down when touching wrongs
+int rectDelta = 2; //amount of pixels the players health goes down when touching wrongs
 int rectDeltaMT = 25; //amount of pixels the midterms health goes down when player touches rights
 boolean isJetHit = false; //declares the player getting hit animation is currently false
 boolean isJetSafe = true; //declares the player's idle animation is currently true
@@ -528,6 +528,35 @@ void mainScreen() { // main function calling all main screen functions
     isLoseScreen = true;
   }
 }
+
+void retryButton(){
+  float retryButtonX = width/2 - 200;
+  float retryButtonY = height/2 + height/4;
+  int retryButtonColor = 0;
+  if (mouseX >= retryButtonX && mouseY >= retryButtonY && mouseX <=  retryButtonX + 400 && mouseY <= retryButtonY + 100 ) {
+    retryButtonColor = retryButtonColor + 255;
+  }
+  if (mousePressed && mouseX >= retryButtonX && mouseY >= retryButtonY && mouseX <=  retryButtonX + 400 && mouseY <= retryButtonY + 100 ) {
+    week = 1;
+    financialStat = int(random(25, 75));
+    socialStat = int(random(25, 75));
+    gradeStat = int(random(25, 75));
+    healthStat = int(random(25, 75));
+    isLoseScreen = false;
+    isMidtermLose = false;
+    isFinalLose = false;
+    isMainScreen = true;
+  }
+  rectMode(CORNER);
+  stroke(255);
+  fill(retryButtonColor);
+  rect(retryButtonX, retryButtonY, 400, 100);
+  fill(255);
+  textSize(50);
+  text("Retry?", width/2, height/2 + height/4 + 60);
+  stroke(0);
+}
+
 void midtermLoad() {
   //timer
   if ( timerMidtermX != 640 ) {
@@ -901,12 +930,9 @@ void midtermWin() {
 }
 
 void midtermLose() {
-  background(0, 0, 50); //blue background
-  drawStars();
-  moveStars();
-  fill(150);
-  textSize(72);
-  text("You failed your midterm :(", width/2, height/2);
+  isMidtermMinigame = false;
+  isLoseScreen = true;
+  retryButton();
 }
 
 void finalMinigame() {
@@ -934,12 +960,9 @@ void finalWin() {
   image(MidtermDead, 600, 25); //midterm losing on screen
 }
 void finalLose() {
-  background(0, 0, 50); //blue background
-  drawStars();
-  moveStars();
-  fill(150);
-  textSize(72);
-  text("You failed your final :(", width/2, height/2);
+  isFinalMinigame = false;
+  isLoseScreen = true;
+  retryButton();
 }
 /*** END GAME SCREENS ***/
 
@@ -951,31 +974,8 @@ void victoryScreen() {
 void lossScreen() {
   background(0);
   image(nightFail, 0, 0);
-  float retryButtonX = width/2 - 200;
-  float retryButtonY = height/2 + height/4;
-  int retryButtonColor = 0;
-  if (mouseX >= retryButtonX && mouseY >= retryButtonY && mouseX <=  retryButtonX + 400 && mouseY <= retryButtonY + 100 ) {
-    retryButtonColor = retryButtonColor + 255;
-  }
-  if (mousePressed && mouseX >= retryButtonX && mouseY >= retryButtonY && mouseX <=  retryButtonX + 400 && mouseY <= retryButtonY + 100 ) {
-    week = 1;
-    financialStat = int(random(25, 75));
-    socialStat = int(random(25, 75));
-    gradeStat = int(random(25, 75));
-    healthStat = int(random(25, 75));
-    isLoseScreen = false;
-    isMainScreen = true;
-  }
-  rectMode(CORNER);
-  stroke(255);
-  fill(retryButtonColor);
-  rect(retryButtonX, retryButtonY, 400, 100);
-  fill(255);
-  textSize(50);
-  text("Retry?", width/2, height/2 + height/4 + 60);
-  stroke(0);
+  retryButton();
 }
-
 
 /****** MINIGAMES ******/
 
