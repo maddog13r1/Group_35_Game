@@ -529,7 +529,7 @@ void mainScreen() { // main function calling all main screen functions
   }
 }
 void midtermLoad() {
-    //timer
+  //timer
   if ( timerMidtermX != 640 ) {
     timerMidtermX = timerMidtermX + speedX;
   }
@@ -544,7 +544,7 @@ void midtermLoad() {
   image(loadingScreen, 0, 0);
 }
 void finalLoad() {
-    //timer
+  //timer
   if ( timerWeekX != 640 ) {
     timerWeekX = timerWeekX + speedX;
   }
@@ -929,7 +929,9 @@ void finalWin() {
   moveStars();
   fill(150);
   textSize(72);
-  text("You passed your final :)", width/2, height/2);
+  text("You passed your final :)", width/4-60, 70);
+  image(MidPlayerWin, 0, 100); //player winning on screen
+  image(MidtermDead, 600, 25); //midterm losing on screen
 }
 void finalLose() {
   background(0, 0, 50); //blue background
