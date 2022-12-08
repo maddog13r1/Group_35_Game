@@ -31,6 +31,8 @@ boolean isGuyWeight = true;
 boolean isNextWeek = false;
 boolean isMidtermLoad = false;
 boolean isFinalLoad = false;
+boolean isMidtermLose = false;
+boolean isMidtermWin = false;
 boolean screen1;
 boolean screen2;
 //stats
@@ -99,8 +101,7 @@ int rectDelta = 1; //amount of pixels the players health goes down when touching
 int rectDeltaMT = 25; //amount of pixels the midterms health goes down when player touches rights
 boolean isJetHit = false; //declares the player getting hit animation is currently false
 boolean isJetSafe = true; //declares the player's idle animation is currently true
-boolean isMidtermLose = false;
-boolean isMidtermWin = false;
+
 boolean [] keys = new boolean[128];
 
 
@@ -894,7 +895,7 @@ void midtermWin() {
   moveStars();
   fill(150);
   textSize(72);
-  text("You passed your midterm :)", width/2, height/2);
+  text("You passed your midterm :)", width/4-60, 70);
   image(MidPlayerWin, 0, 100); //player winning on screen
   image(MidtermDead, 600, 25); //midterm losing on screen
 }
