@@ -456,7 +456,7 @@ void mainScreen() { // main function calling all main screen functions
   textSize(26);
   text("Week "+ week, width/16, height/16);
 
-  if (week == 7) {
+  if (week == 7 && gamesPlayed == 0) {
     rectMode(CORNER);
     fill(midtermButtonColor);
     rect(midtermButtonX, midtermButtonY, 400, 100);
@@ -464,7 +464,7 @@ void mainScreen() { // main function calling all main screen functions
     textSize(50);
     text("Midterm", width/2, height/2 + 60);
   }
-  if (week == 14) {
+  if (week == 14 && gamesPlayed == 0) {
     rectMode(CORNER);
     fill(finalButtonColor);
     rect(finalButtonX, finalButtonY, 400, 100);
@@ -595,6 +595,7 @@ void continueButton() {
     continueButtonColor = continueButtonColor + 255;
   }
   if (mousePressed && mouseX >= continueButtonX && mouseY >= continueButtonY && mouseX <=  continueButtonX + 400 && mouseY <= continueButtonY + 100 ) {
+    gamesPlayed = 1;
     if (week == 7) {
       isMidtermLoad = false;
       isMidtermWin = false;
