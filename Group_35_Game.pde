@@ -16,8 +16,7 @@
  **  Mike, Jana, RJ, Josh, Stanley **
  **  12/9/2022                    **
  **  SP5 GAME                      **
-************************************/
-
+ ************************************/
 //global variables
 PImage titlePic; //woah how cool
 PImage playerThink; //character thinking thoughts
@@ -102,6 +101,10 @@ PImage Midterm2; //Midterm second idle animation
 PImage MidPlayerWin; //player image displayed when player beats midterm
 PImage MidtermDead; //Midterm image displayed when player beats midterm
 //work
+PImage answerC; //correct answer C you need to collect
+PImage answerB; //wrong answer B you need to avoid
+PImage answerA; //wrong answer A you need to avoid
+PImage answerD; //wrong answer D you need to avoid
 PImage starbucks; //work background
 PImage chicfila; //work background
 PImage nextWeek; //screen to appear when transitioning from week to week
@@ -190,24 +193,25 @@ void setup() { //runs program once at program launch
   Midterm2 = loadImage("midterm2.png"); //loads second midterm image
   MidPlayerWin = loadImage("player_midterm_victory.png"); //loads player winning midterm image
   uniCenter = loadImage("uniCenter.png"); //loads uniCenter image
-  library = loadImage("library.jpg"); //loads uniCenter image
-  commons = loadImage("commons.jpg"); //loads uniCenter image
-  rac = loadImage("rac.jpg"); //loads uniCenter image
   MidtermDead = loadImage("midterm_dead.png"); //loads midterm dead image
+  answerC = loadImage("answer_C.png"); //loads answer C image
+  answerD = loadImage("answer_D.png"); //loads answer D image
+  answerA = loadImage("answer_A.png"); //loads answer A image
+  answerB = loadImage("answer_B.png"); //loads answer B image
   //work
   starbucks = loadImage("UMBC_STARBUCKS.jpg"); //loads starbucks
   chicfila = loadImage("chickfila_work.png"); //loads chicfila
   nextWeek = loadImage("week_next.png"); //loads week transition
   workPlayer = loadImage("GritLife_Player_Work.png"); //loads player
-  studyMinigameScene = int(random(0, 3));
   //fail
   nightFail = loadImage ("UMBC-nightlose.jpg");
+  studyMinigameScene = int(random(0, 3));
   //places Right answer block on the screen
   placeRights();
 
   //places Wrong answer blocks on the screen
   placeWrongs();
-  
+
   //places star blocks in the background
   placeStars();
 }
@@ -274,9 +278,9 @@ void minigames() {
   if ( isLoseScreen == true ) {
     lossScreen();
   }
-  //if ( isNextWeek == true) {
-  //  nextWeek();
-  //}
+  if ( isNextWeek == true) {
+    nextWeek();
+  }
   if ( isMidtermLoad == true ) {
     midtermLoad();
   }
@@ -589,13 +593,15 @@ void continueButton() {
     continueButtonColor = continueButtonColor + 255;
   }
   if (mousePressed && mouseX >= continueButtonX && mouseY >= continueButtonY && mouseX <=  continueButtonX + 400 && mouseY <= continueButtonY + 100 ) {
-    if (week == 7) {
-      isMidtermWin = false;
-      isMainScreen = true;
+    if (week == 7){
+    isMidtermLoad = false;
+    isMidtermWin = false;
+    isMainScreen = true;
     }
-    if (week == 14) {
-      isFinalWin = false;
-      isMainScreen = true;
+    if (week == 14){
+    isFinalLoad = false;
+    isFinalWin = false;
+    isMainScreen = true;
     }
   }
   rectMode(CORNER);
@@ -705,7 +711,7 @@ void drawJetPlayer() {
 void drawRights() {
   for (int i = 0; i < NUM_RIGHTS; i++) {
     fill(0, 255, 0); //white
-    rect(RightsX, RightsY, 64, 64); //block
+    image(answerC, RightsX, RightsY, 64, 64); //block
     //when player touches right answer, it disappears and decreases midterm health
     if ((JetPlayerX >= RightsX && JetPlayerX <= RightsX + 64) &&
       (JetPlayerY >= RightsY && JetPlayerY <= RightsY + 64)) {
@@ -741,7 +747,11 @@ void drawRights() {
 void drawWrongs() {
   for (int i = 0; i < NUM_WRONGS; i++) {
     fill(255); //white
-    rect(WrongsX[i], WrongsY[i], 64, 64); //block
+    image(answerA, WrongsX[1], WrongsY[1], 64, 64); //block
+    fill(0);
+    image(answerB, WrongsX[0], WrongsY[0], 64, 64);
+    fill(0,255,0);
+    image(answerD, WrongsX[2], WrongsY[2], 64, 64);
     //when player touches wrong answer, their health decreases
     if ((JetPlayerX >= WrongsX[i] && JetPlayerX <= WrongsX[i] + 64) &&
       (JetPlayerY >= WrongsY[i] && JetPlayerY <= WrongsY[i] + 64)) {
@@ -806,7 +816,7 @@ void ChangeMidtermDir() {
 }
 
 void ChangeMidtermDir2() {
-  if (MidtermX == 750) {
+  if (MidtermX == 650) {
     midtermDelta *= -1;
     image( Midterm2, MidtermX, MidtermY, 1080, 720);
     isMidRight = true;
@@ -834,6 +844,9 @@ void drawPlayerHealth() {
 //draws the Midterm's health bar and health
 void drawMidtermHealth() {
   rectMode(CORNER);
+  if(gradeStat >= 50){ //if grades is above 50% damage is 50 instead of 25
+    rectDeltaMT = 50;
+  }
   fill(200); //empty midterm health bar
   rect(780, 0, MaxWidthMT, 64);
 
@@ -843,6 +856,10 @@ void drawMidtermHealth() {
 
 //moves player up, down, left, right
 void movePlayer() {
+  if(healthStat >= 50){ //if health is 50% or more the player moves twice as fast
+    xDeltaJETPLAYER = 8;
+    yDeltaJETPLAYER = 8;
+  }
   if (keyPressed) { //moves player right
     if (keys['d']) {
       JetPlayerX += xDeltaJETPLAYER;
@@ -1034,7 +1051,7 @@ void lossScreen() {
 
 /****** MINIGAMES ******/
 
-/*** study minigame ***/
+/* study minigame */
 void studyMinigame() { //function for entire study minigame
   //background
   if(studyMinigameScene == 0){
@@ -1280,7 +1297,7 @@ void studyMinigame() { //function for entire study minigame
         gamesPlayed = 1;
         gradeStat = gradeStat + 10;
         return;
- }else if(mousePressed && mouseX >= wrongButtonX1-27.5 && mouseY >= wrongButtonY1-27.5 && mouseX <= wrongButtonX1+27.5 && mouseY <= wrongButtonY1+27.5 || mousePressed && mouseX >= wrongButtonX2-27.5 && mouseY >= wrongButtonY2-27.5 && mouseX <= wrongButtonX2+27.5 && mouseY <= wrongButtonY2+27.5){
+     }else if(mousePressed && mouseX >= wrongButtonX1-27.5 && mouseY >= wrongButtonY1-27.5 && mouseX <= wrongButtonX1+27.5 && mouseY <= wrongButtonY1+27.5 || mousePressed && mouseX >= wrongButtonX2-27.5 && mouseY >= wrongButtonY2-27.5 && mouseX <= wrongButtonX2+27.5 && mouseY <= wrongButtonY2+27.5){
         print("here scene 3\n");
         isMainScreen = false;
         isStudyMinigame = true;
@@ -1500,7 +1517,7 @@ void keyReleased() {
 void mouseReleased() {
   float timeButtonX = width-64;
   float timeButtonY = height - 256;
-  if (mouseX >=  timeButtonX-27.5 && mouseY >= timeButtonY-27.5 && mouseX <=  timeButtonX+27.5 && mouseY <= timeButtonY + 27.5 ) {
+  if (mouseX >=  timeButtonX-27.5 && mouseY >= timeButtonY-27.5 && mouseX <=  timeButtonX+27.5 && mouseY <= timeButtonY + 27.5 && testPlayed == 0) {
     week = week + 1;
     liftRequired = 50;
     financialStat = financialStat - 10;
