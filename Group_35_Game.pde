@@ -1065,6 +1065,8 @@ void studyMinigame() { //function for entire study minigame
     rectMode(CENTER);
     fill(255, 255, 255, 150);
     rect(width/2, height/2, width, height);
+    //instruction text
+    fill(0);
     text("Choose the Correct Building", width - 640, height - 450);
     //University Center text highlight
     fill(288, 208, 10, 120);
@@ -1130,6 +1132,7 @@ void studyMinigame() { //function for entire study minigame
     rectMode(CENTER);
     fill(255, 255, 255, 150);
     rect(width/2, height/2, width, height);
+    fill(0);
     text("Choose the Correct Building", width - 640, height - 450);
     //University Center text highlight
     fill(288, 208, 10, 120);
@@ -1183,7 +1186,7 @@ void studyMinigame() { //function for entire study minigame
 
     //timer
     if ( timerX != 0 ) {
-      timerX = timerX + speedX;
+      timerX = timerX;
     }
     fill(255, 0, 0);
     rect(timerX, 0, 1280, 64);
@@ -1194,6 +1197,7 @@ void studyMinigame() { //function for entire study minigame
     rectMode(CENTER);
     fill(255, 255, 255, 150);
     rect(width/2, height/2, width, height);
+    fill(0);
     text("Choose the Correct Building", width - 640, height - 450);
     //University Center text highlight
     fill(288, 208, 10, 120);
@@ -1258,6 +1262,7 @@ void studyMinigame() { //function for entire study minigame
     rectMode(CENTER);
     fill(255, 255, 255, 150);
     rect(width/2, height/2, width, height);
+    fill(0);
     text("Choose the Correct Building", width - 640, height - 450);
     //University Center text highlight
     fill(288, 208, 10, 120);
