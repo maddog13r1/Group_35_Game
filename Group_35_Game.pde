@@ -44,6 +44,7 @@ PImage GuySucceed;
 PImage GuyFail;
 int physicalMinigameWin = 0;
 //timers
+float timerWeekX = -640;
 float timerX = -640;
 float speedX = 2; //sets the time to ~60 seconds
 //time button and weeks
@@ -1136,17 +1137,17 @@ void mouseReleased() {
 }
 void nextWeek() {
     //timer
-  if ( timerX != 640 ) {
-    timerX = timerX + speedX;
+  if ( timerWeekX != 640 ) {
+    timerWeekX = timerWeekX + speedX;
   }
   fill(255, 0, 0);
-  rect(timerX, 0, 1280, 64);
-  if ( timerX == -270 ) {
+  rect(timerWeekX, 0, 1280, 64);
+  if ( timerWeekX == -270 ) {
     isMainScreen = true;
     isNextWeek = false;
   }
   fill(255, 0, 0);
-  rect(timerX, 0, 1280, 64);
+  rect(timerWeekX, 0, 1280, 64);
   image(nextWeek,0,0);
 }
 void workMinigame() {
