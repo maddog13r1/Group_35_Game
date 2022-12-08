@@ -27,6 +27,7 @@ boolean isPhysicalWin = false;
 boolean isPhysicalLose = false;
 boolean isLoseScreen = false;
 boolean isGuyWeight = true;
+boolean isNextWeek = false;
 boolean screen1;
 boolean screen2;
 //stats
@@ -244,6 +245,9 @@ void minigames() {
   }
   if ( isLoseScreen == true ) {
    lossScreen(); 
+  }
+  if ( isNextWeek == true) {
+   nextWeek(); 
   }
 }
 
@@ -1127,9 +1131,24 @@ void mouseReleased() {
       healthStat = healthStat - int(random(10, 20));
     }
     gradeStat = gradeStat - int(random(0, 10));
+    isNextWeek = true;
   }
 }
-
+void nextWeek() {
+    //timer
+  if ( timerX != 640 ) {
+    timerX = timerX + speedX;
+  }
+  fill(255, 0, 0);
+  rect(timerX, 0, 1280, 64);
+  if ( timerX == -270 ) {
+    isMainScreen = true;
+    isNextWeek = false;
+  }
+  fill(255, 0, 0);
+  rect(timerX, 0, 1280, 64);
+  image(nextWeek,0,0);
+}
 void workMinigame() {
   //background
   background(0);
