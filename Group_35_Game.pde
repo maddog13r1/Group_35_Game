@@ -1,7 +1,20 @@
+//Since the demo we added improved visuals to give the game a nice aesthetic.
+//An option to work to gain money as suggested by teaching fellows, 
+//If money reaches 0% other stats go down faster than usual
+//a study minigame to boost grade stat, a midterm boss fight as well as a 
+//final boss fight with harder difficulty to serve as a test for the skills you gained.
+//As such having over 50% in health gives you increased speed,
+//As well as having over 50% in grades damages the boss faster.
+//A loading screens to make events feel more impactful.
+//stat variation to make the game more random and replayable.
+//count downs toward midterm and final so the player has a heads up.
+//Good Ending for beating the final.
+//Bad Ending for going 0% in Health or Grades, or losing midterm or final.
+
 /************************************
  **  GROUP 35 GAME                 **
  **  Mike, Jana, RJ, Josh, Stanley **
- **  11/13/2022                    **
+ **  12/9/2022                    **
  **  SP5 GAME                      **
  ************************************/
 //global variables
@@ -387,7 +400,7 @@ void mainScreen() { // main function calling all main screen functions
   rect(width - 137, height - 128, 84, 40);
   //physical button
   fill(0);
-  text("Workout", width - 136, height - 120);
+  text("Exercise", width - 136, height - 120);
   float physicalButtonX = width - 64; //802 in 1920
   float physicalButtonY = height - 128; //776 in 1080;
   int physicalButtonColor = 0;
@@ -803,7 +816,7 @@ void ChangeMidtermDir() {
 }
 
 void ChangeMidtermDir2() {
-  if (MidtermX == 750) {
+  if (MidtermX == 650) {
     midtermDelta *= -1;
     image( Midterm2, MidtermX, MidtermY, 1080, 720);
     isMidRight = true;
@@ -831,6 +844,9 @@ void drawPlayerHealth() {
 //draws the Midterm's health bar and health
 void drawMidtermHealth() {
   rectMode(CORNER);
+  if(gradeStat >= 50){ //if grades is above 50% damage is 50 instead of 25
+    rectDeltaMT = 50;
+  }
   fill(200); //empty midterm health bar
   rect(780, 0, MaxWidthMT, 64);
 
@@ -840,6 +856,10 @@ void drawMidtermHealth() {
 
 //moves player up, down, left, right
 void movePlayer() {
+  if(healthStat >= 50){ //if health is 50% or more the player moves twice as fast
+    xDeltaJETPLAYER = 8;
+    yDeltaJETPLAYER = 8;
+  }
   if (keyPressed) { //moves player right
     if (keys['d']) {
       JetPlayerX += xDeltaJETPLAYER;
