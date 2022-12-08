@@ -11,6 +11,7 @@ PImage Pic2;
 PImage gym;
 PImage uniCenter;
 PImage nightFail;
+PImage loadingScreen;
 boolean isTitleScreen = true;
 boolean isMainScreen = false;
 boolean isHealthMinigame = false;
@@ -28,6 +29,8 @@ boolean isPhysicalLose = false;
 boolean isLoseScreen = false;
 boolean isGuyWeight = true;
 boolean isNextWeek = false;
+boolean isMidtermLoad = false;
+boolean isFinalLoad = false;
 boolean screen1;
 boolean screen2;
 //stats
@@ -44,6 +47,8 @@ PImage GuySucceed;
 PImage GuyFail;
 int physicalMinigameWin = 0;
 //timers
+float timerMidtermX = -640;
+float timerFinalX = -640;
 float timerWeekX = -640;
 float timerX = -640;
 float speedX = 2; //sets the time to ~60 seconds
@@ -148,6 +153,7 @@ void setup() { //runs program once at program launch
   titlePic = loadImage("umbc_air.png"); //background of the starting page
   Pic2 = loadImage("mainScreen.png"); //background of week 1 screen
   playerThink = loadImage("player_thinking.png");
+  loadingScreen = loadImage("Gritlife_Midterm_load_screen.png");
   //Images for gym minigame
   GuyWeight = loadImage("player_weight.png");
   GuyLift = loadImage("player_lift.png");
@@ -159,8 +165,6 @@ void setup() { //runs program once at program launch
   gradeStat = int(random(25, 75));
   healthStat = int(random(25, 75));
   //midterm character setup
-  size(1280, 720);
-  background(0, 255, 0);
   Jetpack = loadImage("player_jetpack.png"); //loads player image
   JetHit = loadImage("player_jetpack_hit.png"); //loads player hit image
   Midterm = loadImage("midterm.png"); //loads midterm image
@@ -174,7 +178,7 @@ void setup() { //runs program once at program launch
   nextWeek = loadImage("week_next.png"); //loads week transition
   workPlayer = loadImage("GritLife_Player_Work.png"); //loads player
   //fail
-  nightFail = loadImage ("UMBC-nightlose.jpg"); 
+  nightFail = loadImage ("UMBC-nightlose.jpg");
   //places Right answer block on the screen
   placeRights();
 
@@ -245,10 +249,16 @@ void minigames() {
     physicalLose();
   }
   if ( isLoseScreen == true ) {
-   lossScreen(); 
+    lossScreen();
   }
   if ( isNextWeek == true) {
-   nextWeek(); 
+    nextWeek();
+  }
+  if ( isMidtermLoad == true ) {
+    midtermLoad();
+  }
+  if ( isFinalLoad == true ) {
+    finalLoad();
   }
 }
 
@@ -333,7 +343,8 @@ void mainScreen() { // main function calling all main screen functions
     }
     if (mousePressed && mouseX >= midtermButtonX && mouseY >= midtermButtonY && mouseX <=  midtermButtonX + 400 && mouseY <= midtermButtonY + 100 ) {
       isMainScreen = false;
-      isMidtermMinigame = true;
+      isMidtermLoad = true;
+      //isMidtermMinigame = true;
     }
   }
   float finalButtonX = width/2 - 200;
@@ -345,7 +356,8 @@ void mainScreen() { // main function calling all main screen functions
     }
     if (mousePressed && mouseX >= finalButtonX && mouseY >= finalButtonY && mouseX <=  finalButtonX + 400 && mouseY <= finalButtonY + 100 ) {
       isMainScreen = false;
-      isFinalMinigame = true;
+      isFinalLoad = true;
+      //isFinalMinigame = true;
       return;
     }
   }
@@ -514,6 +526,36 @@ void mainScreen() { // main function calling all main screen functions
   if (healthStat < 0 || gradeStat < 0) {
     isLoseScreen = true;
   }
+}
+void midtermLoad() {
+    //timer
+  if ( timerMidtermX != 640 ) {
+    timerMidtermX = timerMidtermX + speedX;
+  }
+  fill(255, 0, 0);
+  rect(timerMidtermX, 0, 1280, 64);
+  if ( timerMidtermX == -270 ) {
+    isMidtermMinigame = true;
+    isMidtermLoad = false;
+  }
+  fill(255, 0, 0);
+  rect(timerFinalX, 0, 1280, 64);
+  image(loadingScreen, 0, 0);
+}
+void finalLoad() {
+    //timer
+  if ( timerWeekX != 640 ) {
+    timerWeekX = timerWeekX + speedX;
+  }
+  fill(255, 0, 0);
+  rect(timerWeekX, 0, 1280, 64);
+  if ( timerWeekX == -270 ) {
+    isFinalMinigame = true;
+    isFinalLoad = false;
+  }
+  fill(255, 0, 0);
+  rect(timerFinalX, 0, 1280, 64);
+  image(loadingScreen, 0, 0);
 }
 
 void midtermMinigame() {
@@ -910,25 +952,25 @@ void lossScreen() {
   float retryButtonY = height/2 + height/4;
   int retryButtonColor = 0;
   if (mouseX >= retryButtonX && mouseY >= retryButtonY && mouseX <=  retryButtonX + 400 && mouseY <= retryButtonY + 100 ) {
-      retryButtonColor = retryButtonColor + 255;
+    retryButtonColor = retryButtonColor + 255;
   }
   if (mousePressed && mouseX >= retryButtonX && mouseY >= retryButtonY && mouseX <=  retryButtonX + 400 && mouseY <= retryButtonY + 100 ) {
-      week = 1;
-      financialStat = int(random(25, 75));
-      socialStat = int(random(25, 75));
-      gradeStat = int(random(25, 75));
-      healthStat = int(random(25, 75));
-      isLoseScreen = false;
-      isMainScreen = true;
+    week = 1;
+    financialStat = int(random(25, 75));
+    socialStat = int(random(25, 75));
+    gradeStat = int(random(25, 75));
+    healthStat = int(random(25, 75));
+    isLoseScreen = false;
+    isMainScreen = true;
   }
   rectMode(CORNER);
   stroke(255);
-    fill(retryButtonColor);
-    rect(retryButtonX, retryButtonY, 400, 100);
-    fill(255);
-    textSize(50);
-    text("Retry?", width/2, height/2 + height/4 + 60);
-    stroke(0);
+  fill(retryButtonColor);
+  rect(retryButtonX, retryButtonY, 400, 100);
+  fill(255);
+  textSize(50);
+  text("Retry?", width/2, height/2 + height/4 + 60);
+  stroke(0);
 }
 
 
@@ -995,8 +1037,8 @@ void physicalMinigame() {
   text("Press W 50 times before the time runs out!", width/2, 75);
   if (liftRequired == 1) { //when player is on the last push they lift it up
     if ( isGuyWeight == false ) {
-    image(GuySucceed, 500, 50);
-  }
+      image(GuySucceed, 500, 50);
+    }
   }
   if (liftRequired == 0) { //when the requirement goes all the way down to zero a win screen appears
     isPhysicalWin = true;
@@ -1137,7 +1179,7 @@ void mouseReleased() {
   }
 }
 void nextWeek() {
-    //timer
+  //timer
   if ( timerWeekX != 640 ) {
     timerWeekX = timerWeekX + speedX;
   }
@@ -1149,7 +1191,7 @@ void nextWeek() {
   }
   fill(255, 0, 0);
   rect(timerWeekX, 0, 1280, 64);
-  image(nextWeek,0,0);
+  image(nextWeek, 0, 0);
 }
 void workMinigame() {
   //background
