@@ -387,7 +387,6 @@ void mainScreen() { // main function calling all main screen functions
       isMainScreen = false;
       isFinalLoad = true;
       //isFinalMinigame = true;
-      return;
     }
   }
   backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
@@ -976,11 +975,11 @@ void statChanges() { // if stats are over a certain number, decrease difficultly
 }
 
 void midtermEnd() {
-  if (rectWidth <= 0) {
+  if (rectWidth <= 0 && week == 7) {
     isMidtermMinigame = false;
     isMidtermLose = true;
   }
-  if (rectWidthMT == MaxWidthMT-500) {
+  if (rectWidthMT == MaxWidthMT-500 && week == 7) {
     isMidtermMinigame = false;
     isMidtermWin = true;
   }
@@ -996,6 +995,8 @@ void midtermWin() {
   text("You passed your midterm :)", width/2, 70);
   image(MidPlayerWin, 0, 100); //player winning on screen
   image(MidtermDead, 600, 25); //midterm losing on screen
+  rectWidthMT = 500;
+  rectWidth = 500;
   continueButton();
 }
 
@@ -1526,11 +1527,11 @@ void mouseReleased() {
     gamesPlayed = 0;
     timerWeekX = -640;
     if ( financialStat > 0 ) {
-      healthStat = healthStat - int(random(0, 10));
+      healthStat = healthStat - int(random(0, 5));
     } else {
-      healthStat = healthStat - int(random(10, 20));
+      healthStat = healthStat - int(random(5, 10));
     }
-    gradeStat = gradeStat - int(random(0, 10));
+    gradeStat = gradeStat - int(random(0, 5));
     isNextWeek = true;
   }
 }
