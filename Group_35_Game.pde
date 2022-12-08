@@ -1526,6 +1526,7 @@ void mouseReleased() {
       healthStat = healthStat - int(random(5, 10));
     }
     gradeStat = gradeStat - int(random(0, 5));
+    gradeStat = gradeStat - int(random(0,5));
     isNextWeek = true;
   }
 }
