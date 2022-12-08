@@ -274,7 +274,7 @@ void titleScreen() { //main title function
   image(titlePic, 0, 0);
   //title box
   rectMode(CENTER);
-  fill(255,255,255,120); //white
+  fill(255, 255, 255, 120); //white
   rect(width/2-4, height/4-46, 560, 208); //places a box for the text
   //title text
   textAlign(CENTER); //aligns text to the center
@@ -529,7 +529,7 @@ void mainScreen() { // main function calling all main screen functions
   }
 }
 
-void retryButton(){
+void retryButton() {
   float retryButtonX = width/2 - 200;
   float retryButtonY = height/2 + height/4;
   int retryButtonColor = 0;
@@ -924,7 +924,7 @@ void midtermWin() {
   moveStars();
   fill(150);
   textSize(72);
-  text("You passed your midterm :)", width/4-60, 70);
+  text("You passed your midterm :)", width/2, 70);
   image(MidPlayerWin, 0, 100); //player winning on screen
   image(MidtermDead, 600, 25); //midterm losing on screen
 }
@@ -955,7 +955,7 @@ void finalWin() {
   moveStars();
   fill(150);
   textSize(72);
-  text("You passed your final :)", width/4-60, 70);
+  text("You passed your final :)", width/2, 70);
   image(MidPlayerWin, 0, 100); //player winning on screen
   image(MidtermDead, 600, 25); //midterm losing on screen
 }
