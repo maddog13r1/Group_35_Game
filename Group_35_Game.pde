@@ -278,9 +278,9 @@ void minigames() {
   if ( isLoseScreen == true ) {
     lossScreen();
   }
-  if ( isNextWeek == true) {
-    nextWeek();
-  }
+  //if ( isNextWeek == true) {
+  //  nextWeek();
+  //}
   if ( isMidtermLoad == true ) {
     midtermLoad();
   }
@@ -1517,7 +1517,7 @@ void keyReleased() {
 void mouseReleased() {
   float timeButtonX = width-64;
   float timeButtonY = height - 256;
-  if (mouseX >=  timeButtonX-27.5 && mouseY >= timeButtonY-27.5 && mouseX <=  timeButtonX+27.5 && mouseY <= timeButtonY + 27.5 && testPlayed == 0) {
+  if (mouseX >=  timeButtonX-27.5 && mouseY >= timeButtonY-27.5 && mouseX <=  timeButtonX+27.5 && mouseY <= timeButtonY + 27.5 ) {
     week = week + 1;
     liftRequired = 50;
     financialStat = financialStat - 10;
