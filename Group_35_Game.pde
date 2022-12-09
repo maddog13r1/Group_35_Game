@@ -1549,11 +1549,11 @@ void physicalMinigame() {
   textSize(24);
   fill(0);
   text("Press W 50 times before the time runs out!", width/2, 75);
-  if (liftRequired == 1) { //when player is on the last push they lift it up
-    if ( isGuyWeight == false ) {
-      image(GuySucceed, 500, 50);
-    }
-  }
+  //if (liftRequired == 1) { //when player is on the last push they lift it up
+  //  if ( isGuyWeight == false ) {
+  //    image(GuySucceed, 500, 50);
+  //  }
+  //}
   if (liftRequired == 0) { //when the requirement goes all the way down to zero a win screen appears
     isPhysicalWin = true;
   }
