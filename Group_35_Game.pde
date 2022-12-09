@@ -531,19 +531,19 @@ void mainScreen() { // main function calling all main screen functions
   backburner(2, 0, 0, 0, 26, 0);//text size 26 and black text
   rectMode(CENTER);
   stroke(255);
-  if (healthStat <= 25) {
+  if (healthStat <= 10) {
     fill(220, 20, 60, 120);
     rect(width/8, height/2, 130, 35);
     fill(0);
     text("Health Low", width/8, height/2 + 10);
   }
-  if (gradeStat <= 25) {
+  if (gradeStat <= 10) {
     fill(288, 208, 10, 120);
     rect(width/8, height/2 + 42, 130, 35);
     fill(0);
     text("Grades Low", width/8, height/2 + 50);
   }
-  if (financialStat <= 25) {
+  if (financialStat <= 10) {
     fill(124, 252, 0, 120);
     rect(width/8, height/2 + 84, 140, 35);
     fill(0);
@@ -577,6 +577,7 @@ void retryButton() {
     socialStat = int(random(25, 75));
     gradeStat = int(random(25, 75));
     healthStat = int(random(25, 75));
+    gamesPlayed = 0;
     isLoseScreen = false;
     isMidtermLose = false;
     isFinalLose = false;
@@ -864,10 +865,6 @@ void drawMidtermHealth() {
 
 //moves player up, down, left, right
 void movePlayer() {
-  if (healthStat >= 50) { //if health is 50% or more the player moves twice as fast
-    xDeltaJETPLAYER = 8;
-    yDeltaJETPLAYER = 8;
-  }
   if (keyPressed) { //moves player right
     if (keys['d']) {
       JetPlayerX += xDeltaJETPLAYER;
@@ -970,15 +967,14 @@ void statChanges() { // if stats are over a certain number, decrease difficultly
   //health changes
   if (week == 14) { //increased difficultly placeholder for finals
     xDeltaWRONGS = 7;
+    xDeltaRIGHTS = 7;
   }
-  if (week == 7 && healthStat >= 50) { //stat influence placeholder for midterm
-    xDeltaWRONGS = 3;
-  }
-  if (week == 14 && healthStat >= 50) { //stat influence placeholder for finals
-    xDeltaWRONGS = 5;
+  if (healthStat >= 50) { //if health is 50% or more the player moves twice as fast
+    xDeltaJETPLAYER = 8;
+    yDeltaJETPLAYER = 8;
   }
   //grade changes
-  if ((week == 7 || week == 14) && gradeStat >= 50) { //stat influence placeholder for midterm/final
+  if (gradeStat >= 50) { //if grades is above 50% damage is 50 instead of 25
     rectDeltaMT = 50;
   }
 }
@@ -1001,12 +997,51 @@ void midtermWin() {
   moveStars();
   fill(150);
   textSize(72);
-  text("You passed your midterm :)", width/2, 70);
+  text("You passed your midterm :)", width/2, height/10);
   image(MidPlayerWin, 0, 100); //player winning on screen
   image(MidtermDead, 600, 25); //midterm losing on screen
   rectWidthMT = 500;
   rectWidth = 500;
   continueButton();
+  
+  rectMode(CENTER);
+  //financial stat
+  textSize(32);
+  fill(124, 252, 0);
+  text("Money: $" + int(financialStat), width/8, height - 60);
+
+
+  fill(288, 208, 10);
+  textSize(26);
+  text("Grades", width/4, height-106);
+  //grade bar
+  fill(50);
+  rectMode(CORNER);
+  rect(width/20, height - 128, 200, 26, 90);
+  noStroke();
+  fill(288, 208, 10);
+  rect(width/20, height - 128, gradeStat * 2, 26, 90);
+  textSize(16);
+  fill(255);
+  text(int(gradeStat) + "%", width/8 + 8, height - 110);
+
+  fill(220, 20, 60);
+  textSize(26);
+  text("Health", width/4, height-150);
+  //health bar
+  fill(50);
+  rectMode(CORNER);
+  rect(width/20, height - 172, 200, 26, 90);
+  noStroke();
+  fill(220, 20, 60);
+  rect(width/20, height - 172, healthStat * 2, 26, 90);
+  textSize(16);
+  fill(255);
+  text(int(healthStat) + "%", width/8 + 8, height - 154);
+  
+  fill(0);
+  stroke(0);
+  rectMode(CORNER);
 }
 
 void midtermLose() {
@@ -1019,12 +1054,13 @@ void finalMinigame() {
   midtermMinigame();
   finalEnd();
 }
+
 void finalEnd() {
   if (rectWidth <= 0) {
     isFinalMinigame = false;
     isFinalLose = true;
   }
-  if (rectWidthMT == MaxWidthMT-500) {
+  if (rectWidthMT == MaxWidthMT - 500) {
     isFinalMinigame = false;
     isFinalWin = true;
   }
