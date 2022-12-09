@@ -1120,39 +1120,23 @@ void studyMinigame() { //function for entire study minigame
     background(0);
     image(uniCenter, -700, -100);
     rectMode(CENTER);
-    fill(255, 255, 255, 150);
-    rect(width/2, height/2, width, height);
-    //instruction text
-    fill(0);
-    text("Choose the Correct Building", width - 640, height - 450);
-    //University Center text highlight
-    fill(288, 208, 10, 120);
-    rect(width-500, height-360, 200, 40);
-    //University Center button
-    backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
-    text("University Center", width - 500, height - 350);
-    //The RAC text highlight
-    fill(288, 208, 10, 120);
-    rect(width-780, height-360, 200, 40);
-    //The RAC button
-    backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
-    text("The RAC", width - 780, height - 350);
-    //The Commons text highlight
-    fill(288, 208, 10, 120);
-    rect(width-640, height-260, 200, 40);
-    //The Commons button
-    backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
-    text("The Commons", width - 640, height - 255);
-    float studyButtonX = width-500;
+    float studyButtonX = width - 500;
     float studyButtonY = height - 360;
-    float wrongButtonX1 = width-780;
+    float wrongButtonX1 = width - 780;
     float wrongButtonY1 = height - 360;
-    float wrongButtonX2 = width-640;
+    float wrongButtonX2 = width - 640;
     float wrongButtonY2 = height - 260;
-
-    int studyButtonColor = 255;
+    color studyButtonColor = color(255, 208, 10, 120);
+    color wrongButtonColor1 = color(255, 208, 10, 120);
+    color wrongButtonColor2 = color(255, 208, 10, 120);
+    if ( mouseX >= wrongButtonX1 - 100 && mouseY >= wrongButtonY1 - 10 && mouseX <= wrongButtonX1 + 100 && mouseY <= wrongButtonY1 + 10 ) {
+      wrongButtonColor1 = color(255);
+    }
+    if ( mouseX >= wrongButtonX2 - 100 && mouseY >= wrongButtonY2 - 10 && mouseX <= wrongButtonX2 + 100 && mouseY <= wrongButtonY2 + 10 ) {
+      wrongButtonColor2 = color(255);
+    }
     if ( mouseX >= studyButtonX - 100 && mouseY >= studyButtonY - 10 && mouseX <= studyButtonX + 100 && mouseY <= studyButtonY + 10 ) {
-      studyButtonColor = studyButtonColor + 255;
+      studyButtonColor = color(255);
     }
     if ( mousePressed && mouseX >= studyButtonX - 100 && mouseY >= studyButtonY - 10 && mouseX <= studyButtonX + 100 && mouseY <= studyButtonY + 10 ) {
       print("here\n");
@@ -1163,6 +1147,7 @@ void studyMinigame() { //function for entire study minigame
       gamesPlayed = 1;
       gradeStat = gradeStat + 10;
       return;
+      
     } else if (mousePressed && mouseX >= wrongButtonX1 - 100 && mouseY >= wrongButtonY1 - 10 && mouseX <= wrongButtonX1 + 100 && mouseY <= wrongButtonY1 + 10 || mousePressed && mouseX >= wrongButtonX2 - 100 && mouseY >= wrongButtonY2 - 10 && mouseX <= wrongButtonX2 + 100 && mouseY <= wrongButtonY2 + 10) {
       print("here scene 1\n");
       isMainScreen = false;
@@ -1173,8 +1158,33 @@ void studyMinigame() { //function for entire study minigame
       print("lose\n");
       return;
     }
-    fill(studyButtonColor, 208, 10, 120);
+    
+    fill(255, 255, 255, 150);
+    rect(width/2, height/2, width, height);
+    //instruction text
+    fill(0);
+    text("Choose the Correct Building", width - 640, height - 450);
+    //The RAC text highlight
+    fill(wrongButtonColor1);
+    rect(width-780, height-360, 200, 40);
+    //The RAC button
+    backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
+    text("The RAC", width - 780, height - 350);
+    //The Commons text highlight
+    fill(wrongButtonColor2);
+    rect(width-640, height-260, 200, 40);
+    //The Commons button
+    backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
+    text("The Commons", width - 640, height - 255);
+    
+    fill(studyButtonColor);
     rect(studyButtonX, studyButtonY, 200, 40);
+    //University Center text highlight
+    fill(288, 208, 10, 120);
+    rect(width - 500, height-360, 200, 40);
+    //University Center button
+    backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
+    text("University Center", width - 500, height - 350);
 
     //timer
     if ( timerX != 0 ) {
@@ -1186,38 +1196,24 @@ void studyMinigame() { //function for entire study minigame
     //background
     background(0);
     image(library, 0, 0, width, height);
-    rectMode(CENTER);
-    fill(255, 255, 255, 150);
-    rect(width/2, height/2, width, height);
-    fill(0);
-    text("Choose the Correct Building", width - 640, height - 450);
-    //University Center text highlight
-    fill(288, 208, 10, 120);
-    rect(width-500, height-360, 200, 40);
-    //University Center button
-    backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
-    text("Library", width - 500, height - 350);
-    //The RAC text highlight
-    fill(288, 208, 10, 120);
-    rect(width-780, height-360, 200, 40);
-    //The RAC button
-    backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
-    text("The RAC", width - 780, height - 350);
-    //The Commons text highlight
-    fill(288, 208, 10, 120);
-    rect(width-640, height-260, 200, 40);
-    //The Commons button
-    backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
-    text("The Commons", width - 640, height - 255);
+    
     float studyButtonX = width-500;
     float studyButtonY = height - 360;
-    int studyButtonColor = 255;
+    color studyButtonColor = color(255, 208, 10, 120);
+    color wrongButtonColor1 = color(255, 208, 10, 120);
+    color wrongButtonColor2 = color(255, 208, 10, 120);
     float wrongButtonX1 = width-780;
     float wrongButtonY1 = height - 360;
     float wrongButtonX2 = width-640;
     float wrongButtonY2 = height - 260;
+    if ( mouseX >= wrongButtonX1 - 100 && mouseY >= wrongButtonY1 - 10 && mouseX <= wrongButtonX1 + 100 && mouseY <= wrongButtonY1 + 10 ) {
+      wrongButtonColor1 = color(255);
+    }
+    if ( mouseX >= wrongButtonX2 - 100 && mouseY >= wrongButtonY2 - 10 && mouseX <= wrongButtonX2 + 100 && mouseY <= wrongButtonY2 + 10 ) {
+      wrongButtonColor2 = color(255);
+    }
     if ( mouseX >= studyButtonX - 100 && mouseY >= studyButtonY - 10 && mouseX <= studyButtonX + 100 && mouseY <= studyButtonY + 10 ) {
-      studyButtonColor = studyButtonColor + 255;
+      studyButtonColor = color(255);
     }
     if ( mousePressed &&  mouseX >= studyButtonX - 100 && mouseY >= studyButtonY - 10 && mouseX <= studyButtonX + 100 && mouseY <= studyButtonY + 10 ) {
       print("here\n");
@@ -1238,9 +1234,34 @@ void studyMinigame() { //function for entire study minigame
       print("lose\n");
       return;
     }
-    fill(studyButtonColor, 208, 10, 120);
+    rectMode(CENTER);
+    fill(255, 255, 255, 150);
+    rect(width/2, height/2, width, height);
+    fill(0);
+    text("Choose the Correct Building", width - 640, height - 450);
+    
+    //The RAC text highlight
+    fill(wrongButtonColor1);
+    rect(width-780, height-360, 200, 40);
+    //The RAC button
+    backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
+    text("The RAC", width - 780, height - 350);
+    //The Commons text highlight
+    fill(wrongButtonColor2);
+    rect(width-640, height-260, 200, 40);
+    //The Commons button
+    backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
+    text("The Commons", width - 640, height - 255);
+    
+    fill(studyButtonColor);
     rect(studyButtonX, studyButtonY, 200, 40);
-
+    //Library text highlight
+    fill(288, 208, 10, 120);
+    rect(width-500, height-360, 200, 40);
+    //Library button
+    backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
+    text("Library", width - 500, height - 350);
+    
     //timer
     if ( timerX != 0 ) {
       timerX = timerX;
@@ -1251,38 +1272,24 @@ void studyMinigame() { //function for entire study minigame
     //background
     background(0);
     image(rac, 0, 0, width, height);
-    rectMode(CENTER);
-    fill(255, 255, 255, 150);
-    rect(width/2, height/2, width, height);
-    fill(0);
-    text("Choose the Correct Building", width - 640, height - 450);
-    //University Center text highlight
-    fill(288, 208, 10, 120);
-    rect(width-500, height-360, 200, 40);
-    //University Center button
-    backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
-    text("The RAC", width - 500, height - 350);
-    //The RAC text highlight
-    fill(288, 208, 10, 120);
-    rect(width-780, height-360, 200, 40);
-    //The RAC button
-    backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
-    text("The Library", width - 780, height - 350);
-    //The Commons text highlight
-    fill(288, 208, 10, 120);
-    rect(width-640, height-260, 200, 40);
-    //The Commons button
-    backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
-    text("The Commons", width - 640, height - 255);
+    
     float studyButtonX = width-500;
     float studyButtonY = height - 360;
     float wrongButtonX1 = width-780;
     float wrongButtonY1 = height - 360;
     float wrongButtonX2 = width-640;
     float wrongButtonY2 = height - 260;
-    int studyButtonColor = 255;
+    color studyButtonColor = color(255, 208, 10, 120);
+    color wrongButtonColor1 = color(255, 208, 10, 120);
+    color wrongButtonColor2 = color(255, 208, 10, 120);
     if ( mouseX >= studyButtonX - 100 && mouseY >= studyButtonY - 10 && mouseX <= studyButtonX + 100 && mouseY <= studyButtonY + 10 ) {
-      studyButtonColor = studyButtonColor + 255;
+      studyButtonColor = color(255);
+    }    
+    if ( mouseX >= wrongButtonX1 - 100 && mouseY >= wrongButtonY1 - 10 && mouseX <= wrongButtonX1 + 100 && mouseY <= wrongButtonY1 + 10 ) {
+      wrongButtonColor1 = color(255);
+    }
+    if ( mouseX >= wrongButtonX2 - 100 && mouseY >= wrongButtonY2 - 10 && mouseX <= wrongButtonX2 + 100 && mouseY <= wrongButtonY2 + 10 ) {
+      wrongButtonColor2 = color(255);
     }
     if ( mousePressed &&  mouseX >= studyButtonX - 100 && mouseY >= studyButtonY - 10 && mouseX <= studyButtonX + 100 && mouseY <= studyButtonY + 10 ) {
       print("here\n");
@@ -1303,51 +1310,53 @@ void studyMinigame() { //function for entire study minigame
       print("lose\n");
       return;
     }
-    fill(studyButtonColor, 208, 10, 120);
+    rectMode(CENTER);
+    fill(255, 255, 255, 150);
+    rect(width/2, height/2, width, height);
+    text("Choose the Correct Building", width - 640, height - 450);
+    //The Library text highlight
+    fill(wrongButtonColor1);
+    rect(width-780, height-360, 200, 40);
+    //The Library button
+    backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
+    text("The Library", width - 780, height - 350);
+    //The Commons text highlight
+    fill(wrongButtonColor2);
+    rect(width-640, height-260, 200, 40);
+    //The Commons button
+    backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
+    text("The Commons", width - 640, height - 255);
+    
+    fill(studyButtonColor);
     rect(studyButtonX, studyButtonY, 200, 40);
+    //RAC text highlight
+    fill(288, 208, 10, 120);
+    rect(width-500, height-360, 200, 40);
+    //RAC button
+    backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
+    text("The RAC", width - 500, height - 350);
 
     //timer
     if ( timerX != 0 ) {
-      timerX = timerX + speedX;
+      timerX = timerX;
     }
-    fill(255, 0, 0);
-    rect(timerX, 0, 1280, 64);
+    
   } else if (studyMinigameScene == 3) {
     //background
     background(0);
     image(commons, 0, 0, width, height);
-    rectMode(CENTER);
-    fill(255, 255, 255, 150);
-    rect(width/2, height/2, width, height);
-    fill(0);
-    text("Choose the Correct Building", width - 640, height - 450);
-    //University Center text highlight
-    fill(288, 208, 10, 120);
-    rect(width-500, height-360, 200, 40);
-    //University Center button
-    backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
-    text("The Commons", width - 500, height - 350);
-    //The RAC text highlight
-    fill(288, 208, 10, 120);
-    rect(width-780, height-360, 200, 40);
-    //The RAC button
-    backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
-    text("The Library", width - 780, height - 350);
-    //The Commons text highlight
-    fill(288, 208, 10, 120);
-    rect(width-640, height-260, 200, 40);
-    //The Commons button
-    backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
-    text("The RAC", width - 640, height - 255);
+    
     float studyButtonX = width-500;
     float studyButtonY = height - 360;
     float wrongButtonX1 = width-780;
     float wrongButtonY1 = height - 360;
     float wrongButtonX2 = width-640;
     float wrongButtonY2 = height - 260;
-    int studyButtonColor = 255;
+    color studyButtonColor = color(255, 208, 10, 120);
+    color wrongButtonColor1 = color(255, 208, 10, 120);
+    color wrongButtonColor2 = color(255, 208, 10, 120);
     if ( mouseX >= studyButtonX - 100 && mouseY >= studyButtonY - 10 && mouseX <= studyButtonX + 100 && mouseY <= studyButtonY + 10 ) {
-      studyButtonColor = studyButtonColor + 255;
+      studyButtonColor = color(255);
     }
     if (mousePressed && mouseX >= studyButtonX - 100 && mouseY >= studyButtonY - 10 && mouseX <= studyButtonX + 100 && mouseY <= studyButtonY + 10 ) {
       print("here\n");
@@ -1368,8 +1377,32 @@ void studyMinigame() { //function for entire study minigame
       print("lose\n");
       return;
     }
-    fill(studyButtonColor, 208, 10, 120);
+    rectMode(CENTER);
+    fill(255, 255, 255, 150);
+    rect(width/2, height/2, width, height);
+    fill(0);
+    text("Choose the Correct Building", width - 640, height - 450);
+    //The Library text highlight
+    fill(wrongButtonColor2);
+    rect(width-780, height-360, 200, 40);
+    //The Library button
+    backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
+    text("The Library", width - 780, height - 350);
+    //The RAC text highlight
+    fill(288, 208, 10, 120);
+    rect(width-640, height-260, 200, 40);
+    //The RAC button
+    backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
+    text("The RAC", width - 640, height - 255);
+    
+    fill(studyButtonColor);
     rect(studyButtonX, studyButtonY, 200, 40);
+    //Commons text highlight
+    fill(wrongButtonColor1);
+    rect(width-500, height-360, 200, 40);
+    //Commons button
+    backburner(2, 0, 0, 0, 20, 0);//text size 20 and black text
+    text("The Commons", width - 500, height - 350);
 
     //timer
     if ( timerX != 0 ) {
