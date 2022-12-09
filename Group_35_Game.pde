@@ -29,7 +29,7 @@ PImage rac;
 PImage nightFail;
 PImage playerLost;
 PImage loadingScreen;
-boolean isTitleScreen = true;
+boolean isTitleScreen = false;
 boolean isMainScreen = false;
 boolean isHealthMinigame = false;
 boolean isStudyMinigame = false;
@@ -38,7 +38,7 @@ boolean isMentalMinigame = false;
 boolean isPhysicalMinigame = false;
 boolean isWorkMinigame = false;
 boolean isWorkWin = false;
-boolean isMidtermMinigame = false;
+boolean isMidtermMinigame = true;
 boolean isFinalMinigame = false;
 boolean isFinalWin = false;
 boolean isFinalLose = false;
@@ -113,6 +113,7 @@ PImage chicfila; //work background
 PImage nextWeek; //screen to appear when transitioning from week to week
 PImage workPlayer; // player for work
 PImage finalLoading; //for final load
+PImage winScreen; //for overall win screen
 int midtermDelta = 2; //midterm speed
 float MidtermX = 600; //midterm's x location
 float MidtermY = 10; //midterm's y location
@@ -215,6 +216,7 @@ void setup() { //runs program once at program launch
   commons =loadImage("commons.jpg");
   //fail
   nightFail = loadImage ("UMBC-nightlose.jpg");
+  winScreen = loadImage("player_won_screen.png");
   studyMinigameScene = int(random(0, 3));
   //places Right answer block on the screen
   placeRights();
@@ -732,11 +734,10 @@ void midtermMinigame() {
 }
 //draws player at the given playerX, playerY
 void drawJetPlayer() {
-  if (isJetSafe == true) {
-    image(Jetpack, JetPlayerX, JetPlayerY, 64, 128);
-  } else {
-    isJetSafe = false;
+  if (isJetHit == true) {
     image(JetHit, JetPlayerX, JetPlayerY, 64, 128);
+  } else {
+    image(Jetpack, JetPlayerX, JetPlayerY, 64, 128);
   }
 }
 
@@ -842,17 +843,20 @@ void drawMidterm() {
 }
 
 void ChangeMidtermDir() {
-  if (MidtermX == 550) {
+  if (MidtermX <= 550) {
     midtermDelta *= -1;
+    image( Midterm, MidtermX, MidtermY, 1080, 720);
     isMidLeft = true;
+    isMidRight = false;
   }
 }
 
 void ChangeMidtermDir2() {
-  if (MidtermX == 650) {
+  if (MidtermX >= 650) {
     midtermDelta *= -1;
     image( Midterm2, MidtermX, MidtermY, 1080, 720);
     isMidRight = true;
+    isMidLeft = false;
   }
 }
 
@@ -1165,7 +1169,7 @@ void finalLose() {
 //victory scenario
 void victoryScreen() {
   background(0);
-  image(playerWin, 0, 100);
+  image(winScreen, 0, 0);
 }
 
 //loss scenario
