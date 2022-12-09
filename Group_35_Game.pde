@@ -1685,14 +1685,14 @@ void mouseReleased() {
     gamesPlayed = 0;
     timerWeekX = -640;
     if ( financialStat > 0 ) {
-      healthStat = healthStat - int(random(0, 5));
+      healthStat = healthStat - int(random(0, 10));
     } else {
-      healthStat = healthStat - int(random(5, 10));
+      healthStat = healthStat - int(random(5, 15));
     }
     if ( financialStat > 0 ) {
-      gradeStat = gradeStat - int(random(0, 5));
+      gradeStat = gradeStat - int(random(0, 10));
     } else {
-      gradeStat = gradeStat - int(random(5, 10));
+      gradeStat = gradeStat - int(random(5, 15));
     }
     isNextWeek = true;
   }
