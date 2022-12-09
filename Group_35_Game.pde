@@ -27,6 +27,7 @@ PImage library;
 PImage commons;
 PImage rac;
 PImage nightFail;
+PImage playerLost;
 PImage loadingScreen;
 boolean isTitleScreen = true;
 boolean isMainScreen = false;
@@ -64,6 +65,7 @@ PImage GuyWeight;
 PImage GuyLift;
 PImage GuySucceed;
 PImage GuyFail;
+PImage playerWin;
 int physicalMinigameWin = 0;
 //timers
 float timerMidtermX = -640;
@@ -109,6 +111,7 @@ PImage starbucks; //work background
 PImage chicfila; //work background
 PImage nextWeek; //screen to appear when transitioning from week to week
 PImage workPlayer; // player for work
+PImage finalLoading; //for final load 
 int midtermDelta = 2; //midterm speed
 float MidtermX = 600; //midterm's x location
 float MidtermY = 10; //midterm's y location
@@ -176,11 +179,14 @@ void setup() { //runs program once at program launch
   Pic2 = loadImage("mainScreen.png"); //background of week 1 screen
   playerThink = loadImage("player_thinking.png");
   loadingScreen = loadImage("Gritlife_Midterm_load_screen.png");
+  finalLoading = loadImage("Gritlife_Final_load_screen.png");
   //Images for gym minigame
   GuyWeight = loadImage("player_weight.png");
   GuyLift = loadImage("player_lift.png");
   GuySucceed = loadImage("player_physical_win.png");
   GuyFail = loadImage("player_physical_lose.png");
+  playerLost = loadImage("player_lost_game.png");
+  playerWin = loadImage("player_won_game.png");
   gym = loadImage("UMBC_GYM.jpg");
   financialStat = int(random(25, 75));
   socialStat = int(random(25, 75));
@@ -651,7 +657,7 @@ void finalLoad() {
   }
   fill(255, 0, 0);
   rect(timerFinalX, 0, 1280, 64);
-  image(loadingScreen, 0, 0);
+  image(finalLoading, 0, 0);
 }
 
 void midtermMinigame() {
@@ -1086,12 +1092,14 @@ void finalLose() {
 
 //victory scenario
 void victoryScreen() {
+  image(playerWin, 0, 100);
 }
 
 //loss scenario
 void lossScreen() {
   background(0);
   image(nightFail, 0, 0);
+  image(playerLost, 0, 100);
   retryButton();
 }
 
