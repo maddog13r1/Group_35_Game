@@ -51,6 +51,7 @@ boolean isMidtermLoad = false;
 boolean isFinalLoad = false;
 boolean isMidtermLose = false;
 boolean isMidtermWin = false;
+boolean isVictoryScreen = false;
 boolean screen1;
 boolean screen2;
 //stats
@@ -295,6 +296,9 @@ void minigames() {
   }
   if ( isFinalLoad == true ) {
     finalLoad();
+  }
+  if ( isVictoryScreen == true ){
+    victoryScreen();
   }
 }
 
@@ -568,7 +572,7 @@ void mainScreen() { // main function calling all main screen functions
       loseScreen();
     }
   }
- if (keyPressed) { //if you press p the lose screen appears
+ if (keyPressed) { //if you press l the stats become max/high
     if (keys['l']) {
       financialStat = 150;
       healthStat = 100;
@@ -623,7 +627,7 @@ void continueButton() {
     if (week == 14) {
       isFinalLoad = false;
       isFinalWin = false;
-      isMainScreen = true;
+      isVictoryScreen = true;
     }
   }
   rectMode(CORNER);
@@ -1109,6 +1113,7 @@ void finalLose() {
 
 //victory scenario
 void victoryScreen() {
+  background(0);
   image(playerWin, 0, 100);
 }
 
