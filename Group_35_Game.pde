@@ -285,7 +285,7 @@ void minigames() {
     physicalLose();
   }
   if ( isLoseScreen == true ) {
-    
+    loseScreen();
   }
   if ( isNextWeek == true) {
     nextWeek();
@@ -565,7 +565,7 @@ void mainScreen() { // main function calling all main screen functions
   }
   if (keyPressed) { //if you press p the lose screen appears
     if (keys['p']) {
-     lossScreen();
+     loseScreen();
     }
   }
 }
@@ -859,9 +859,6 @@ void drawPlayerHealth() {
 //draws the Midterm's health bar and health
 void drawMidtermHealth() {
   rectMode(CORNER);
-  if (gradeStat >= 50) { //if grades is above 50% damage is 50 instead of 25
-    rectDeltaMT = 50;
-  }
   fill(200); //empty midterm health bar
   rect(780, 0, MaxWidthMT, 64);
 
@@ -974,6 +971,7 @@ void statChanges() { // if stats are over a certain number, decrease difficultly
   if (week == 14) { //increased difficultly placeholder for finals
     xDeltaWRONGS = 7;
     xDeltaRIGHTS = 7;
+    rectDelta = 3;
   }
   if (healthStat >= 50) { //if health is 50% or more the player moves twice as fast
     xDeltaJETPLAYER = 8;
@@ -997,12 +995,16 @@ void midtermEnd() {
 }
 
 void midtermWin() {
+  rectMode(CENTER);
   testPlayed = 0;
   background(0, 0, 50); //blue background
   drawStars();
   moveStars();
-  fill(150);
+  stroke(255);
+  fill(0);
+  rect(width/2, height/10 - 25, 900, 100);
   textSize(72);
+  fill(255);
   text("You passed your midterm :)", width/2, height/10);
   image(MidPlayerWin, 0, 100); //player winning on screen
   image(MidtermDead, 600, 25); //midterm losing on screen
@@ -1016,18 +1018,17 @@ void midtermWin() {
   fill(124, 252, 0);
   text("Money: $" + int(financialStat), width/8, height - 60);
 
-
   fill(288, 208, 10);
   textSize(26);
   text("Grades", width/4, height-106);
   //grade bar
-  fill(50);
+  fill(0);
   rectMode(CORNER);
   rect(width/20, height - 128, 200, 26, 90);
   noStroke();
   fill(288, 208, 10);
   rect(width/20, height - 128, gradeStat * 2, 26, 90);
-  textSize(16);
+  textSize(18);
   fill(255);
   text(int(gradeStat) + "%", width/8 + 8, height - 110);
 
@@ -1035,18 +1036,25 @@ void midtermWin() {
   textSize(26);
   text("Health", width/4, height-150);
   //health bar
-  fill(50);
+  fill(0);
   rectMode(CORNER);
   rect(width/20, height - 172, 200, 26, 90);
   noStroke();
   fill(220, 20, 60);
   rect(width/20, height - 172, healthStat * 2, 26, 90);
-  textSize(16);
+  textSize(18);
   fill(255);
   text(int(healthStat) + "%", width/8 + 8, height - 154);
   
+  rectMode(CENTER);
+  stroke(255);
   fill(0);
-  stroke(0);
+  rect(width/2, height/2 - 72, 200, 72);
+  textSize(54);
+  fill(255);
+  text("Week "+ week, width/2, height/2 - 54);
+  
+  noStroke();
   rectMode(CORNER);
 }
 
@@ -1096,7 +1104,7 @@ void victoryScreen() {
 }
 
 //loss scenario
-void lossScreen() {
+void loseScreen() {
   background(0);
   image(nightFail, 0, 0);
   image(playerLost, 0, 100);
@@ -1504,6 +1512,7 @@ void physicalWin() {
   textSize(24);
   text("Week "+ week, width/2, height/16);
 }
+
 void physicalLose() { //if you lose the physical minigame
   isPhysicalMinigame = false;
   switch(counter) {
