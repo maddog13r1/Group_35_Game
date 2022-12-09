@@ -373,7 +373,7 @@ void mainScreen() { // main function calling all main screen functions
   float midtermButtonX = width/2 - 200;
   float midtermButtonY = height/2;
   int midtermButtonColor = 0;
-  if (week == 7) {
+  if (week == 7 && gamesPlayed == 0) {
     testPlayed = 1;
     if (mouseX >= midtermButtonX && mouseY >= midtermButtonY && mouseX <=  midtermButtonX + 400 && mouseY <= midtermButtonY + 100 ) {
       midtermButtonColor = midtermButtonColor + 255;
@@ -387,7 +387,7 @@ void mainScreen() { // main function calling all main screen functions
   float finalButtonX = width/2 - 200;
   float finalButtonY = height/2;
   int finalButtonColor = 0;
-  if (week == 14) {
+  if (week == 14 && gamesPlayed == 0) {
     testPlayed = 1;
     if (mouseX >= finalButtonX && mouseY >= finalButtonY && mouseX <=  finalButtonX + 400 && mouseY <= finalButtonY + 100 ) {
       finalButtonColor = finalButtonColor + 255;
