@@ -791,42 +791,27 @@ void drawWrongs() {
       (JetPlayerY >= WrongsY[i] && JetPlayerY <= WrongsY[i] + 64)) {
 
       rectWidth -= rectDelta;
-      isJetSafe = false;
-      isJetHit = true;
-      if (isJetHit == true) {
-        image(JetHit, JetPlayerX, JetPlayerY, 64, 128);
-      }
+     
     }
 
     if ((JetPlayerX + 64>= WrongsX[i] && JetPlayerX + 64<= WrongsX[i] + 64) &&
       (JetPlayerY + 128 >= WrongsY[i] && JetPlayerY + 64 <= WrongsY[i] + 64)) {
 
       rectWidth -= rectDelta;
-      isJetSafe = false;
-      isJetHit = true;
-      if (isJetHit == true) {
-        image(JetHit, JetPlayerX, JetPlayerY, 64, 128);
-      }
+      
     }
     if ((JetPlayerX + 64>= WrongsX[i] && JetPlayerX + 64<= WrongsX[i] + 64) &&
       (JetPlayerY >= WrongsY[i] && JetPlayerY <= WrongsY[i] + 64)) {
 
       rectWidth -= rectDelta;
-      isJetSafe = false;
-      isJetHit = true;
-      if (isJetHit == true) {
-        image(JetHit, JetPlayerX, JetPlayerY, 64, 128);
-      }
+      
     }
     if ((JetPlayerX >= WrongsX[i] && JetPlayerX <= WrongsX[i] + 64) &&
       (JetPlayerY + 128 >= WrongsY[i] && JetPlayerY + 64 <= WrongsY[i] + 64)) {
 
       rectWidth -= rectDelta;
-      isJetSafe = false;
-      isJetHit = true;
-      if (isJetHit == true) {
-        image(JetHit, JetPlayerX, JetPlayerY, 64, 128);
-      }
+     
+      
     }
   }
 }
@@ -876,6 +861,13 @@ void drawPlayerHealth() {
 
   fill(0, 0, 255); //health
   rect(0, 0, rectWidth, 64);
+  if(rectWidth == 250){
+    isJetSafe = false;
+      isJetHit = true;
+      if (isJetHit == true) {
+        image(JetHit, JetPlayerX, JetPlayerY, 64, 128);
+      }
+  }
 }
 
 //draws the Midterm's health bar and health
