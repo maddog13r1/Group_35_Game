@@ -373,7 +373,7 @@ void mainScreen() { // main function calling all main screen functions
   float midtermButtonX = width/2 - 200;
   float midtermButtonY = height/2;
   int midtermButtonColor = 0;
-  if (week == 7 && gamesPlayed == 0) {
+  if (week == 7) {
     testPlayed = 1;
     if (mouseX >= midtermButtonX && mouseY >= midtermButtonY && mouseX <=  midtermButtonX + 400 && mouseY <= midtermButtonY + 100 ) {
       midtermButtonColor = midtermButtonColor + 255;
@@ -387,7 +387,7 @@ void mainScreen() { // main function calling all main screen functions
   float finalButtonX = width/2 - 200;
   float finalButtonY = height/2;
   int finalButtonColor = 0;
-  if (week == 14 && gamesPlayed == 0) {
+  if (week == 14) {
     testPlayed = 1;
     if (mouseX >= finalButtonX && mouseY >= finalButtonY && mouseX <=  finalButtonX + 400 && mouseY <= finalButtonY + 100 ) {
       finalButtonColor = finalButtonColor + 255;
@@ -568,6 +568,13 @@ void mainScreen() { // main function calling all main screen functions
       loseScreen();
     }
   }
+ if (keyPressed) { //if you press p the lose screen appears
+    if (keys['l']) {
+      financialStat = 150;
+      healthStat = 100;
+      gradeStat = 100;
+    }
+  }
 }
 
 void retryButton() {
@@ -641,17 +648,19 @@ void midtermLoad() {
     isMidtermLoad = false;
   }
   fill(255, 0, 0);
-  rect(timerFinalX, 0, 1280, 64);
+  rect(timerMidtermX, 0, 1280, 64);
   image(loadingScreen, 0, 0);
 }
 void finalLoad() {
+  JetPlayerX = 576/2 - 32; //player's starting x position
+  JetPlayerY = 704; //player's starting y position
   //timer
-  if ( timerWeekX != 640 ) {
-    timerWeekX = timerWeekX + speedX;
+  if ( timerFinalX != 640 ) {
+    timerFinalX = timerFinalX + speedX;
   }
   fill(255, 0, 0);
-  rect(timerWeekX, 0, 1280, 64);
-  if ( timerWeekX == -270 ) {
+  rect(timerFinalX, 0, 1280, 64);
+  if ( timerFinalX == -270 ) {
     isFinalMinigame = true;
     isFinalLoad = false;
   }
@@ -1622,8 +1631,11 @@ void mouseReleased() {
     } else {
       healthStat = healthStat - int(random(5, 10));
     }
-    gradeStat = gradeStat - int(random(0, 5));
-    gradeStat = gradeStat - int(random(0, 5));
+    if ( financialStat > 0 ) {
+      gradeStat = gradeStat - int(random(0, 5));
+    } else {
+      gradeStat = gradeStat - int(random(5, 10));
+    }
     isNextWeek = true;
   }
 }
