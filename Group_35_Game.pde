@@ -279,7 +279,7 @@ void minigames() {
     physicalLose();
   }
   if ( isLoseScreen == true ) {
-    lossScreen();
+    
   }
   if ( isNextWeek == true) {
     nextWeek();
@@ -556,6 +556,11 @@ void mainScreen() { // main function calling all main screen functions
   /* losing at certain stats */
   if (healthStat < 0 || gradeStat < 0) {
     isLoseScreen = true;
+  }
+  if (keyPressed) { //if you press p the lose screen appears
+    if (keys['p']) {
+     lossScreen();
+    }
   }
 }
 
