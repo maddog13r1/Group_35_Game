@@ -111,7 +111,7 @@ PImage starbucks; //work background
 PImage chicfila; //work background
 PImage nextWeek; //screen to appear when transitioning from week to week
 PImage workPlayer; // player for work
-PImage finalLoading; //for final load 
+PImage finalLoading; //for final load
 int midtermDelta = 2; //midterm speed
 float MidtermX = 600; //midterm's x location
 float MidtermY = 10; //midterm's y location
@@ -565,7 +565,7 @@ void mainScreen() { // main function calling all main screen functions
   }
   if (keyPressed) { //if you press p the lose screen appears
     if (keys['p']) {
-     loseScreen();
+      loseScreen();
     }
   }
 }
@@ -1011,7 +1011,7 @@ void midtermWin() {
   rectWidthMT = 500;
   rectWidth = 500;
   continueButton();
-  
+
   rectMode(CENTER);
   //financial stat
   textSize(32);
@@ -1045,7 +1045,7 @@ void midtermWin() {
   textSize(18);
   fill(255);
   text(int(healthStat) + "%", width/8 + 8, height - 154);
-  
+
   rectMode(CENTER);
   stroke(255);
   fill(0);
@@ -1053,7 +1053,7 @@ void midtermWin() {
   textSize(54);
   fill(255);
   text("Week "+ week, width/2, height/2 - 54);
-  
+
   noStroke();
   rectMode(CORNER);
 }
@@ -1151,10 +1151,10 @@ void studyMinigame() { //function for entire study minigame
     float wrongButtonY2 = height - 260;
 
     int studyButtonColor = 255;
-    if ( mouseX >= studyButtonX-27.5 && mouseY >= studyButtonY-27.5 && mouseX <= studyButtonX+27.5 && mouseY <= studyButtonY+27.5 ) {
+    if ( mouseX >= studyButtonX - 100 && mouseY >= studyButtonY - 10 && mouseX <= studyButtonX + 100 && mouseY <= studyButtonY + 10 ) {
       studyButtonColor = studyButtonColor + 255;
     }
-    if (mousePressed && mouseX >= studyButtonX-27.5 && mouseY >= studyButtonY-27.5 && mouseX <= studyButtonX+27.5 && mouseY <= studyButtonY+27.5 ) {
+    if ( mousePressed && mouseX >= studyButtonX - 100 && mouseY >= studyButtonY - 10 && mouseX <= studyButtonX + 100 && mouseY <= studyButtonY + 10 ) {
       print("here\n");
       isMainScreen = false;
       isStudyMinigame = true;
@@ -1163,7 +1163,7 @@ void studyMinigame() { //function for entire study minigame
       gamesPlayed = 1;
       gradeStat = gradeStat + 10;
       return;
-    } else if (mousePressed && mouseX >= wrongButtonX1-27.5 && mouseY >= wrongButtonY1-27.5 && mouseX <= wrongButtonX1+27.5 && mouseY <= wrongButtonY1+27.5 || mousePressed && mouseX >= wrongButtonX2-27.5 && mouseY >= wrongButtonY2-27.5 && mouseX <= wrongButtonX2+27.5 && mouseY <= wrongButtonY2+27.5) {
+    } else if (mousePressed && mouseX >= wrongButtonX1 - 100 && mouseY >= wrongButtonY1 - 10 && mouseX <= wrongButtonX1 + 100 && mouseY <= wrongButtonY1 + 10 || mousePressed && mouseX >= wrongButtonX2 - 100 && mouseY >= wrongButtonY2 - 10 && mouseX <= wrongButtonX2 + 100 && mouseY <= wrongButtonY2 + 10) {
       print("here scene 1\n");
       isMainScreen = false;
       isStudyMinigame = true;
@@ -1216,10 +1216,10 @@ void studyMinigame() { //function for entire study minigame
     float wrongButtonY1 = height - 360;
     float wrongButtonX2 = width-640;
     float wrongButtonY2 = height - 260;
-    if ( mouseX >= studyButtonX-27.5 && mouseY >= studyButtonY-27.5 && mouseX <= studyButtonX+27.5 && mouseY <= studyButtonY+27.5 ) {
+    if ( mouseX >= studyButtonX - 100 && mouseY >= studyButtonY - 10 && mouseX <= studyButtonX + 100 && mouseY <= studyButtonY + 10 ) {
       studyButtonColor = studyButtonColor + 255;
     }
-    if (mousePressed && mouseX >= studyButtonX-27.5 && mouseY >= studyButtonY-27.5 && mouseX <= studyButtonX+27.5 && mouseY <= studyButtonY+27.5 ) {
+    if ( mousePressed &&  mouseX >= studyButtonX - 100 && mouseY >= studyButtonY - 10 && mouseX <= studyButtonX + 100 && mouseY <= studyButtonY + 10 ) {
       print("here\n");
       isMainScreen = false;
       isStudyMinigame = true;
@@ -1228,7 +1228,7 @@ void studyMinigame() { //function for entire study minigame
       gamesPlayed = 1;
       gradeStat = gradeStat + 10;
       return;
-    } else if (mousePressed && mouseX >= wrongButtonX1-27.5 && mouseY >= wrongButtonY1-27.5 && mouseX <= wrongButtonX1+27.5 && mouseY <= wrongButtonY1+27.5 || mousePressed && mouseX >= wrongButtonX2-27.5 && mouseY >= wrongButtonY2-27.5 && mouseX <= wrongButtonX2+27.5 && mouseY <= wrongButtonY2+27.5) {
+    } else if ( mousePressed && mouseX >= wrongButtonX1 - 100 && mouseY >= wrongButtonY1 - 10 && mouseX <= wrongButtonX1 + 100 && mouseY <= wrongButtonY1 + 10 || mousePressed && mouseX >= wrongButtonX2 - 100 && mouseY >= wrongButtonY2 - 10 && mouseX <= wrongButtonX2 + 100 && mouseY <= wrongButtonY2 + 10) {
       print("here scene 2\n");
       isMainScreen = false;
       isStudyMinigame = true;
@@ -1281,10 +1281,10 @@ void studyMinigame() { //function for entire study minigame
     float wrongButtonX2 = width-640;
     float wrongButtonY2 = height - 260;
     int studyButtonColor = 255;
-    if ( mouseX >= studyButtonX-27.5 && mouseY >= studyButtonY-27.5 && mouseX <= studyButtonX+27.5 && mouseY <= studyButtonY+27.5 ) {
+    if ( mouseX >= studyButtonX - 100 && mouseY >= studyButtonY - 10 && mouseX <= studyButtonX + 100 && mouseY <= studyButtonY + 10 ) {
       studyButtonColor = studyButtonColor + 255;
     }
-    if (mousePressed && mouseX >= studyButtonX-27.5 && mouseY >= studyButtonY-27.5 && mouseX <= studyButtonX+27.5 && mouseY <= studyButtonY+27.5 ) {
+    if ( mousePressed &&  mouseX >= studyButtonX - 100 && mouseY >= studyButtonY - 10 && mouseX <= studyButtonX + 100 && mouseY <= studyButtonY + 10 ) {
       print("here\n");
       isMainScreen = false;
       isStudyMinigame = true;
@@ -1293,7 +1293,7 @@ void studyMinigame() { //function for entire study minigame
       gamesPlayed = 1;
       gradeStat = gradeStat + 10;
       return;
-    } else if (mousePressed && mouseX >= wrongButtonX1-27.5 && mouseY >= wrongButtonY1-27.5 && mouseX <= wrongButtonX1+27.5 && mouseY <= wrongButtonY1+27.5 || mousePressed && mouseX >= wrongButtonX2-27.5 && mouseY >= wrongButtonY2-27.5 && mouseX <= wrongButtonX2+27.5 && mouseY <= wrongButtonY2+27.5) {
+    } else if ( mousePressed && mouseX >= wrongButtonX1 - 100 && mouseY >= wrongButtonY1 - 10 && mouseX <= wrongButtonX1 + 100 && mouseY <= wrongButtonY1 + 10 || mousePressed && mouseX >= wrongButtonX2 - 100 && mouseY >= wrongButtonY2 - 10 && mouseX <= wrongButtonX2 + 100 && mouseY <= wrongButtonY2 + 10 ) {
       print("here scene 3\n");
       isMainScreen = false;
       isStudyMinigame = true;
@@ -1346,10 +1346,10 @@ void studyMinigame() { //function for entire study minigame
     float wrongButtonX2 = width-640;
     float wrongButtonY2 = height - 260;
     int studyButtonColor = 255;
-    if ( mouseX >= studyButtonX-27.5 && mouseY >= studyButtonY-27.5 && mouseX <= studyButtonX+27.5 && mouseY <= studyButtonY+27.5 ) {
+    if ( mouseX >= studyButtonX - 100 && mouseY >= studyButtonY - 10 && mouseX <= studyButtonX + 100 && mouseY <= studyButtonY + 10 ) {
       studyButtonColor = studyButtonColor + 255;
     }
-    if (mousePressed && mouseX >= studyButtonX-27.5 && mouseY >= studyButtonY-27.5 && mouseX <= studyButtonX+27.5 && mouseY <= studyButtonY+27.5 ) {
+    if (mousePressed && mouseX >= studyButtonX - 100 && mouseY >= studyButtonY - 10 && mouseX <= studyButtonX + 100 && mouseY <= studyButtonY + 10 ) {
       print("here\n");
       isMainScreen = false;
       isStudyMinigame = true;
@@ -1358,7 +1358,7 @@ void studyMinigame() { //function for entire study minigame
       gamesPlayed = 1;
       gradeStat = gradeStat + 10;
       return;
-    } else if (mousePressed && mouseX >= wrongButtonX1-27.5 && mouseY >= wrongButtonY1-27.5 && mouseX <= wrongButtonX1+27.5 && mouseY <= wrongButtonY1+27.5 || mousePressed && mouseX >= wrongButtonX2-27.5 && mouseY >= wrongButtonY2-27.5 && mouseX <= wrongButtonX2+27.5 && mouseY <= wrongButtonY2+27.5) {
+    } else if ( mousePressed && mouseX >= wrongButtonX1 - 100 && mouseY >= wrongButtonY1 - 10 && mouseX <= wrongButtonX1 + 100 && mouseY <= wrongButtonY1 + 10 || mousePressed && mouseX >= wrongButtonX2 - 100 && mouseY >= wrongButtonY2 - 10 && mouseX <= wrongButtonX2 + 100 && mouseY <= wrongButtonY2 + 10 ) {
       print("here scene 3\n");
       isMainScreen = false;
       isStudyMinigame = true;
@@ -1590,7 +1590,7 @@ void mouseReleased() {
       healthStat = healthStat - int(random(5, 10));
     }
     gradeStat = gradeStat - int(random(0, 5));
-    gradeStat = gradeStat - int(random(0,5));
+    gradeStat = gradeStat - int(random(0, 5));
     isNextWeek = true;
   }
 }
