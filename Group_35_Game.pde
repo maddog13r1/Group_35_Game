@@ -1214,7 +1214,7 @@ void studyMinigame() { //function for entire study minigame
       studyMinigameScene =4;
       print("win\n");
       gamesPlayed = 1;
-      gradeStat = gradeStat + 10;
+      gradeStat = gradeStat + 20;
       return;
     } else if (mousePressed && mouseX >= wrongButtonX1 - 100 && mouseY >= wrongButtonY1 - 10 && mouseX <= wrongButtonX1 + 100 && mouseY <= wrongButtonY1 + 10 || mousePressed && mouseX >= wrongButtonX2 - 100 && mouseY >= wrongButtonY2 - 10 && mouseX <= wrongButtonX2 + 100 && mouseY <= wrongButtonY2 + 10) {
       print("here scene 1\n");
@@ -1290,7 +1290,7 @@ void studyMinigame() { //function for entire study minigame
       studyMinigameScene =4;
       print("win\n");
       gamesPlayed = 1;
-      gradeStat = gradeStat + 10;
+      gradeStat = gradeStat + 20;
       return;
     } else if ( mousePressed && mouseX >= wrongButtonX1 - 100 && mouseY >= wrongButtonY1 - 10 && mouseX <= wrongButtonX1 + 100 && mouseY <= wrongButtonY1 + 10 || mousePressed && mouseX >= wrongButtonX2 - 100 && mouseY >= wrongButtonY2 - 10 && mouseX <= wrongButtonX2 + 100 && mouseY <= wrongButtonY2 + 10) {
       print("here scene 2\n");
@@ -1366,7 +1366,7 @@ void studyMinigame() { //function for entire study minigame
       studyMinigameScene =4;
       print("win\n");
       gamesPlayed = 1;
-      gradeStat = gradeStat + 10;
+      gradeStat = gradeStat + 20;
       return;
     } else if ( mousePressed && mouseX >= wrongButtonX1 - 100 && mouseY >= wrongButtonY1 - 10 && mouseX <= wrongButtonX1 + 100 && mouseY <= wrongButtonY1 + 10 || mousePressed && mouseX >= wrongButtonX2 - 100 && mouseY >= wrongButtonY2 - 10 && mouseX <= wrongButtonX2 + 100 && mouseY <= wrongButtonY2 + 10 ) {
       print("here scene 3\n");
@@ -1432,7 +1432,7 @@ void studyMinigame() { //function for entire study minigame
       studyMinigameScene =4;
       print("win\n");
       gamesPlayed = 1;
-      gradeStat = gradeStat + 10;
+      gradeStat = gradeStat + 20;
       return;
     } else if ( mousePressed && mouseX >= wrongButtonX1 - 100 && mouseY >= wrongButtonY1 - 10 && mouseX <= wrongButtonX1 + 100 && mouseY <= wrongButtonY1 + 10 || mousePressed && mouseX >= wrongButtonX2 - 100 && mouseY >= wrongButtonY2 - 10 && mouseX <= wrongButtonX2 + 100 && mouseY <= wrongButtonY2 + 10 ) {
       print("here scene 3\n");
@@ -1579,7 +1579,7 @@ void physicalWin() {
   switch(counter) {
   case 0:
     gamesPlayed = 1;
-    healthStat = healthStat + 10;
+    healthStat = healthStat + 20;
     counter ++;
     break;
   case 1:
